@@ -11,7 +11,7 @@ url: "http://toplayoutguide.github.io"
 baseurl: "/"
 
 # A short presentation of yourself. Will show in the sidebar, under your name. Best usage would be between 30 to 50 words.
-author-bio: "I'm an Aussie iOS Engineer, living in Tokyo. I use Xcode to develop things. I play around with SwiftUI too, pet any Dogs I can, and enjoy drinking coffee. Lastly, this is my blog! How about we close this here side panel and enjoy some code?"
+author-bio: "I'm an iOS Engineer. I play with Xcode and make things.\n\nI love coding, petting Dogs, drinking coffee, cycling, and binge-watching Netflix.\n\nThis is my blog so why don't we close this here side panel and enjoy some code?"
 
 # Social Accounts
 
