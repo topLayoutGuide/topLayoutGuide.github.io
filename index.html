@@ -6,7 +6,8 @@ title: Homepage
 <div id="home">
   <ul class="posts">
     {% for post in paginator.posts %}
-    <li itemscope itemtype="http://schema.org/BlogPosting">
+    {% if post.color == "MAIN" %}  
+    <li class="li-main" itemscope itemtype="http://schema.org/BlogPosting">
       <a href="{{ site.baseurl }}{{ post.url }}" itemprop="url">
         <div class="p-wrap">
           <article class="inner">
@@ -19,6 +20,21 @@ title: Homepage
         </div>
       </a>
     </li>
+    {% else if post.color == "SEC" %}
+    <li class="li-sec" itemscope itemtype="http://schema.org/BlogPosting">
+      <a href="{{ site.baseurl }}{{ post.url }}" itemprop="url">
+        <div class="p-wrap">
+          <article class="inner">
+            <time datetime="{{ post.date | date_to_xmlschema }}"
+                itemprop="datePublished">
+              {{ post.date | date_to_string }}
+            </time>
+            <p itemprop="name headline">{{ post.title }}</p>
+          </article>
+        </div>
+      </a>
+    </li>
+    {% endif %}
     {% endfor %}
   </ul>
 </div>
