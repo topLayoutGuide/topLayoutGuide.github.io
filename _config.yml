@@ -1,1 +1,36 @@
-theme: jekyll-theme-cayman
+# Title of your blog; shows in the header
+name: "toplayoutguide"
+
+# Description of your content (will only be used on Google Search)
+description: "A fun Swift programming blog. By an Australian iOS Engineer in Tokyo."
+
+# Your name. Will show in your footer + sidebar
+author: "Benjamin Deckys"
+
+url: "http://toplayoutguide.github.io"
+baseurl: "/hikari-for-jekyll"
+
+# A short presentation of yourself. Will show in the sidebar, under your name. Best usage would be between 30 to 50 words.
+author-bio: "I'm an iOS Engineer. I develop things. This is my blog so why don't you close this damn side panel (cursed by most UX Designers but I don't care, I do whatever I want) and start reading my awesome stuff?"
+
+# Social Accounts (mine, as placeholders)
+
+twitter: @viewdidappear
+github: toplayoutguide
+instagram: okokokjeez
+
+# Other (refer to http://jekyllrb.com/docs/home/ for further details on the below)
+
+markdown: kramdown
+permalink: pretty
+plugins:
+  - jekyll-paginate
+
+paginate: 10
+paginate_path: "/page/:num"
+
+# SCSS
+
+sass:
+  sass_dir: _scss
+  style: :compressed
