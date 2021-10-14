@@ -47,7 +47,7 @@
     } // end .p-wrap
 
     time {
-      color: darken($main-color, 100%);
+      color: darken($main-color, 30%);
       display: inline-block;
       padding-right: $spacing-s;
       width: 155px;
@@ -109,7 +109,7 @@
     } // end .p-wrap
 
     time {
-      color: darken($secondary-color, 65%);
+      color: darken($secondary-color, 30%);
       display: inline-block;
       padding-right: $spacing-s;
       width: 155px;
@@ -171,7 +171,7 @@
     } // end .p-wrap
 
     time {
-      color: darken($tertiary-color, 65%);
+      color: darken($tertiary-color, 30%);
       display: inline-block;
       padding-right: $spacing-s;
       width: 155px;
