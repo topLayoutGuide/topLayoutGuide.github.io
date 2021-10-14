@@ -1,0 +1,102 @@
+I"�)<h4 id="errors-never-looked-so-good">Errors never looked so… good!</h4>
+
+<h3 id="intro">Intro</h3>
+
+<p>I first stumbled across this in 2016 while I was still learning Swift. It’s still relevant today, so I’m reposting it here.</p>
+
+<p>Enjoy!</p>
+
+<h3 id="unhelpful-debugger">Unhelpful Debugger</h3>
+
+<p>Suppose we’re developing a directory app and have two simple classes:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Person()</code> and <code class="language-plaintext highlighter-rouge">Department()</code>:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">class</span> <span class="kt">Person</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span>
+    <span class="k">let</span> <span class="nv">givenName</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">middleName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
+    <span class="k">let</span> <span class="nv">surname</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">preferredName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span>
+    <span class="k">var</span> <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">preferredName</span> <span class="o">=</span> <span class="n">preferredName</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">givenName</span><span class="p">,</span> <span class="n">middleName</span><span class="p">,</span> <span class="n">surname</span><span class="p">]</span>
+                <span class="o">.</span><span class="n">compactMap</span> <span class="p">{</span> <span class="nv">$0</span> <span class="p">}</span>
+                <span class="o">.</span><span class="nf">joined</span><span class="p">(</span><span class="nv">separator</span><span class="p">:</span> <span class="s">" "</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">preferredName</span>
+    <span class="p">}</span>
+
+    <span class="nf">init</span><span class="p">(</span>
+        <span class="nv">givenName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+        <span class="nv">middleName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+        <span class="nv">surname</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+        <span class="nv">preferredName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="kt">UUID</span><span class="p">()</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">givenName</span> <span class="o">=</span> <span class="n">givenName</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">middleName</span> <span class="o">=</span> <span class="n">middleName</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">surname</span> <span class="o">=</span> <span class="n">surname</span>
+            <span class="k">self</span><span class="o">.</span><span class="n">preferredName</span> <span class="o">=</span> <span class="n">preferredName</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">Department</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">managers</span><span class="p">:</span> <span class="p">[</span><span class="kt">Person</span><span class="p">]</span>
+    <span class="k">let</span> <span class="nv">members</span><span class="p">:</span> <span class="p">[</span><span class="kt">Person</span><span class="p">]</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">managers</span><span class="p">:</span> <span class="p">[</span><span class="kt">Person</span><span class="p">],</span> <span class="nv">members</span><span class="p">:</span> <span class="p">[</span><span class="kt">Person</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">managers</span> <span class="o">=</span> <span class="n">managers</span>
+        <span class="k">self</span><span class="o">.</span><span class="n">members</span> <span class="o">=</span> <span class="n">members</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now we want to instantiate and print a <code class="language-plaintext highlighter-rouge">Department</code> object like this:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">dept</span> <span class="o">=</span> <span class="kt">Department</span><span class="p">(</span>
+    <span class="nv">name</span><span class="p">:</span> <span class="s">"QA"</span><span class="p">,</span>
+    <span class="nv">managers</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">givenName</span><span class="p">:</span> <span class="s">"Johnny"</span><span class="p">,</span> <span class="nv">surname</span><span class="p">:</span> <span class="s">"Appleseed"</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="nv">members</span><span class="p">:</span> <span class="p">[</span>
+        <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">givenName</span><span class="p">:</span> <span class="s">"Benjamin"</span><span class="p">,</span> <span class="nv">surname</span><span class="p">:</span> <span class="s">"Deckys"</span><span class="p">,</span> <span class="nv">preferredName</span><span class="p">:</span> <span class="s">"Ben"</span><span class="p">),</span>
+        <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">givenName</span><span class="p">:</span> <span class="s">"Stefani"</span><span class="p">,</span> <span class="nv">middleName</span><span class="p">:</span> <span class="s">"Joanne Angelina"</span><span class="p">,</span> <span class="nv">surname</span><span class="p">:</span> <span class="s">"Germanotta"</span><span class="p">,</span> <span class="nv">preferredName</span><span class="p">:</span> <span class="s">"Lady Gaga"</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">dept</span><span class="p">)</span></code></pre></figure>
+
+<p>What we see isn’t helpful, at all:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">\</span><span class="n">_</span><span class="p">\</span><span class="n">_lldb_expr_21</span><span class="o">.</span><span class="kt">Department</span></code></pre></figure>
+
+<p>We can mitigate this problem somewhat, by changing <code class="language-plaintext highlighter-rouge">class</code> to <code class="language-plaintext highlighter-rouge">struct</code>. And of course, since two people can have the same name, let’s make our objects <code class="language-plaintext highlighter-rouge">Equatable</code>.</p>
+
+<p>Printing it now gives us more information but it’s still super noisy. Let’s clean it up!</p>
+
+<h3 id="conforming-to-customstringconvertible">Conforming to CustomStringConvertible</h3>
+
+<p>Go ahead, and make our two <code class="language-plaintext highlighter-rouge">struct</code> types conform to <code class="language-plaintext highlighter-rouge">CustomStringConvertible</code>:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">extension</span> <span class="kt">Person</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="n">displayName</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">extension</span> <span class="kt">Department</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="s">"</span><span class="se">\(</span><span class="n">name</span><span class="se">)</span><span class="s">; Managers: </span><span class="se">\(</span><span class="n">managers</span><span class="se">)</span><span class="s">; Members: </span><span class="se">\(</span><span class="n">members</span><span class="se">)</span><span class="s">"</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The <code class="language-plaintext highlighter-rouge">description</code> property is a protocol-stipulated requirement, and the string we compose will be printed in the console when using <code class="language-plaintext highlighter-rouge">print()</code>:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">// QA; Managers: [Johnny Appleseed]; Members: [Ben, Lady Gaga]</span></code></pre></figure>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Great! What a huge win for a tiny amount of work! Now we are able to debug our objects more effectively when something goes bad during development. It isn’t always smooth sailing!</p>
+:ET
