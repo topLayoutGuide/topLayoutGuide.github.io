@@ -11,31 +11,100 @@
   font-style: normal;
 }
 
-.icon-twitter, .icon-github, .icon-dribbble, .icon-instagram {
+.icon-twitter-main, .icon-github-main, .icon-dribbble-main, .icon-instagram-main {
   font-family: 'icomoon';
   speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
   text-transform: none;
+  color: $main-color;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
 }
 
-.icon-twitter:before {
+.icon-twitter-sec, .icon-github-sec, .icon-dribbble-sec, .icon-instagram-sec {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  color: $secondary-color;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.icon-twitter-ter, .icon-github-ter, .icon-dribbble-ter, .icon-instagram-ter {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  color: $secondary-color;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.icon-twitter-main:hover {
+  color: lighten($main-color, 3%);
+}
+
+.icon-twitter-sec:hover {
+  color: lighten($secondary-color, 3%);
+}
+
+.icon-twitter-ter:hover {
+  color: lighten($tertiary-color, 3%);
+}
+
+.icon-twitter-main:before {
+  content: "\e002";
+}
+
+.icon-twitter-sec:before {
+  content: "\e002";
+}
+
+.icon-twitter-ter:before {
   content: "\e002";
 }
 
 // If you need github, dribbble or instagram font icons, well there're here :)
 
-.icon-github:before {
+.icon-github-main:before {
   content: "\e003";
 }
 
-.icon-dribbble:before {
+.icon-dribbble-main:before {
   content: "\e004";
 }
 
-.icon-instagram:before {
+.icon-instagram-main:before {
+  content: "\e005";
+}
+
+.icon-github-sec:before {
+  content: "\e003";
+}
+
+.icon-dribbble-sec:before {
+  content: "\e004";
+}
+
+.icon-instagram-sec:before {
+  content: "\e005";
+}
+
+.icon-github-ter:before {
+  content: "\e003";
+}
+
+.icon-dribbble-ter:before {
+  content: "\e004";
+}
+
+.icon-instagram-ter:before {
   content: "\e005";
 }

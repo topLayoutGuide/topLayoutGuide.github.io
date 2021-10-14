@@ -15,8 +15,12 @@ header {
     a {
       color: $text-color;
       text-decoration: none;
+      -webkit-transition: all .3s ease;
+        transition: all .3s ease;
       &:hover {
-        color: $link-color;
+        color: lighten($text-color, 20%);
+        -webkit-transition: all .3s ease;
+        transition: all .3s ease;
       }
     }
   } // end h1.title

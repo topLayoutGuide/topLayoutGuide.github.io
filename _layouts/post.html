@@ -17,7 +17,13 @@ layout: default
     </div>
     <div class="feat share">
       <a href="http://twitter.com/share" class="popup">
-        <span class="icon-twitter"></span>
+        {% if page.color == "MAIN" %}
+        <span class="icon-twitter-main"></span>
+        {% else if page.color == "SEC" %}
+        <span class="icon-twitter-sec"></span>
+        {% else if page.color == "TER" %}
+        <span class="icon-twitter-ter"></span>
+        {% endif %}
       </a>
     </div>
     {% if page.next %}

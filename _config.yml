@@ -8,7 +8,7 @@ description: "A fun Swift programming blog. By an Australian iOS Engineer in Tok
 author: "Benjamin Deckys"
 
 url: "http://toplayoutguide.github.io"
-baseurl: "/"
+baseurl: ""
 
 # A short presentation of yourself. Will show in the sidebar, under your name. Best usage would be between 30 to 50 words.
 author-bio: "I'm an iOS Engineer. I play with Xcode and make things.\n\nI love coding, petting Dogs, drinking coffee, cycling, and binge-watching Netflix.\n\nThis is my blog so why don't we close this here side panel and enjoy some code?"
