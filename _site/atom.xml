@@ -4,7 +4,7 @@
   <id>http://localhost:4000</id>
   <link href="http://localhost:4000" />
   <link href="http://localhost:4000/atom.xml" rel="self" />
-  <updated>2021-10-14T14:33:19+09:00</updated>
+  <updated>2021-10-14T15:57:14+09:00</updated>
   <rights>Copyright 2021, Benjamin Deckys</rights>
   <author>
     <name>Benjamin Deckys</name>
@@ -32,6 +32,130 @@
 </summary>
       <id>http://localhost:4000/2021/10/13/goodbye-medium/</id>
       <updated>2021-10-13T09:05:11+09:00</updated>
+      <author>
+        <name>Benjamin Deckys</name>
+      </author>
+    </entry>
+  
+    <entry>
+      <title>So I Wanted To Hide A UIView</title>
+      <link href="http://localhost:4000/2021/02/24/hide-view-1/" />
+      <summary type="html">&lt;h4 id=&quot;impact-i-felt-your-impact&quot;&gt;Impact. I felt your impact.&lt;/h4&gt;
+
+&lt;h3 id=&quot;baby-you-move-my-spirit&quot;&gt;Baby, you move my spirit&lt;/h3&gt;
+
+&lt;p&gt;Some of my favourite coding challenges are of the UI implementation kind. One day at work, the design team demonstrated a mockup to me, and mentioned they’d “love it” if I could hide and show the view as demoed.&lt;/p&gt;
+
+&lt;p&gt;Upon asking for a real-world example, I was shown AirBNB’s iOS app:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/parallax.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I’m glad I’m able to “speak Designer.” I understood that while I had other options at my disposal to do it from a technical perspective, it wouldn’t match the goals design had for the product I was working on. I decided that I should aim for a result as-close-possible to the AirBNB app implementation, and sought permission to fall back on an alternative, should only it be technically infeasible to do.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The view should hide, sliding upward with the user scrolling down. Regardless of the final scroll position, the view should show, sliding downward with the user scrolling up.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I rolled up my sleeves and started planning.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;After some investigation, I noticed that the effect requested was not unique to AirBNB’s app at all. After a cursory glance at StackOverflow, I learned that many other engineers also wished to implement this effect, without the slightest idea as to how.&lt;/p&gt;
+
+&lt;p&gt;Right away one thing was clear. I needed to “just get it working.” I would at first, do this with straight up UIKit. Our app’s required ReactiveSwift version, would need to come second.&lt;/p&gt;
+
+&lt;h3 id=&quot;oh-i-want-to-taste-it&quot;&gt;Oh I want to taste it!&lt;/h3&gt;
+
+&lt;p&gt;Firstly, I determined the components I needed to use in order to achieve the goal. In my case, it was a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UICollectionView&lt;/code&gt; (aka &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIScrollView&lt;/code&gt;) paired with a bog-standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIView&lt;/code&gt;. So I setup a dummy project to muck about in.&lt;/p&gt;
+
+&lt;p&gt;Because &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UICollectionView&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UITableView&lt;/code&gt; inherit from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIScrollView&lt;/code&gt;, I used methods from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIScrollViewDelegate&lt;/code&gt; with my collection view. One in particular was most important - &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;scrollViewDidScroll&lt;/code&gt; because it provides an update per point scrolled.&lt;/p&gt;
+
+&lt;p&gt;For my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIKit&lt;/code&gt; implementation, I needed to know the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;contentOffset&lt;/code&gt; of the scroll view at the time of initial drag. I also needed subsequent updates to the offset. From this information, I could easily discern if I was scrolling up or down.&lt;/p&gt;
+
+&lt;p&gt;In my test project, I updated &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ViewController.swift&lt;/code&gt; with the following:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;kd&quot;&gt;extension&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;ViewController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIScrollViewDelegate&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;scrollViewDidScroll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIScrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;delta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentOffset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lastContentOffset&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;c1&quot;&gt;// the value is negative, so we&apos;re scrolling up&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;c1&quot;&gt;// the value is positive, so we&apos;re scrolling down.&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// This makes the + or - number quite small.&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;lastContentOffset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentOffset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;scrollViewDidBeginDragging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;UIScrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// Where lastContentOffset is a class variable of type CGFloat&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;lastContentOffset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentOffset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If I scrolled now, the effect would &lt;em&gt;only somewhat&lt;/em&gt; work as desired. It would hide when the user scrolled down, but it would only show again when the user scrolled &lt;em&gt;all the way up&lt;/em&gt;. I figured that I needed to restrict the movement of the view, in order to meet the requirements.&lt;/p&gt;
+
+&lt;p&gt;This is where some basic math comes in.&lt;/p&gt;
+
+&lt;h3 id=&quot;math-again&quot;&gt;Math, again.&lt;/h3&gt;
+
+&lt;p&gt;Remember that Math class you hated in school?&lt;/p&gt;
+
+&lt;p&gt;Well, I hate to break it to you, but with programming you need to use a substantial amount of it. I won’t get too advanced on you, though. You might be surprised to know that Sigma-notation is basically a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;for&lt;/code&gt; loop.&lt;/p&gt;
+
+&lt;p&gt;Anyway, in order to prevent the view from moving too far, I settled on a restricted range of CGFloat values.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Range&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;CGFloat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;c1&quot;&gt;// replace n with the height of your view. The left side of the range needs to be negative, in order to allow movement upward.&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// this example allows the view to move -n points upward, and the maximum positive value it can hold is 0.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;With the above, I’ve defined the range of movement. However, in order to make the effect work as desired, I need to pair this with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;min&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;max&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I’ll just go ahead and update the if/else block:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// the value is negative, so we&apos;re scrolling up and the view is moving back into view.&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// take whatever is smaller, the constant minus delta, or the upperBound of the range. (0)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;topConstraint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;topConstraint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;upperBound&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// the value is positive, so we&apos;re scrolling down and the view is moving out of sight.&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// take whatever is &quot;larger,&quot; the constant minus delta, or the lowerBound of the range.&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;topConstraint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lowerBound&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;topConstraint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;delta&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;I’m now successfully restricting the view’s movement! When I scroll down or up, it comes into or out of view exactly as prescribed. Regardless of however far down I have scrolled. Yay!&lt;/p&gt;
+
+&lt;p&gt;It mostly works now. However because iOS has a “rubber-banding” effect when scrolling further than the content allows, I have to account for that.&lt;/p&gt;
+
+&lt;p&gt;I will make sure I do nothing if I’m at the top of the scroll view, or if I’ve reached the bottom.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hasReachedTop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Bool&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;insetTop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;CGFloat&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;insetTop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;adjustedContentInset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contentOffset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;insetTop&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hasReachedBottom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Bool&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;insetBottom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;adjustedContentInset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottom&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contentSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contentOffset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;height&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;insetBottom&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;distance&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Add these into my logic, and voila!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/img/voila.gif&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Cool, right? 👍&lt;/p&gt;
+
+&lt;p&gt;Next up… I need to do a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReactiveSwift&lt;/code&gt; version… &lt;em&gt;sigh…&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;sample-project&quot;&gt;Sample Project&lt;/h3&gt;
+
+&lt;p&gt;Here is a sample repository demonstrating this effect. Feel free to take the code and use it however you like. I welcome all feedback too!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/topLayoutGuide/ios-parallax-view&quot;&gt;GITHUB&lt;/a&gt;&lt;/p&gt;
+</summary>
+      <id>http://localhost:4000/2021/02/24/hide-view-1/</id>
+      <updated>2021-02-24T05:42:00+09:00</updated>
       <author>
         <name>Benjamin Deckys</name>
       </author>
