@@ -23,6 +23,11 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.icon-twitter-main, .icon-github-main, .icon-dribbble-main, .icon-instagram-main {
+  @extend .icon-twitter;
+  color: $main-color;
+}
+
 .icon-twitter-sec, .icon-github-sec, .icon-dribbble-sec, .icon-instagram-sec {
   @extend .icon-twitter;
   color: $secondary-color;
@@ -31,6 +36,16 @@
 .icon-twitter-ter, .icon-github-ter, .icon-dribbble-ter, .icon-instagram-ter {
   @extend .icon-twitter;
   color: $tertiary-color;
+}
+
+.icon-twitter-quat, .icon-github-quat, .icon-dribbble-quat, .icon-instagram-quat {
+  @extend .icon-twitter;
+  color: $quaternary-color;
+}
+
+.icon-twitter-quin, .icon-github-quin, .icon-dribbble-quin, .icon-instagram-quin {
+  @extend .icon-twitter;
+  color: $quinary-color;
 }
 
 .icon-twitter-main:hover {
@@ -45,52 +60,28 @@
   color: lighten($tertiary-color, 3%);
 }
 
-.icon-twitter-main:before {
-  content: "\e002";
+.icon-twitter-quat:hover {
+  color: lighten($quaternary-color, 3%);
 }
 
-.icon-twitter-sec:before {
-  content: "\e002";
+.icon-twitter-quin:hover {
+  color: lighten($quinary-color, 3%);
 }
 
-.icon-twitter-ter:before {
+.icon-twitter:before {
   content: "\e002";
 }
 
 // If you need github, dribbble or instagram font icons, well there're here :)
 
-.icon-github-main:before {
+.icon-github:before {
   content: "\e003";
 }
 
-.icon-dribbble-main:before {
+.icon-dribbble:before {
   content: "\e004";
 }
 
-.icon-instagram-main:before {
-  content: "\e005";
-}
-
-.icon-github-sec:before {
-  content: "\e003";
-}
-
-.icon-dribbble-sec:before {
-  content: "\e004";
-}
-
-.icon-instagram-sec:before {
-  content: "\e005";
-}
-
-.icon-github-ter:before {
-  content: "\e003";
-}
-
-.icon-dribbble-ter:before {
-  content: "\e004";
-}
-
-.icon-instagram-ter:before {
+.icon-instagram:before {
   content: "\e005";
 }

@@ -2,7 +2,7 @@
 layout: post
 title:  "Custom Fonts. Less Awful."
 date:   2021-02-23 20:42:00
-color:  "TER"
+color:  "SEC"
 ---
 
 #### I'm Holding Out For A UIFont Till The Morning Light
