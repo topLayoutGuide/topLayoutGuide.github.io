@@ -11,7 +11,7 @@
   font-style: normal;
 }
 
-.icon-twitter-main, .icon-github-main, .icon-dribbble-main, .icon-instagram-main {
+.icon-twitter, .icon-github, .icon-dribbble, .icon-instagram {
   font-family: 'icomoon';
   speak: none;
   font-style: normal;
@@ -24,27 +24,13 @@
 }
 
 .icon-twitter-sec, .icon-github-sec, .icon-dribbble-sec, .icon-instagram-sec {
-  font-family: 'icomoon';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
+  @extend .icon-twitter;
   color: $secondary-color;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
 }
 
 .icon-twitter-ter, .icon-github-ter, .icon-dribbble-ter, .icon-instagram-ter {
-  font-family: 'icomoon';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  color: $secondary-color;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
+  @extend .icon-twitter;
+  color: $tertiary-color;
 }
 
 .icon-twitter-main:hover {

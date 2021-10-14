@@ -20,7 +20,8 @@ title: Homepage
         </div>
       </a>
     </li>
-    {% else if post.color == "SEC" %}
+    {% endif %}
+    {% if post.color == "SEC" %}
     <li class="li-sec" itemscope itemtype="http://schema.org/BlogPosting">
       <a href="{{ site.baseurl }}{{ post.url }}" itemprop="url">
         <div class="p-wrap">
@@ -34,7 +35,8 @@ title: Homepage
         </div>
       </a>
     </li>
-    {% else if post.color == "TER" %}
+    {% endif %}
+    {% if post.color == "TER" %}
     <li class="li-ter" itemscope itemtype="http://schema.org/BlogPosting">
       <a href="{{ site.baseurl }}{{ post.url }}" itemprop="url">
         <div class="p-wrap">

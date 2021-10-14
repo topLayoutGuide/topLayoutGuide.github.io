@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <title>toplayoutguide's ios blog - A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta http-equiv="content-language" content="en-gb" />
+      <meta name="description" content="A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="/css/main.css" />
+      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="off-canvas">
+      <figure class="avatar">
+        <img src="/assets/img/avatar.png" alt="Picture" title="That's me, Hi!">
+      </figure>
+      <div class="bio">
+          <h1>G'day, I'm Benjamin.</h1>
+          <p>I'm an iOS Engineer. I play with Xcode and make things.
+
+I love coding, petting Dogs, drinking coffee, cycling, and binge-watching Netflix.
+
+This is my blog so why don't we close this here side panel and enjoy some code?</p>
+      </div>
+      <nav>
+        <h6>Follow me on</h6>
+        <ul>
+          
+          <li><a target="_blank" href="https://twitter.com/viewdidappear">Twitter</a></li>
+          
+          
+          <li><a target="_blank" href="https://github.com/toplayoutguide">Github</a></li>
+          
+          
+          
+          <li><a target="_blank" href="https://instagram.com/okokokjeez">Instagram</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+
+
+    <div class="site-wrapper">
+
+      <header>
+        <div class="h-wrap">
+          <h1 class="title"><a href="/" title="Back to Homepage">toplayoutguide's ios blog</a></h1>
+          <a class="menu-icon" title="Open Bio"><span class="lines"></span></a>
+        </div>
+      </header>
+
+      <main>
+        <section class="single-wrap">
+  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="feat">
+      <h5 class="page-date">
+        <time datetime="2021-02-24T05:42:00+09:00" itemprop="datePublished">
+          24 February 2021
+        </time>
+      </h5>
+    </div>
+    <h1 class="page-title" itemprop="name headline">Custom Fonts. Less Awful.</h1>
+    <div itemprop="articleBody">
+      <h4 id="im-holding-out-for-a-uifont-till-the-morning-light">I’m Holding Out For A UIFont Till The Morning Light</h4>
+
+<h3 id="2021-updated-for-swift-5">2021: Updated for Swift 5!</h3>
+
+<p>Neatly managing custom fonts on iOS is <em>still a pain</em>, even in 2021. Furthermore, with WCAG catching up with apps in recent years, you need to make sure that your fonts (and the colours you use with them!) are compliant with accessibility standards. This last bit is especially important if you’re working on a large scale application, with a substantial number of customers. Not everyone is perfectly sighted - myself included.</p>
+
+<p>Even if you only have one font in your design system, having to plop <code class="language-plaintext highlighter-rouge">UIFont(name:)</code> constructors all over your code is… not scalable. You can also probably clone fifty repos and find fifty different solutions to this problem, which makes it hard to know if yours is “right.”</p>
+
+<p>In September of 2016, while I was still learning Swift, I came up with a solution that still works in 2021! Even I’m surprised by this, given Swift’s propensity for breaking changes between versions.</p>
+
+<hr />
+
+<p>Actually getting custom fonts to <em>work</em> in an iOS project is a piece of cake.</p>
+
+<ul>
+  <li>Check the licence for the font, and then copy the files into your project.</li>
+  <li>Add the filenames to the “Fonts Provided by Application” key/value pair in your <code class="language-plaintext highlighter-rouge">Info.plist</code>.</li>
+  <li>Check that they’re added to the target, and that they’re bundled as resources.</li>
+</ul>
+
+<p>Some fonts are already provided with iOS, so you can skip the plist or font register stage if it already comes with the system.</p>
+
+<p>Another approach is to utilize <code class="language-plaintext highlighter-rouge">CoreText</code>, and register the fonts to your process and avoid touching the <code class="language-plaintext highlighter-rouge">Info.plist</code> entirely.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">CoreText</span>
+
+<span class="kd">enum</span> <span class="kt">Loader</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="kd">func</span> <span class="nf">load</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">fontURLs</span> <span class="o">=</span> <span class="kt">Bundle</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="nf">urls</span><span class="p">(</span><span class="nv">forResourcesWithExtension</span><span class="p">:</span> <span class="s">"ttf"</span><span class="p">,</span> <span class="nv">subdirectory</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="kd">#available(iOS 13.0, \*)</span> <span class="p">{</span>
+                <span class="kt">CTFontManagerRegisterFontURLs</span><span class="p">(</span><span class="n">fontURLs</span> <span class="k">as</span> <span class="kt">CFArray</span><span class="p">,</span> <span class="o">.</span><span class="n">process</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="kt">CTFontManagerRegisterFontsForURLs</span><span class="p">(</span><span class="n">fontURLs</span> <span class="k">as</span> <span class="kt">CFArray</span><span class="p">,</span> <span class="o">.</span><span class="n">process</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Feel free to name this <code class="language-plaintext highlighter-rouge">enum</code> to something other than <code class="language-plaintext highlighter-rouge">Loader</code>. I’ve used <code class="language-plaintext highlighter-rouge">enum</code> here so it has no initializer.</p>
+
+<p>You can then call <code class="language-plaintext highlighter-rouge">Loader.load()</code> where appropriate to have your fonts loaded and accessible. Perhaps somewhere in your AppDelegate?</p>
+
+<hr />
+
+<p>Remember that the system font on iOS has been designed to be accessible on the displays it calls home. It bears repeating that this is not the case for every font out there. Please choose carefully!</p>
+
+<p>Also, it’s almost as if <code class="language-plaintext highlighter-rouge">UIFont</code> doesn’t want you to use custom fonts, because you’re forced to construct it like this:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">myLabel</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="kt">UIFont</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"SuperAwesomeFont-SemiboldItalic"</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="mf">16.83</span><span class="s">")</span></code></pre></figure>
+
+<p>Whenever you invoke the above, you’ll need to have the font’s PostScript name handy. Humans are dumb, and typos happen. If you make a mistake, iOS will fallback to the system font. An eagle-eyed designer will spot this kind of mistake quicker than blinking, so make sure you double check 😆.</p>
+
+<h3 id="the-constants-file-approach">The Constants File Approach</h3>
+
+<p>You’ve got one. I’ve got one. Almost every iOS dev I’ve ever met has used one. It’s a <code class="language-plaintext highlighter-rouge">Constants</code> file! It’s a useful solution that isn’t over-engineered. For fonts, you’d typically have it setup like so:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">enum</span> <span class="kt">Constants</span> <span class="p">{</span> <span class="c1">// not struct to avoid an initializer</span>
+  <span class="kd">enum</span> <span class="kt">Fonts</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">regular</span> <span class="o">=</span> <span class="kt">UIFont</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="err">“</span><span class="kt">Font</span><span class="o">-</span><span class="kt">Regular</span><span class="err">”</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="mi">14</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>…rinse and repeat for variations in weight and size. Invoking a font declared this way usually looks like this:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">myLabel</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="kt">Fonts</span><span class="o">.</span><span class="n">regular</span></code></pre></figure>
+
+<p>There’s nothing wrong with this! At all! However, it can become messy if you juggle multiple fonts and multiple sizes.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">enum</span> <span class="kt">Constants</span> <span class="p">{</span>
+  <span class="kd">enum</span> <span class="kt">Fonts</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">regular</span> <span class="o">=</span> <span class="kt">UIFont</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="err">“</span><span class="kt">Font</span><span class="o">-</span><span class="kt">Regular</span><span class="err">”</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="mi">14</span><span class="p">)</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">regular16</span> <span class="o">=</span> <span class="kt">UIFont</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="err">“</span><span class="kt">Font</span><span class="o">-</span><span class="kt">Slim</span><span class="err">”</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="mi">16</span><span class="p">)</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">regular20</span> <span class="o">=</span> <span class="kt">UIFont</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="err">“</span><span class="kt">Font</span><span class="o">-</span><span class="kt">KindaRegular</span><span class="err">”</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="kd">static</span> <span class="k">let</span> <span class="nv">regularSendHelp72</span> <span class="o">=</span> <span class="kt">UIFont</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="err">“</span><span class="kt">Font</span><span class="o">-</span><span class="kt">NotRegular</span><span class="err">”</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="mi">72</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Imagine this being used for a dozen sizes? How about a dozen weights, and a dozen sizes per weight!</p>
+
+<p>We can make this better. If you’re operating on a small scale, don’t assume that this is a bad approach, because it’s not.
+Although it’s still worth looking at other solutions, whichever one that works for you is the best one.</p>
+
+<h3 id="the-extension-method">The Extension Method</h3>
+
+<p>Extensions are to Swift what categories are to Objective-C. They do what they say on the tin — they extend classes to add extra/bespoke functionality.</p>
+
+<p>Let’s go ahead and extend <code class="language-plaintext highlighter-rouge">UIFont</code> with our custom font instead:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">extension</span> <span class="kt">UIFont</span> <span class="p">{</span>
+  <span class="kd">class</span> <span class="kd">func</span> <span class="nf">regular</span><span class="p">(</span><span class="n">at</span> <span class="nv">size</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIFont</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kt">UIFont</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="err">“</span><span class="kt">Font</span><span class="o">-</span><span class="kt">Regular</span><span class="err">”</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="n">size</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>With this approach, we can simply add more functions for each <strong>weight</strong> required, eliminating duplicates but keeping the flexibility of <strong>size</strong>.
+We <em>could</em> finish here… or we could push the pedal to the metal and build something totally <em>bonkers</em>.</p>
+
+<h3 id="swiftiest-swifty-swift">Swiftiest Swifty Swift!</h3>
+
+<p>We’re using <code class="language-plaintext highlighter-rouge">enum</code> again.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">UIKit</span>
+<span class="kd">import</span> <span class="kt">CoreText</span>
+
+<span class="kd">enum</span> <span class="kt">Fonts</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="n">regular</span> <span class="o">=</span> <span class="s">"AvenirNext-Regular"</span>
+  <span class="k">case</span> <span class="n">medium</span> <span class="o">=</span> <span class="s">"AvenirNext-Medium"</span>
+  <span class="k">case</span> <span class="n">mediumItalic</span> <span class="o">=</span> <span class="s">"AvenirNext-MediumItalic"</span>
+  <span class="k">case</span> <span class="n">demiBold</span> <span class="o">=</span> <span class="s">"AvenirNext-DemiBold"</span>
+  
+  <span class="kd">func</span> <span class="nf">of</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kt">DynamicType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIFont</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">textStyle</span> <span class="o">=</span> <span class="kt">UIFont</span><span class="o">.</span><span class="kt">TextStyle</span><span class="p">(</span><span class="nv">rawValue</span><span class="p">:</span> <span class="n">style</span><span class="o">.</span><span class="n">rawValue</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">metrics</span> <span class="o">=</span> <span class="kt">UIFontMetrics</span><span class="p">(</span><span class="nv">forTextStyle</span><span class="p">:</span> <span class="n">textStyle</span><span class="p">)</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">size</span> <span class="o">=</span> <span class="n">fontSizes</span><span class="p">[</span><span class="n">textStyle</span><span class="p">],</span> 
+    <span class="k">let</span> <span class="nv">font</span> <span class="o">=</span> <span class="kt">UIFont</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="k">self</span><span class="o">.</span><span class="n">rawValue</span><span class="p">,</span> <span class="nv">size</span><span class="p">:</span> <span class="n">size</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="c1">// If we can't load the size, or the font, CRASH. Something's wrong...</span>
+      <span class="nf">fatalError</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">metrics</span><span class="o">.</span><span class="nf">scaledFont</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">font</span><span class="p">)</span>
+  <span class="p">}</span>
+  
+  <span class="kd">static</span> <span class="kd">func</span> <span class="nf">loadFonts</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">fontURLs</span> <span class="o">=</span> <span class="kt">Bundle</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="nf">urls</span><span class="p">(</span><span class="nv">forResourcesWithExtension</span><span class="p">:</span> <span class="s">"ttf"</span><span class="p">,</span> <span class="nv">subdirectory</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="kd">#available(iOS 13.0, *)</span> <span class="p">{</span>
+        <span class="kt">CTFontManagerRegisterFontURLs</span><span class="p">(</span><span class="n">fontURLs</span> <span class="k">as</span> <span class="kt">CFArray</span><span class="p">,</span> <span class="o">.</span><span class="n">process</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="kt">CTFontManagerRegisterFontsForURLs</span><span class="p">(</span><span class="n">fontURLs</span> <span class="k">as</span> <span class="kt">CFArray</span><span class="p">,</span> <span class="o">.</span><span class="n">process</span><span class="p">,</span> <span class="kc">nil</span><span class="p">)</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">extension</span> <span class="kt">Fonts</span> <span class="p">{</span>
+  <span class="kd">enum</span> <span class="kt">DynamicType</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">largeTitle</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleLargeTitle"</span>
+    <span class="k">case</span> <span class="n">title1</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleTitle1"</span>
+    <span class="k">case</span> <span class="n">title2</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleTitle2"</span>
+    <span class="k">case</span> <span class="n">title3</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleTitle3"</span>
+    <span class="k">case</span> <span class="n">headline</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleHeadline"</span>
+    <span class="k">case</span> <span class="n">body</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleBody"</span>
+    <span class="k">case</span> <span class="n">callout</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleCallout"</span>
+    <span class="k">case</span> <span class="n">subheadline</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleSubheadline"</span>
+    <span class="k">case</span> <span class="n">footnote</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleFootnote"</span>
+    <span class="k">case</span> <span class="n">caption1</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleCaption1"</span>
+    <span class="k">case</span> <span class="n">caption2</span> <span class="o">=</span> <span class="s">"UICTFontTextStyleCaption2"</span>
+  <span class="p">}</span>
+
+  <span class="kd">private</span> <span class="k">var</span> <span class="nv">fontSizes</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIFont</span><span class="o">.</span><span class="kt">TextStyle</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">]</span> <span class="p">{</span>
+    <span class="p">[</span>
+      <span class="o">.</span><span class="nv">largeTitle</span><span class="p">:</span> <span class="mi">34</span><span class="p">,</span>
+      <span class="o">.</span><span class="nv">title1</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+      <span class="o">.</span><span class="nv">title2</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+      <span class="o">.</span><span class="nv">title3</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+      <span class="o">.</span><span class="nv">headline</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+      <span class="o">.</span><span class="nv">body</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+      <span class="o">.</span><span class="nv">callout</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+      <span class="o">.</span><span class="nv">subheadline</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+      <span class="o">.</span><span class="nv">footnote</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+      <span class="o">.</span><span class="nv">caption1</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+      <span class="o">.</span><span class="nv">caption2</span><span class="p">:</span> <span class="mi">11</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This single <code class="language-plaintext highlighter-rouge">enum</code> can contain all the fonts you will need to use in your app. It even supports dynamic font sizing! Just add a case for each font you want to use, give it the appropriate PostScript name, and invoke it like so:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">myLabel</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="kt">Fonts</span><span class="o">.</span><span class="n">regular</span><span class="o">.</span><span class="nf">of</span><span class="p">(</span><span class="o">.</span><span class="n">body</span><span class="p">)</span></code></pre></figure>
+
+<hr />
+
+<p>Cool, right?</p>
+
+    </div>
+    <div class="feat share">
+      <a href="http://twitter.com/share" class="popup">
+        
+        
+        
+        <span class="icon-twitter-ter"></span>
+        
+      </a>
+    </div>
+    
+      <a rel="next" href="/2021/10/13/goodbye-medium/" id="next">
+        <span class="nav-title nav-title-next">newer</span> &rarr;
+      </a>
+    
+    
+      <a rel="prev" href="/2021/01/20/happy-mvvm/" id="prev">
+        &larr; <span class="nav-title nav-title-prev">older</span>
+      </a>
+    
+  </article>
+</section>
+
+      </main>
+
+      <footer>
+        <small>Yours truly, &copy; Benjamin Deckys</small>
+      </footer>
+
+    </div>
+    
+
+    <script src="/js/main.js"></script>
+    
+    
+
+  </body>
+</html>
