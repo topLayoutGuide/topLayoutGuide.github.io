@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Custom Fonts. Less Awful."
-date:   2021-02-23 20:42:00
+title:  "Swift: Custom Fonts. Less Awful."
+date:   2016-09-04 12:00:00
 color:  "SEC"
 ---
 

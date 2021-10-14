@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Goodbye, Medium!"
+title:  "Announcement: Goodbye, Medium!"
 date:   2021-10-13 00:05:11
-color:  "MAIN"
+color:  "QUAT"
 ---
 
 Welcome to my blog, again! As an iOS engineer keen on experimenting with `Swift` and `SwiftUI`, reading developers' blogs has always been a way to learn from those who trudged through the wilderness before I. 

@@ -1,7 +1,6 @@
 ---
 layout: post
-title:  "I'm Only Happy When It's MVVM!"
-subtitle: "SwiftUI + MVVM + Combine + ReactiveSwift"
+title:  "Swift: I'm Only Happy When It's MVVM!"
 date:   2021-01-19 19:53:11
 color:  "SEC"
 ---
