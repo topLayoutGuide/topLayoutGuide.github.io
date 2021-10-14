@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "So I Wanted To Hide A UIView"
-date:   2021-02-23 20:42:00
+date:   2021-04-12 16:09:00
 color:  "SEC"
 ---
 
