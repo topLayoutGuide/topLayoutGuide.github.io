@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <title>toplayoutguide's ios blog - A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta http-equiv="content-language" content="en-gb" />
+      <meta name="description" content="A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="/css/main.css" />
+      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="off-canvas">
+      <figure class="avatar">
+        <img src="/assets/img/avatar.png" alt="Picture" title="That's me, Hi!">
+      </figure>
+      <div class="bio">
+          <h1>G'day, I'm Benjamin.</h1>
+          <p>I'm an iOS Engineer. I play with Xcode and make things.
+
+I love coding, petting Dogs, drinking coffee, cycling, and binge-watching Netflix.
+
+This is my blog so why don't we close this here side panel and enjoy some code?</p>
+      </div>
+      <nav>
+        <h6>Follow me on</h6>
+        <ul>
+          
+          <li><a target="_blank" href="https://twitter.com/viewdidappear">Twitter</a></li>
+          
+          
+          <li><a target="_blank" href="https://github.com/toplayoutguide">Github</a></li>
+          
+          
+          
+          <li><a target="_blank" href="https://instagram.com/okokokjeez">Instagram</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+
+
+    <div class="site-wrapper">
+
+      <header>
+        <div class="h-wrap">
+          <h1 class="title"><a href="/" title="Back to Homepage">toplayoutguide's ios blog</a></h1>
+          <a class="menu-icon" title="Open Bio"><span class="lines"></span></a>
+        </div>
+      </header>
+
+      <main>
+        <section class="single-wrap">
+  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="feat">
+      <h5 class="page-date">
+        <time datetime="2018-12-09T21:00:00+09:00" itemprop="datePublished">
+          09 December 2018
+        </time>
+      </h5>
+    </div>
+    <h1 class="page-title" itemprop="name headline">Swift: So I Wanted To Hide A UIView... ReactiveSwift-ly</h1>
+    <div itemprop="articleBody">
+      <h4 id="life-in-plastic-its-fantastic">Life In Plastic, It’s Fantastic</h4>
+
+<h3 id="imagination-life-is-your-creation">Imagination, Life Is Your Creation</h3>
+
+<p>In the previous installment, I implemented the following effect, as seen in the AirBNB app, using nothing more than <code class="language-plaintext highlighter-rouge">UIKit</code> and some basic math.</p>
+
+<p><img src="/assets/img/parallax.gif" /></p>
+
+<p>Right at the end, I mentioned that my final step would be to implement it using <code class="language-plaintext highlighter-rouge">ReactiveSwift</code>. As is the norm when implementing a UI-effect that you’ve never attempted before, it’s like rolling a pair of dice — it’s trial and error.</p>
+
+<p>Anyone can “master” the code, but at the end of the day it needs to be visually tested by humans to ensure that it works as expected. Most developers I know, including myself, usually need to tweak the code, run, and test it a few (hundred) times before it’s “perfect.”</p>
+
+<h3 id="come-on-barbie-lets-go-party">Come On Barbie, Let’s Go Party!</h3>
+
+<p>What I didn’t expect while using <code class="language-plaintext highlighter-rouge">ReactiveSwift</code> to achieve the goal, was that it helped me focus more on the data stream and its manipulation, than I do when using UIKit. I leant heavily on reactive operators, and unit testing.</p>
+
+<p>It became clearer that, if the data, tests, and math was right, then the effect would be too. I felt less of a need to run, test, tweak, and re-run, than I usually do.</p>
+
+<p>For the implementation, I first declared an Input and an Output on my view model. All my data will be funnelled into the Input, and the Output will be a simple <code class="language-plaintext highlighter-rouge">CGFloat</code> value, which I’ll observe in my <code class="language-plaintext highlighter-rouge">UIViewController</code>.</p>
+
+<p>I’ll eventually use this value to mutate the constraint value on scroll.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">ReactiveSwift</span>
+<span class="kd">import</span> <span class="kt">ReactiveCocoa</span>
+
+<span class="kd">final</span> <span class="kd">class</span> <span class="kt">MyViewModel</span><span class="p">:</span> <span class="kt">ViewModelType</span> <span class="p">{</span>
+
+  <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nf">bindIO</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="kd">private</span> <span class="k">let</span> <span class="nv">scrollViewDidScrollIO</span> <span class="o">=</span> <span class="kt">Signal</span><span class="o">&lt;</span><span class="kt">Inputs</span><span class="o">.</span><span class="kt">ScrollInfo</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;.</span><span class="nf">pipe</span><span class="p">()</span>
+
+  <span class="kd">enum</span> <span class="kt">Inputs</span> <span class="p">{</span>
+    <span class="kd">typealias</span> <span class="kt">ScrollInfo</span><span class="p">(</span>
+      <span class="nv">contentOffsetY</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> 
+      <span class="nv">topConstraintConstant</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span> 
+      <span class="nv">heightOfViewToMove</span><span class="p">:</span> <span class="kt">CGFloat</span><span class="p">,</span>
+      <span class="nv">hasReachedTop</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span>
+      <span class="nv">hasReachedBottom</span><span class="p">:</span> <span class="kt">Bool</span>
+    <span class="p">)</span>
+
+    <span class="k">case</span> <span class="nf">scrollViewDidScroll</span><span class="p">(</span><span class="kt">ScrollInfo</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kd">enum</span> <span class="kt">Outputs</span><span class="p">:</span> <span class="kt">Equatable</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nf">scrollViewSignal</span><span class="p">(</span><span class="kt">CGFloat</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kd">private</span> <span class="k">let</span> <span class="nv">outputIO</span> <span class="o">=</span> <span class="kt">Signal</span><span class="o">&lt;</span><span class="kt">Output</span><span class="p">,</span> <span class="kt">Never</span><span class="o">&gt;.</span><span class="nf">pipe</span><span class="p">()</span>
+  <span class="kd">private(set)</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">outputSignal</span> <span class="o">=</span> <span class="n">outputIO</span><span class="o">.</span><span class="n">output</span>
+
+  <span class="kd">func</span> <span class="nf">apply</span><span class="p">(</span><span class="n">_</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">Input</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="n">input</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="o">.</span><span class="nf">scrollViewDidScroll</span><span class="p">(</span><span class="k">let</span> <span class="nv">info</span><span class="p">):</span> <span class="n">scrollViewDidScrollIO</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="nf">send</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="n">info</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kd">private</span> <span class="kd">func</span> <span class="nf">bindIO</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// more to come...</span>
+  <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="oh-im-having-so-much-fun">Oh, I’m Having So Much Fun!</h3>
+
+<p>Back in my <code class="language-plaintext highlighter-rouge">UIViewController</code>, I pass the data into my Input, using the same <code class="language-plaintext highlighter-rouge">UIScrollViewDelegate</code> method as last time.</p>
+
+<p>Only now, I can forego the need for anything other than <code class="language-plaintext highlighter-rouge">scrollViewDidScroll</code>.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIScrollViewDelegate</span> <span class="p">{</span>
+  <span class="kd">func</span> <span class="nf">scrollViewDidScroll</span><span class="p">(</span><span class="n">_</span> <span class="nv">scrollView</span><span class="p">:</span> <span class="kt">UIScrollView</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">viewModel</span>
+      <span class="o">.</span><span class="n">inputs</span>
+      <span class="o">.</span><span class="nf">apply</span><span class="p">(</span>
+        <span class="o">.</span><span class="nf">scrollViewDidScroll</span><span class="p">(</span>
+          <span class="p">(</span>
+            <span class="nv">contentOffsetY</span><span class="p">:</span> <span class="n">scrollView</span><span class="o">.</span><span class="n">contentOffset</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+            <span class="nv">topConstraintConstant</span><span class="p">:</span> <span class="n">topConstraint</span><span class="o">.</span><span class="n">constant</span><span class="p">,</span>
+            <span class="nv">heightOfViewToMove</span><span class="p">:</span> <span class="n">heightOfView</span><span class="p">,</span>
+            <span class="nv">hasReachedTop</span><span class="p">:</span> <span class="n">scrollView</span><span class="o">.</span><span class="n">hasReachedTop</span><span class="p">,</span>
+            <span class="nv">hasReachedBottom</span><span class="p">:</span> <span class="n">scrollView</span><span class="o">.</span><span class="n">hasReachedBottom</span>
+          <span class="p">)</span>
+        <span class="p">)</span>
+      <span class="p">)</span> 
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>In the view model, the Output takes the data from the Input, and after using several operators — notably <code class="language-plaintext highlighter-rouge">combinePrevious</code>, <code class="language-plaintext highlighter-rouge">filter</code> and <code class="language-plaintext highlighter-rouge">map</code> — I’m left with the simple <code class="language-plaintext highlighter-rouge">CGFloat</code> value that I’ll observe later.</p>
+
+<p>The resulting Output looks a little like this:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">private</span> <span class="kd">func</span> <span class="nf">bindIO</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">scrollViewDidScroll</span><span class="o">.</span><span class="n">output</span>
+    <span class="o">.</span><span class="nf">combinePrevious</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">filter</span> <span class="p">{</span> <span class="o">!</span><span class="p">(</span><span class="nv">$0</span><span class="o">.</span><span class="n">hasReachedTop</span> <span class="o">&amp;&amp;</span> <span class="nv">$0</span><span class="o">.</span><span class="n">hasReachedBottom</span><span class="p">)</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">previous</span><span class="p">,</span> <span class="n">current</span> <span class="o">-&gt;</span> <span class="kt">Output</span> <span class="k">in</span>
+      <span class="k">let</span> <span class="nv">minimumConstantValue</span> <span class="o">=</span> <span class="kt">CGFloat</span><span class="p">(</span><span class="o">-</span><span class="n">current</span><span class="o">.</span><span class="n">heightOfViewToMove</span><span class="p">)</span>
+      <span class="k">let</span> <span class="nv">delta</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">contentOffsetY</span> <span class="o">-</span> <span class="n">previous</span><span class="o">.</span><span class="n">contentOffsetY</span>
+      <span class="k">if</span> <span class="n">delta</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">.</span><span class="nf">scrollViewSignal</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">topConstraintConstant</span> <span class="o">-</span> <span class="n">delta</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">.</span><span class="nf">scrollViewSignal</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">minimumConstantValue</span><span class="p">,</span> <span class="n">current</span><span class="o">.</span><span class="n">topConstraintConstant</span> <span class="o">-</span> <span class="n">delta</span><span class="p">))</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="o">.</span><span class="nf">observeValues</span><span class="p">(</span><span class="n">outputIO</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">send</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="well-barbie-were-just-getting-started">Well Barbie, We’re Just Getting Started</h3>
+
+<p>Back in the <code class="language-plaintext highlighter-rouge">UIViewController</code>, I observe the Output, and mutate the constraint. Remember, that this value is now a simple <code class="language-plaintext highlighter-rouge">CGFloat</code>.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="n">viewModel</span><span class="o">.</span><span class="n">outputSignal</span><span class="o">.</span><span class="n">observeValues</span> <span class="p">{</span> <span class="p">[</span><span class="k">weak</span> <span class="k">self</span><span class="p">]</span> <span class="k">in</span>
+  <span class="k">guard</span> <span class="k">let</span> <span class="nv">self</span> <span class="o">=</span> <span class="k">self</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+
+  <span class="k">switch</span> <span class="nv">$0</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nf">scrollViewSignal</span><span class="p">(</span><span class="k">let</span> <span class="nv">value</span><span class="p">):</span>
+      <span class="k">self</span><span class="o">.</span><span class="n">topConstraint</span><span class="o">.</span><span class="n">constant</span> <span class="o">=</span> <span class="n">value</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The app, if run, behaves as it did last time. Only now, it’s using ReactiveSwift to achieve the end goal.</p>
+
+<p><img src="/assets/img/voila.gif" /></p>
+
+<h3 id="future-considerations">Future Considerations</h3>
+
+<ul>
+  <li>I may make an RxSwift version.</li>
+  <li>I may also make a Combine version.</li>
+</ul>
+
+<p>Back when I first wrote this, Combine was not around. So I am curious… very curious…</p>
+
+<h3 id="post-mortem">Post Mortem</h3>
+
+<p>Before implementation even began, plenty of research was conducted into <code class="language-plaintext highlighter-rouge">UIScrollViewDelegate</code> and how it works. I discovered that the relevant methods were — luckily — called regardless of whether the <code class="language-plaintext highlighter-rouge">contentOffset</code> was changed manually, or programatically.</p>
+
+<p>If they weren’t, then I’m sure the eventual solution to this problem would’ve wound up way, way more complicated! So, thanks UIKit team @ Apple!</p>
+
+<p>Of course, we need to be careful of UIKit behaviour changing in the future, so as always, tread carefully. Don’t make assumptions, and read the documentation carefully.</p>
+
+<p>Thanks for reading!</p>
+
+    </div>
+    <div class="feat share">
+      <a href="http://twitter.com/share" class="popup">
+        
+        
+        <span class="icon-twitter-sec"></span>
+        
+        
+        
+        
+      </a>
+    </div>
+    
+      <a rel="next" href="/2019/01/19/approvals/" id="next">
+        <span class="nav-title nav-title-next">newer</span> &rarr;
+      </a>
+    
+    
+      <a rel="prev" href="/2018/12/02/hide-view-1/" id="prev">
+        &larr; <span class="nav-title nav-title-prev">older</span>
+      </a>
+    
+  </article>
+</section>
+
+      </main>
+
+      <footer>
+        <small>Yours truly, &copy; Benjamin Deckys</small>
+      </footer>
+
+    </div>
+    
+
+    <script src="/js/main.js"></script>
+    
+    
+
+  </body>
+</html>

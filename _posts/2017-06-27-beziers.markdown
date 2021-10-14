@@ -1,0 +1,106 @@
+---
+layout: post
+title:  "Swift: Custom Bézier Curves"
+date:   2017-06-27 12:00:00
+color:  "SEC"
+---
+
+#### Wax In. Wax Out... Wait.
+
+There may come a time when writing an animation on iOS, that the simple, inbuilt animation "curves" no longer suit your requirements. If the previous words sent you for a tailspin, read on.
+
+Let’s start with a quick lesson:
+
+### What Are Bézier Curves?
+
+If we get into the specifics of it -
+
+>A Bézier curve (pronounced [bezje]) is a parametric curve frequently used in computer graphics and related fields.
+— **Wikipedia**
+
+However most iOS developers simply know them by name. They are;
+
+- `curveEaseIn`
+- `curveEaseOut`
+- `linear` and
+- `curveEaseInOut`
+
+They are most often used with a call to `UIView.animate()`.
+
+---
+
+Let’s start with _linear_. If you invoke `UIView.animate(withDuration:)` without supplying any options, except the duration and an animation block, it will execute the animation along a linear path. That is to say, the object you are moving will go from A to B at a constant rate until the animation is finished. The path is not "curved".
+
+<img src="{{site.baseUrl}}/assets/img/linear.gif"/>
+
+Next up, is `curveEaseIn`. It’s similar to `linear`, however this time the animation executes along a path which is "curved" at the start, and ends linearly. The object you are moving will go from A to B, starting off slowly (“easing in”), accelerating to a constant rate, then stopping.
+
+The path itself, should it be drawn or plotted, would look something like this:
+
+**Image:**
+
+<img src="{{site.baseUrl}}/assets/img/curveEaseIn.png"/>
+
+**GIF:**
+
+<img src="{{site.baseUrl}}/assets/img/curveEaseIn.gif"/>
+
+You get the idea. `curveEaseOut` is the opposite of the above, meaning that the object you’re moving will go from A to B, starting off at a constant rate, and decelerating slowly to a stop (“easing out”). `curveEaseInOut` combines the two.
+
+### But, There’s More..?
+
+Oh yes, there are more. By more, I mean anything you can think of!
+
+If your team’s UI/UX Designer said that the animation “curve” you’re using wasn’t smooth/blunt/whatever enough, what would you do? I’d hazard a bet that many of you would push back on such criticism.
+
+As for me, I’m like a Dog, bent on extracting a treat from the inside of a KONG toy. I quickly found a way to make my own “curves” with `CAAnimation` but it required the prolific usage of “magic numbers” in the code, and the code chunks themselves were very complex. I had to simplify.
+
+If you look at the graph above, you’ll see why. The curve is controlled by two “control points”. The graph above has only 1 visible control point, and it lies at the right-hand side of the orange line.
+
+Loosely translated into code, the graph would read something like:
+
+{% highlight swift %}
+let controlPoint1 = CGPoint(x: 0.34, y: 0.00)
+let controlPoint2 = CGPoint(x: 1.00, y: 1.00)
+{% endhighlight %}
+
+Thankfully as of iOS 10, Apple now allow us to create our own curves. Instead of being forced to use `CAAnimation`, we can use them with something called `UIViewPropertyAnimator`.
+
+### UIViewPropertyAnimator
+
+I got creative with my own `easeInEaseOut` curve:
+
+<img src="{{site.baseUrl}}/assets/img/easeInOut.png"/>
+
+If we go ahead and create a `class` (or a `struct`) calling it `CustomCurves` for simplicity’s sake, and define the following within it:
+
+{% highlight swift %}
+static private var curveTightEaseInOut: UITimingCurveProvider {
+  UICubicTimingParameters(
+    controlPoint1: CGPoint(x: 0.89, y: 0.38),
+    controlPoint2: CGPoint(x: 0.11, y: 0.61)
+  )
+}
+
+static var curveTightAnimator: UIViewPropertyAnimator {
+  UIViewPropertyAnimator(
+    duration: 1.0,
+    timingParameters: curveTightEaseInOut
+  )
+}
+{% endhighlight %}
+
+You can then use it in your code, the same way as you would a `UIView.animate()` as follows:
+
+{% highlight swift %}
+let viewFrameAnimator = CustomCurves.curveTightAnimator
+viewFrameAnimator.addAnimations {
+  // Add animations here...
+}
+viewFrameAnimator.addCompletion {
+  // Something when it's done...
+}
+viewFrameAnimator.startAnimation()
+{% endhighlight %}
+
+And you know I could attach a gif with a demonstration of the above code here. But I won’t. Because you should give it a shot 😄

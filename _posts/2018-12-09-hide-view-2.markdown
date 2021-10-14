@@ -1,0 +1,156 @@
+---
+layout: post
+title:  "Swift: So I Wanted To Hide A UIView... ReactiveSwift-ly"
+date:   2018-12-09 12:00:00
+color:  "SEC"
+---
+
+#### Life In Plastic, It’s Fantastic
+
+### Imagination, Life Is Your Creation
+
+In the previous installment, I implemented the following effect, as seen in the AirBNB app, using nothing more than `UIKit` and some basic math. 
+
+<img src="{{site.baseUrl}}/assets/img/parallax.gif"/>
+
+Right at the end, I mentioned that my final step would be to implement it using `ReactiveSwift`. As is the norm when implementing a UI-effect that you've never attempted before, it's like rolling a pair of dice — it's trial and error. 
+
+Anyone can “master” the code, but at the end of the day it needs to be visually tested by humans to ensure that it works as expected. Most developers I know, including myself, usually need to tweak the code, run, and test it a few (hundred) times before it’s “perfect.”
+
+### Come On Barbie, Let’s Go Party!
+
+What I didn’t expect while using `ReactiveSwift` to achieve the goal, was that it helped me focus more on the data stream and its manipulation, than I do when using UIKit. I leant heavily on reactive operators, and unit testing. 
+
+It became clearer that, if the data, tests, and math was right, then the effect would be too. I felt less of a need to run, test, tweak, and re-run, than I usually do.
+
+For the implementation, I first declared an Input and an Output on my view model. All my data will be funnelled into the Input, and the Output will be a simple `CGFloat` value, which I’ll observe in my `UIViewController`. 
+
+I’ll eventually use this value to mutate the constraint value on scroll.
+
+{% highlight swift %}
+import ReactiveSwift
+import ReactiveCocoa
+
+final class MyViewModel: ViewModelType {
+
+  init() {
+    bindIO()
+  }
+
+  private let scrollViewDidScrollIO = Signal<Inputs.ScrollInfo, Never>.pipe()
+
+  enum Inputs {
+    typealias ScrollInfo(
+      contentOffsetY: CGFloat, 
+      topConstraintConstant: CGFloat, 
+      heightOfViewToMove: CGFloat,
+      hasReachedTop: Bool,
+      hasReachedBottom: Bool
+    )
+
+    case scrollViewDidScroll(ScrollInfo)
+  }
+
+  enum Outputs: Equatable {
+    case scrollViewSignal(CGFloat)
+  }
+
+  private let outputIO = Signal<Output, Never>.pipe()
+  private(set) lazy var outputSignal = outputIO.output
+
+  func apply(_ input: Input) {
+    switch input {
+      case .scrollViewDidScroll(let info): scrollViewDidScrollIO.input.send(value: info)
+    }
+  }
+
+  private func bindIO() {
+    // more to come...
+  }
+
+}
+{% endhighlight %}
+
+### Oh, I’m Having So Much Fun!
+
+Back in my `UIViewController`, I pass the data into my Input, using the same `UIScrollViewDelegate` method as last time. 
+
+Only now, I can forego the need for anything other than `scrollViewDidScroll`.
+
+{% highlight swift %}
+extension ViewController: UIScrollViewDelegate {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    viewModel
+      .inputs
+      .apply(
+        .scrollViewDidScroll(
+          (
+            contentOffsetY: scrollView.contentOffset.y,
+            topConstraintConstant: topConstraint.constant,
+            heightOfViewToMove: heightOfView,
+            hasReachedTop: scrollView.hasReachedTop,
+            hasReachedBottom: scrollView.hasReachedBottom
+          )
+        )
+      ) 
+  }
+}
+{% endhighlight %}
+
+In the view model, the Output takes the data from the Input, and after using several operators — notably `combinePrevious`, `filter` and `map` — I’m left with the simple `CGFloat` value that I’ll observe later. 
+
+The resulting Output looks a little like this:
+
+{% highlight swift %}
+private func bindIO() {
+  scrollViewDidScroll.output
+    .combinePrevious()
+    .filter { !($0.hasReachedTop && $0.hasReachedBottom) }
+    .map { previous, current -> Output in
+      let minimumConstantValue = CGFloat(-current.heightOfViewToMove)
+      let delta = current.contentOffsetY - previous.contentOffsetY
+      if delta < 0 {
+        return .scrollViewSignal(min(current.topConstraintConstant - delta, 0))
+      } else {
+        return .scrollViewSignal(max(minimumConstantValue, current.topConstraintConstant - delta))
+      }
+    }
+    .observeValues(outputIO.input.send)
+}
+{% endhighlight %}
+
+### Well Barbie, We’re Just Getting Started
+
+Back in the `UIViewController`, I observe the Output, and mutate the constraint. Remember, that this value is now a simple `CGFloat`.
+
+{% highlight swift %}
+viewModel.outputSignal.observeValues { [weak self] in
+  guard let self = self else { return }
+
+  switch $0 {
+    case .scrollViewSignal(let value):
+      self.topConstraint.constant = value
+  }
+}
+{% endhighlight %}
+
+The app, if run, behaves as it did last time. Only now, it’s using ReactiveSwift to achieve the end goal.
+
+<img src="{{ site.baseUrl }}/assets/img/voila.gif"/>
+
+### Future Considerations
+
+- I may make an RxSwift version.
+- I may also make a Combine version.
+
+Back when I first wrote this, Combine was not around. So I am curious... very curious...
+
+### Post Mortem
+
+Before implementation even began, plenty of research was conducted into `UIScrollViewDelegate` and how it works. I discovered that the relevant methods were — luckily — called regardless of whether the `contentOffset` was changed manually, or programatically.
+
+If they weren’t, then I’m sure the eventual solution to this problem would’ve wound up way, way more complicated! So, thanks UIKit team @ Apple!
+
+Of course, we need to be careful of UIKit behaviour changing in the future, so as always, tread carefully. Don’t make assumptions, and read the documentation carefully.
+
+Thanks for reading!

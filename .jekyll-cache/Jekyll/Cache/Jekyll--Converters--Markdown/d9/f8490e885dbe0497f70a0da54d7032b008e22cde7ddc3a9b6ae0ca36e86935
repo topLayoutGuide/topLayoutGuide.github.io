@@ -1,0 +1,80 @@
+I"�<h4 id="wax-in-wax-out-wait">Wax In. Wax Out… Wait.</h4>
+
+<p>There may come a time when writing an animation on iOS, that the simple, inbuilt animation “curves” no longer suit your requirements. If the previous words sent you for a tailspin, read on.</p>
+
+<p>Let’s start with a quick lesson:</p>
+
+<h3 id="what-are-bézier-curves">What Are Bézier Curves?</h3>
+
+<p>If we get into the specifics of it -</p>
+
+<blockquote>
+  <p>A Bézier curve (pronounced [bezje]) is a parametric curve frequently used in computer graphics and related fields.
+— Wikipedia</p>
+</blockquote>
+
+<hr />
+
+<p>Let’s say I queried an API for a list of all movies released in the last twenty years. If I were to display that in an app for iOS, I’d sort it in alphabetical order since we’re talking about (potentially) thousands of movies. The UI would be simple, a <code class="language-plaintext highlighter-rouge">UITableView</code> with sections A-through-Z, and a rolodex bar on the right hand side.</p>
+
+<p>I’ve seen an implementation similar to this, many times:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="c1">//</span>
+<span class="c1">// NB: Might not compile...</span>
+<span class="c1">//</span>
+
+<span class="k">let</span> <span class="nv">alphabet</span> <span class="o">=</span> <span class="s">"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"</span>
+
+<span class="k">for</span> <span class="n">letter</span> <span class="k">in</span> <span class="n">alphabet</span> <span class="p">{</span>
+  <span class="k">var</span> <span class="nv">list</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Movies</span><span class="p">]()</span>
+
+  <span class="k">for</span> <span class="n">movie</span> <span class="k">in</span> <span class="n">movies</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">prefix</span> <span class="o">=</span> <span class="n">movie</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="nf">prefix</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="k">prefix</span> <span class="o">==</span> <span class="n">letter</span> <span class="p">{</span>
+      <span class="n">list</span><span class="o">.</span><span class="nf">append</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="n">indexedList</span><span class="o">.</span><span class="nf">append</span><span class="p">((</span><span class="n">letter</span><span class="p">,</span> <span class="n">list</span><span class="p">))</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Loosely, what that’s doing is going through the alphabet and for each matching movie, making a data structure as follows:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="p">[(</span><span class="s">"A"</span><span class="p">:</span> <span class="p">[</span><span class="kt">Movie</span><span class="p">,</span> <span class="kt">Movie</span><span class="p">,</span> <span class="kt">Movie</span><span class="p">]),</span> <span class="p">(</span><span class="s">"B"</span><span class="p">:</span> <span class="p">[</span><span class="kt">Movie</span><span class="p">,</span> <span class="kt">Movie</span><span class="p">]),</span> <span class="p">(</span><span class="s">"C"</span><span class="o">.....</span><span class="p">)]</span></code></pre></figure>
+
+<p>The time complexity of this algorithm would probably be <em>O(n²)</em>. For each time the outer loop runs N, the inner loop runs M times. In other words, the longer the list of movies becomes, the longer it takes for your implementation to do its job.</p>
+
+<p>Using this with an iPhone 6, it takes almost a full two seconds to sort a list of 15,000 items. Frustratingly slow. If you do your sort on <code class="language-plaintext highlighter-rouge">viewWillAppear</code> or <code class="language-plaintext highlighter-rouge">viewDidLoad</code> it will actually block the transition from happening right away.</p>
+
+<h3 id="lets-use-dictionary-grouping">Let’s Use Dictionary Grouping</h3>
+
+<p>We can somewhat overcome this by using Dictionary grouping in Swift. I took my list of movies, and wrote a predicate:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">predicate</span><span class="p">:</span> <span class="p">(</span><span class="kt">Movie</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span>
+  <span class="k">guard</span> <span class="k">let</span> <span class="nv">c</span> <span class="o">=</span> <span class="kt">String</span><span class="p">(</span><span class="nv">$0</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="nf">prefix</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="k">else</span> <span class="p">{</span> <span class="nf">fatalError</span><span class="p">()</span> <span class="p">}</span>
+  
+  <span class="k">let</span> <span class="nv">alphabet</span> <span class="o">=</span> <span class="s">"ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>
+  <span class="k">let</span> <span class="nv">numeric</span> <span class="o">=</span> <span class="s">"0123456789"</span>
+  <span class="k">if</span> <span class="n">alphabet</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">c</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="n">numeric</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">"#"</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s">"?"</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>I have defined my rules with the predicate. If the title of the movie begins with an alphabet character, group that movie in the appropriate category. If the title of the movie begins with a number, group it under #, and lastly under ? if it doesn’t match any of the above.</p>
+
+<p>Then I created a Dictionary, giving it my predicate, and sort it in ascending order.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">let</span> <span class="nv">grouped</span> <span class="o">=</span> <span class="kt">Dictionary</span><span class="p">(</span><span class="nv">grouping</span><span class="p">:</span> <span class="n">movies</span><span class="p">,</span> <span class="nv">by</span><span class="p">:</span> <span class="n">predicate</span><span class="p">)</span><span class="o">.</span><span class="n">sorted</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="nv">$1</span><span class="o">.</span><span class="mi">0</span> <span class="p">}</span></code></pre></figure>
+
+<p>This results in the data structure I desire. The time taken was reduced from two seconds, to a mere 146ms (or 0.146 seconds) on an iPhone 6, sorting the same 15,000 items. I also sampled this on an iPhone X, and was pleasantly surprised by the 25ms (0.025 second) result.</p>
+
+<hr />
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>It’s up to you on how you want to partition your data. You can reinvent the wheel, or you can use things that Swift provides to you out of the box. Hopefully this post has given you some motivation to improve your apps, or learn Swift!</p>
+
+<p>In a future iteration of this, I turned it into a service object which I can then Mock for unit testing. I’ll post this later.</p>
+:ET
