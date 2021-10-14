@@ -4,7 +4,7 @@
   <id>http://localhost:4000</id>
   <link href="http://localhost:4000" />
   <link href="http://localhost:4000/atom.xml" rel="self" />
-  <updated>2021-10-14T19:56:05+09:00</updated>
+  <updated>2021-10-14T20:10:26+09:00</updated>
   <rights>Copyright 2021, Benjamin Deckys</rights>
   <author>
     <name>Benjamin Deckys</name>
@@ -575,6 +575,70 @@ We &lt;em&gt;could&lt;/em&gt; finish here… or we could push the pedal to the m
 </summary>
       <id>http://localhost:4000/2019/12/23/til-dict-group/</id>
       <updated>2019-12-23T21:00:00+09:00</updated>
+      <author>
+        <name>Benjamin Deckys</name>
+      </author>
+    </entry>
+  
+    <entry>
+      <title>TIL: CircleCI Workflow Approvals</title>
+      <link href="http://localhost:4000/2019/01/19/approvals/" />
+      <summary type="html">&lt;h4 id=&quot;you-shall-not-pass-maybe&quot;&gt;You Shall Not Pass!… Maybe!&lt;/h4&gt;
+
+&lt;h3 id=&quot;intro&quot;&gt;Intro&lt;/h3&gt;
+
+&lt;p&gt;In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move… just kidding!&lt;/p&gt;
+
+&lt;p&gt;It all started in 2019. On one Thursday evening at the office, I had some bandwidth available to tackle a long-standing thorn in my team’s side — enabling manual deployment using our CircleCI environment.&lt;/p&gt;
+
+&lt;p&gt;Up until then, we had had various ideas of using (see: building &amp;amp; maintaining) different tools, or utilising an entirely separate service, to achieve our end-goal. Ideally, we should have been able to tap into the CircleCI API, and trigger jobs this way. It didn’t look possible with our current setup, and we were upset.&lt;/p&gt;
+
+&lt;p&gt;However, we had a simpler solution at hand, unbeknownst to us.&lt;/p&gt;
+
+&lt;h3 id=&quot;workflows&quot;&gt;Workflows&lt;/h3&gt;
+
+&lt;p&gt;According to CircleCI’s documentation, in order to increase the speed of software development through faster feedback, shorter reruns, and more efficient use of resources, we should configure Workflows.&lt;/p&gt;
+
+&lt;p&gt;We already used these, and they served us well. However there was a config key which we weren’t aware of at the time — &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type: approval&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The documentation surrounding it was confusingly worded and difficult to understand. But after a few re-reads, I got there.&lt;/p&gt;
+
+&lt;h3 id=&quot;approval&quot;&gt;Approval&lt;/h3&gt;
+
+&lt;p&gt;When you give a job under a CircleCI workflow the approval type, the “job” must be entirely unique within your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config.yml&lt;/code&gt;. For example, if you have three main jobs defined:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;build&lt;/li&gt;
+  &lt;li&gt;test&lt;/li&gt;
+  &lt;li&gt;deploy&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Each of which run inside your workflow/s, then the manual trigger must be named something other than any of the above.&lt;/p&gt;
+
+&lt;p&gt;It also must be defined only within your workflows. Furthermore, in order for the manual trigger to actually work, another subsequent job must depend upon it.&lt;/p&gt;
+
+&lt;p&gt;I named my trigger &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;deploy-branch&lt;/code&gt;. This will only be run when one opens the CircleCI Web UI (via Github in our case), and initiates it manually.&lt;/p&gt;
+
+&lt;p&gt;In other words, when one gives approval.&lt;/p&gt;
+
+&lt;h3 id=&quot;our-results&quot;&gt;Our Results&lt;/h3&gt;
+
+&lt;p&gt;Once I went ahead and tweaked a workflow to include a job with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;type: approval&lt;/code&gt;, we had a bona fide manual trigger available to us, finally.&lt;/p&gt;
+
+&lt;p&gt;It didn’t have a fancy interface, such as a Github label or a Slackbot command, however it did exactly what we needed it to do.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;As an iOS Developer by specialty, I well and truly stepped outside my comfort zone while fiddling with our CI environment.&lt;/p&gt;
+
+&lt;p&gt;However, I feel that this little adventure helped me deepen my skillset overall. Especially when it comes to the build environment enveloping the apps that I help create.&lt;/p&gt;
+
+&lt;p&gt;I can only hope that this helps other teams… If you already knew how to do this, then good for you! However I didn’t, so I decided to blog about it. 😋&lt;/p&gt;
+
+&lt;p&gt;Thanks for reading!&lt;/p&gt;
+</summary>
+      <id>http://localhost:4000/2019/01/19/approvals/</id>
+      <updated>2019-01-19T21:00:00+09:00</updated>
       <author>
         <name>Benjamin Deckys</name>
       </author>

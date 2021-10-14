@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <title>toplayoutguide's ios blog - A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta http-equiv="content-language" content="en-gb" />
+      <meta name="description" content="A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="/css/main.css" />
+      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="off-canvas">
+      <figure class="avatar">
+        <img src="/assets/img/avatar.png" alt="Picture" title="That's me, Hi!">
+      </figure>
+      <div class="bio">
+          <h1>G'day, I'm Benjamin.</h1>
+          <p>I'm an iOS Engineer. I play with Xcode and make things.
+
+I love coding, petting Dogs, drinking coffee, cycling, and binge-watching Netflix.
+
+This is my blog so why don't we close this here side panel and enjoy some code?</p>
+      </div>
+      <nav>
+        <h6>Follow me on</h6>
+        <ul>
+          
+          <li><a target="_blank" href="https://twitter.com/viewdidappear">Twitter</a></li>
+          
+          
+          <li><a target="_blank" href="https://github.com/toplayoutguide">Github</a></li>
+          
+          
+          
+          <li><a target="_blank" href="https://instagram.com/okokokjeez">Instagram</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+
+
+    <div class="site-wrapper">
+
+      <header>
+        <div class="h-wrap">
+          <h1 class="title"><a href="/" title="Back to Homepage">toplayoutguide's ios blog</a></h1>
+          <a class="menu-icon" title="Open Bio"><span class="lines"></span></a>
+        </div>
+      </header>
+
+      <main>
+        <section class="single-wrap">
+  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="feat">
+      <h5 class="page-date">
+        <time datetime="2019-01-19T21:00:00+09:00" itemprop="datePublished">
+          19 January 2019
+        </time>
+      </h5>
+    </div>
+    <h1 class="page-title" itemprop="name headline">TIL: CircleCI Workflow Approvals</h1>
+    <div itemprop="articleBody">
+      <h4 id="you-shall-not-pass-maybe">You Shall Not Pass!… Maybe!</h4>
+
+<h3 id="intro">Intro</h3>
+
+<p>In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move… just kidding!</p>
+
+<p>It all started in 2019. On one Thursday evening at the office, I had some bandwidth available to tackle a long-standing thorn in my team’s side — enabling manual deployment using our CircleCI environment.</p>
+
+<p>Up until then, we had had various ideas of using (see: building &amp; maintaining) different tools, or utilising an entirely separate service, to achieve our end-goal. Ideally, we should have been able to tap into the CircleCI API, and trigger jobs this way. It didn’t look possible with our current setup, and we were upset.</p>
+
+<p>However, we had a simpler solution at hand, unbeknownst to us.</p>
+
+<h3 id="workflows">Workflows</h3>
+
+<p>According to CircleCI’s documentation, in order to increase the speed of software development through faster feedback, shorter reruns, and more efficient use of resources, we should configure Workflows.</p>
+
+<p>We already used these, and they served us well. However there was a config key which we weren’t aware of at the time — <code class="language-plaintext highlighter-rouge">type: approval</code>.</p>
+
+<p>The documentation surrounding it was confusingly worded and difficult to understand. But after a few re-reads, I got there.</p>
+
+<h3 id="approval">Approval</h3>
+
+<p>When you give a job under a CircleCI workflow the approval type, the “job” must be entirely unique within your <code class="language-plaintext highlighter-rouge">config.yml</code>. For example, if you have three main jobs defined:</p>
+
+<ul>
+  <li>build</li>
+  <li>test</li>
+  <li>deploy</li>
+</ul>
+
+<p>Each of which run inside your workflow/s, then the manual trigger must be named something other than any of the above.</p>
+
+<p>It also must be defined only within your workflows. Furthermore, in order for the manual trigger to actually work, another subsequent job must depend upon it.</p>
+
+<p>I named my trigger <code class="language-plaintext highlighter-rouge">deploy-branch</code>. This will only be run when one opens the CircleCI Web UI (via Github in our case), and initiates it manually.</p>
+
+<p>In other words, when one gives approval.</p>
+
+<h3 id="our-results">Our Results</h3>
+
+<p>Once I went ahead and tweaked a workflow to include a job with <code class="language-plaintext highlighter-rouge">type: approval</code>, we had a bona fide manual trigger available to us, finally.</p>
+
+<p>It didn’t have a fancy interface, such as a Github label or a Slackbot command, however it did exactly what we needed it to do.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>As an iOS Developer by specialty, I well and truly stepped outside my comfort zone while fiddling with our CI environment.</p>
+
+<p>However, I feel that this little adventure helped me deepen my skillset overall. Especially when it comes to the build environment enveloping the apps that I help create.</p>
+
+<p>I can only hope that this helps other teams… If you already knew how to do this, then good for you! However I didn’t, so I decided to blog about it. 😋</p>
+
+<p>Thanks for reading!</p>
+
+    </div>
+    <div class="feat share">
+      <a href="http://twitter.com/share" class="popup">
+        
+        
+        
+      </a>
+    </div>
+    
+      <a rel="next" href="/2019/12/23/til-dict-group/" id="next">
+        <span class="nav-title nav-title-next">newer</span> &rarr;
+      </a>
+    
+    
+      <a rel="prev" href="/2016/09/07/string-conv/" id="prev">
+        &larr; <span class="nav-title nav-title-prev">older</span>
+      </a>
+    
+  </article>
+</section>
+
+      </main>
+
+      <footer>
+        <small>Yours truly, &copy; Benjamin Deckys</small>
+      </footer>
+
+    </div>
+    
+
+    <script src="/js/main.js"></script>
+    
+    
+
+  </body>
+</html>
