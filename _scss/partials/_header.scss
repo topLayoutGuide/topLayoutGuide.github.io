@@ -18,9 +18,7 @@ header {
       -webkit-transition: all .3s ease;
         transition: all .3s ease;
       &:hover {
-        color: lighten($text-color, 20%);
-        -webkit-transition: all .3s ease;
-        transition: all .3s ease;
+        color: lighten($text-color, 30%);
       }
     }
   } // end h1.title
