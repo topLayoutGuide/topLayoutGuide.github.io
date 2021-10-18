@@ -1,0 +1,295 @@
+I"-�<h4 id="bounce-b-bounce-bounce-bou-bounce">Bounce, b-bounce, bounce, bou-bounce…</h4>
+
+<h3 id="intro">Intro</h3>
+
+<p>A few years ago, I wrote my first ever custom <code class="language-plaintext highlighter-rouge">UICollectionViewFlowLayout</code>. It made everything bounce like Messages app does with its chat bubbles on iOS.</p>
+
+<p>If you’ve never noticed the effect before, open a conversation in Messages on your iPhone or iPad, and scroll around a bit. If you pay attention, you’ll see that the items further away from your finger move slower than the items closer to it. In other words, they have inertia.</p>
+
+<p>One weekend in May of 2019, I was cleaning up old files on my Mac and I found the file again. It was terribly written, so I refactored it and wrote a post about it. Tonight, I found it again, and I realised I can improve it even more!</p>
+
+<p>What am I rewriting? This effect for <code class="language-plaintext highlighter-rouge">UICollectionView</code>: 👇</p>
+
+<p><img src="/assets/img/bounce-old.gif" /></p>
+
+<p>It’s quite simple, really. It uses everything <code class="language-plaintext highlighter-rouge">UICollectionViewFlowLayout</code> provides out of the box, but it adds <code class="language-plaintext highlighter-rouge">UIDynamicItem</code> to create the bounce effect.</p>
+
+<blockquote>
+  <p><strong>Note:</strong> You don’t need to opt for a grid, you can go for rows too.</p>
+</blockquote>
+
+<p>The original implementation from 2017 simply added a <code class="language-plaintext highlighter-rouge">UIAttachmentBehavior</code> to every item in the <code class="language-plaintext highlighter-rouge">UICollectionView.contentSize</code>. This was fine for relatively short lists, but it began to lag significantly when you approached higher numbers. (I was testing with an iPhone 6S Plus at the time).</p>
+
+<h3 id="setup-the-vc">Setup The VC</h3>
+
+<p>Make a new Single-view Xcode Project, and add a new file to it. Call this new file <code class="language-plaintext highlighter-rouge">BounceCollectionViewLayout.swift</code>.</p>
+
+<p>Now, open up <code class="language-plaintext highlighter-rouge">ViewController.swift</code> and set it up:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">final</span> <span class="kd">class</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UIViewController</span> <span class="p">{</span>
+
+  <span class="kd">@IBOutlet</span> <span class="kd">private</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="o">!</span> <span class="p">{</span>
+    <span class="k">didSet</span> <span class="p">{</span>
+      <span class="n">collectionView</span><span class="o">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="k">self</span>
+      <span class="n">collectionView</span><span class="o">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="k">self</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="kd">private</span> <span class="k">let</span> <span class="nv">fakeDataSource</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="o">...</span><span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span> <span class="p">}</span> <span class="c1">// Testing with 10,000 items!</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">viewDidLoad</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">viewDidLoad</span><span class="p">()</span>
+    <span class="n">collectionView</span><span class="o">.</span><span class="nf">reloadData</span><span class="p">()</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UICollectionViewDelegate</span> <span class="p">{}</span>
+
+<span class="kd">extension</span> <span class="kt">ViewController</span><span class="p">:</span> <span class="kt">UICollectionViewDataSource</span> <span class="p">{</span>
+  <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">numberOfItemsInSection</span> <span class="nv">section</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">fakeDataSource</span><span class="o">.</span><span class="n">count</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">cellForItemAt</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewCell</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">collectionView</span><span class="o">.</span><span class="nf">dequeueReusableCell</span><span class="p">(</span><span class="nv">withReuseIdentifier</span><span class="p">:</span> <span class="s">"Cell"</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="n">indexPath</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Add a <code class="language-plaintext highlighter-rouge">UICollectionView</code> to your Storyboard, making sure to add a prototype cell with an identifier of <code class="language-plaintext highlighter-rouge">"Cell"</code> for the demo. Set the background color of the prototype cell to a bright color so you can easily see them (such as orange), and don’t forget to connect the collectionView <code class="language-plaintext highlighter-rouge">IBOutlet</code> to the view controller!</p>
+
+<h3 id="setup-the-layout">Setup The Layout</h3>
+
+<p>Open up <code class="language-plaintext highlighter-rouge">BounceCollectionViewLayout.swift</code> and paste in the following boilerplate code:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">import</span> <span class="kt">UIKit</span>
+
+<span class="kd">final</span> <span class="kd">class</span> <span class="kt">BounceCollectionViewLayout</span><span class="p">:</span> <span class="kt">UICollectionViewFlowLayout</span> <span class="p">{</span>
+
+  <span class="kd">private</span> <span class="k">var</span> <span class="nv">dynamicAnimator</span><span class="p">:</span> <span class="kt">UIDynamicAnimator</span><span class="o">!</span>
+  <span class="kd">private</span> <span class="k">var</span> <span class="nv">visibleIndexPaths</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">IndexPath</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="kd">private</span> <span class="k">var</span> <span class="nv">latestDelta</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="c1">// MARK: - Initialization</span>
+  <span class="k">override</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>
+    <span class="nf">commonInit</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="kd">required</span> <span class="nf">init</span><span class="p">?(</span><span class="n">coder</span> <span class="nv">aDecoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">coder</span><span class="p">:</span> <span class="n">aDecoder</span><span class="p">)</span>
+    <span class="nf">commonInit</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">commonInit</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">dynamicAnimator</span> <span class="o">=</span> <span class="kt">UIDynamicAnimator</span><span class="p">(</span><span class="nv">collectionViewLayout</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kd">deinit</span> <span class="p">{</span>
+    <span class="n">dynamicAnimator</span><span class="o">.</span><span class="nf">removeAllBehaviors</span><span class="p">()</span>
+    <span class="n">visibleIndexPaths</span><span class="o">.</span><span class="nf">removeAll</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">prepare</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">prepare</span><span class="p">()</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">elementsInVisibleRect</span> <span class="o">=</span> <span class="k">super</span><span class="o">.</span><span class="nf">layoutAttributesForElements</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">visibleRect</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+
+    <span class="c1">// Step 3</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">layoutAttributesForElements</span><span class="p">(</span><span class="k">in</span> <span class="nv">rect</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UICollectionViewLayoutAttributes</span><span class="p">]?</span> <span class="p">{</span>
+    <span class="n">dynamicAnimator</span><span class="o">.</span><span class="nf">items</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">rect</span><span class="p">)</span> <span class="k">as?</span> <span class="p">[</span><span class="kt">UICollectionViewLayoutAttributes</span><span class="p">]</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">layoutAttributesForItem</span><span class="p">(</span><span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewLayoutAttributes</span><span class="p">?</span> <span class="p">{</span>
+    <span class="n">dynamicAnimator</span><span class="o">.</span><span class="nf">layoutAttributesForCell</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="n">indexPath</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">shouldInvalidateLayout</span><span class="p">(</span><span class="n">forBoundsChange</span> <span class="nv">newBounds</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">collectionView</span> <span class="o">=</span> <span class="n">collectionView</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span> <span class="p">}</span>
+
+    <span class="c1">// Step 3</span>
+    <span class="k">return</span> <span class="kc">false</span>
+  <span class="p">}</span>
+
+<span class="p">}</span></code></pre></figure>
+
+<h4 id="breakpoint">Breakpoint</h4>
+
+<p>Using <code class="language-plaintext highlighter-rouge">commonInit()</code>, we can make sure the animator exists if we programatically create the layout, or we set the layout in the Storyboard.</p>
+
+<p>The layout doesn’t do anything “new” yet. But it’s getting there!</p>
+
+<h3 id="implement-the-layout">Implement The Layout</h3>
+
+<p>Last time I focused on just “getting it done.” I paid little attention to the performance of the layout itself. The app that used this layout only ever displayed 25 items on one screen. It didn’t need to be overly optimised, it just had to look <em>pretty</em>.</p>
+
+<p>To make this as efficient as possible, any items not visible on the screen are going to be completely removed. This will be achieved by using a <code class="language-plaintext highlighter-rouge">visibleRect</code> on the collection view. It will let me know how many items are currently visible, and attach the <code class="language-plaintext highlighter-rouge">UIDynamicBehavior</code> to only those.</p>
+
+<p>Let’s update that layout class:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">final</span> <span class="kd">class</span> <span class="kt">BounceCollectionViewLayout</span><span class="p">:</span> <span class="kt">UICollectionViewFlowLayout</span> <span class="p">{</span>
+
+  <span class="kd">private</span> <span class="k">var</span> <span class="nv">dynamicAnimator</span><span class="p">:</span> <span class="kt">UIDynamicAnimator</span><span class="o">!</span>
+  <span class="kd">private</span> <span class="k">var</span> <span class="nv">visibleIndexPaths</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">IndexPath</span><span class="o">&gt;</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="kd">private</span> <span class="k">var</span> <span class="nv">latestDelta</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="c1">// MARK: - Initialization</span>
+  <span class="k">override</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">()</span>
+    <span class="nf">commonInit</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="kd">required</span> <span class="nf">init</span><span class="p">?(</span><span class="n">coder</span> <span class="nv">aDecoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">coder</span><span class="p">:</span> <span class="n">aDecoder</span><span class="p">)</span>
+    <span class="nf">commonInit</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="kd">func</span> <span class="nf">commonInit</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">self</span><span class="o">.</span><span class="n">dynamicAnimator</span> <span class="o">=</span> <span class="kt">UIDynamicAnimator</span><span class="p">(</span><span class="nv">collectionViewLayout</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="c1">// MARK: - Lifecycle</span>
+  <span class="kd">deinit</span> <span class="p">{</span>
+    <span class="n">dynamicAnimator</span><span class="o">.</span><span class="nf">removeAllBehaviors</span><span class="p">()</span>
+    <span class="n">visibleIndexPaths</span><span class="o">.</span><span class="nf">removeAll</span><span class="p">()</span>
+  <span class="p">}</span>
+
+  <span class="kd">private</span> <span class="k">var</span> <span class="nv">visibleRect</span><span class="p">:</span> <span class="kt">CGRect</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">collectionView</span> <span class="o">=</span> <span class="n">collectionView</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="o">.</span><span class="n">zero</span> <span class="p">}</span>
+
+    <span class="k">return</span> <span class="kt">CGRect</span><span class="p">(</span>
+      <span class="nv">x</span><span class="p">:</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="c1">// equivalent to contentOffset.x</span>
+      <span class="nv">y</span><span class="p">:</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="c1">// equivalent to contentOffset.y</span>
+      <span class="nv">width</span><span class="p">:</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+      <span class="nv">height</span><span class="p">:</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span>
+    <span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="c1">/// A "disused" behaviour exists within the dynamicAnimator, but not the visible rect's layoutAttributes array.</span>
+  <span class="kd">private</span> <span class="kd">func</span> <span class="nf">removeDisusedBehaviours</span><span class="p">(</span><span class="n">from</span> <span class="nv">layoutAttributes</span><span class="p">:</span> <span class="p">[</span><span class="kt">UICollectionViewLayoutAttributes</span><span class="p">])</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">indexPaths</span> <span class="o">=</span> <span class="n">layoutAttributes</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="nv">$0</span><span class="o">.</span><span class="n">indexPath</span> <span class="p">}</span>
+
+    <span class="n">dynamicAnimator</span><span class="o">.</span><span class="n">behaviors</span>
+      <span class="o">.</span><span class="n">compactMap</span> <span class="p">{</span> <span class="nv">$0</span> <span class="k">as?</span> <span class="kt">UIAttachmentBehavior</span> <span class="p">}</span>
+      <span class="o">.</span><span class="n">filter</span> <span class="p">{</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">layoutAttributes</span> <span class="o">=</span> <span class="nv">$0</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">first</span> <span class="k">as?</span> <span class="kt">UICollectionViewLayoutAttributes</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">false</span> <span class="p">}</span>
+        <span class="k">return</span> <span class="o">!</span><span class="n">indexPaths</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="n">layoutAttributes</span><span class="o">.</span><span class="n">indexPath</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="o">.</span><span class="n">forEach</span> <span class="p">{</span> <span class="n">object</span> <span class="k">in</span>
+        <span class="n">dynamicAnimator</span><span class="o">.</span><span class="nf">removeBehavior</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+        <span class="n">visibleIndexPaths</span><span class="o">.</span><span class="nf">remove</span><span class="p">((</span><span class="n">object</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">first</span> <span class="k">as!</span> <span class="kt">UICollectionViewLayoutAttributes</span><span class="p">)</span><span class="o">.</span><span class="n">indexPath</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">/// A "new" behaviour is contained within the layoutAttributes array, but not in the visibleIndexPaths.</span>
+  <span class="kd">private</span> <span class="kd">func</span> <span class="nf">addNewBehaviours</span><span class="p">(</span><span class="k">for</span> <span class="nv">layoutAttributes</span><span class="p">:</span> <span class="p">[</span><span class="kt">UICollectionViewLayoutAttributes</span><span class="p">])</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">collectionView</span> <span class="o">=</span> <span class="n">collectionView</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+
+    <span class="k">let</span> <span class="nv">touchLocation</span> <span class="o">=</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">panGestureRecognizer</span><span class="o">.</span><span class="nf">location</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">collectionView</span><span class="p">)</span>
+
+    <span class="n">layoutAttributes</span>
+      <span class="o">.</span><span class="n">filter</span> <span class="p">{</span>
+        <span class="o">!</span><span class="n">visibleIndexPaths</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="nv">$0</span><span class="o">.</span><span class="n">indexPath</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="o">.</span><span class="n">forEach</span> <span class="p">{</span> <span class="n">item</span> <span class="k">in</span>
+        <span class="k">let</span> <span class="nv">center</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">center</span>
+        <span class="k">let</span> <span class="nv">behaviour</span> <span class="o">=</span> <span class="kt">UIAttachmentBehavior</span><span class="p">(</span><span class="nv">item</span><span class="p">:</span> <span class="n">item</span><span class="p">,</span> <span class="nv">attachedToAnchor</span><span class="p">:</span> <span class="n">center</span><span class="p">)</span>
+        <span class="n">behaviour</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">behaviour</span><span class="o">.</span><span class="n">damping</span> <span class="o">=</span> <span class="mf">0.5</span>
+        <span class="n">behaviour</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mf">0.8</span>
+        <span class="n">behaviour</span><span class="o">.</span><span class="n">frictionTorque</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">if</span> <span class="o">!</span><span class="n">touchLocation</span><span class="o">.</span><span class="nf">equalTo</span><span class="p">(</span><span class="o">.</span><span class="n">zero</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">let</span> <span class="nv">distanceFromTouchY</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="nf">abs</span><span class="p">(</span><span class="n">touchLocation</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">behaviour</span><span class="o">.</span><span class="n">anchorPoint</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+          <span class="k">let</span> <span class="nv">distanceFromTouchX</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="nf">abs</span><span class="p">(</span><span class="n">touchLocation</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="n">behaviour</span><span class="o">.</span><span class="n">anchorPoint</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+          <span class="k">let</span> <span class="nv">scrollResistance</span> <span class="o">=</span> <span class="p">(</span><span class="n">distanceFromTouchY</span> <span class="o">+</span> <span class="n">distanceFromTouchX</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1500</span>
+          <span class="k">guard</span> <span class="k">let</span> <span class="nv">item</span> <span class="o">=</span> <span class="n">behaviour</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">first</span> <span class="k">as?</span> <span class="kt">UICollectionViewLayoutAttributes</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+
+          <span class="k">var</span> <span class="nv">center</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">center</span>
+          <span class="n">center</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">latestDelta</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">?</span> <span class="nf">max</span><span class="p">(</span><span class="n">latestDelta</span><span class="p">,</span> <span class="n">latestDelta</span> <span class="o">*</span> <span class="n">scrollResistance</span><span class="p">)</span> <span class="p">:</span> <span class="nf">min</span><span class="p">(</span><span class="n">latestDelta</span><span class="p">,</span> <span class="n">latestDelta</span> <span class="o">*</span> <span class="n">scrollResistance</span><span class="p">)</span>
+          <span class="n">item</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">center</span>
+        <span class="p">}</span>
+
+        <span class="n">dynamicAnimator</span><span class="o">.</span><span class="nf">addBehavior</span><span class="p">(</span><span class="n">behaviour</span><span class="p">)</span>
+        <span class="n">visibleIndexPaths</span><span class="o">.</span><span class="nf">insert</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">indexPath</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">prepare</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">super</span><span class="o">.</span><span class="nf">prepare</span><span class="p">()</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">elementsInVisibleRect</span> <span class="o">=</span> <span class="k">super</span><span class="o">.</span><span class="nf">layoutAttributesForElements</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">visibleRect</span><span class="p">)</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+
+    <span class="nf">removeDisusedBehaviours</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="n">elementsInVisibleRect</span><span class="p">)</span>
+    <span class="nf">addNewBehaviours</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="n">elementsInVisibleRect</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">layoutAttributesForElements</span><span class="p">(</span><span class="k">in</span> <span class="nv">rect</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UICollectionViewLayoutAttributes</span><span class="p">]?</span> <span class="p">{</span>
+    <span class="n">dynamicAnimator</span><span class="o">.</span><span class="nf">items</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">rect</span><span class="p">)</span> <span class="k">as?</span> <span class="p">[</span><span class="kt">UICollectionViewLayoutAttributes</span><span class="p">]</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">layoutAttributesForItem</span><span class="p">(</span><span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UICollectionViewLayoutAttributes</span><span class="p">?</span> <span class="p">{</span>
+    <span class="n">dynamicAnimator</span><span class="o">.</span><span class="nf">layoutAttributesForCell</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="n">indexPath</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="k">override</span> <span class="kd">func</span> <span class="nf">shouldInvalidateLayout</span><span class="p">(</span><span class="n">forBoundsChange</span> <span class="nv">newBounds</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">collectionView</span> <span class="o">=</span> <span class="n">collectionView</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span> <span class="p">}</span>
+
+    <span class="c1">// Step 4</span>
+    <span class="k">return</span> <span class="kc">false</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>When items fall outside of the <code class="language-plaintext highlighter-rouge">visibleRect</code>, which is defined as the current bounds of the collection view, they will be removed completely. Anything new will be added, and the current scroll delta applied so the effect still works.</p>
+
+<p>Finally, implement the <code class="language-plaintext highlighter-rouge">shouldInvalidateLayout()</code> function:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">override</span> <span class="kd">func</span> <span class="nf">shouldInvalidateLayout</span><span class="p">(</span><span class="n">forBoundsChange</span> <span class="nv">newBounds</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+  <span class="k">guard</span> <span class="k">let</span> <span class="nv">collectionView</span> <span class="o">=</span> <span class="n">collectionView</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span> <span class="p">}</span>
+
+  <span class="k">let</span> <span class="nv">delta</span> <span class="o">=</span> <span class="n">newBounds</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span>
+  <span class="k">let</span> <span class="nv">touchLocation</span> <span class="o">=</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">panGestureRecognizer</span><span class="o">.</span><span class="nf">location</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">collectionView</span><span class="p">)</span>
+  <span class="n">latestDelta</span> <span class="o">=</span> <span class="n">delta</span>
+
+  <span class="n">dynamicAnimator</span><span class="o">.</span><span class="n">behaviors</span>
+    <span class="o">.</span><span class="n">compactMap</span> <span class="p">{</span> <span class="nv">$0</span> <span class="k">as?</span> <span class="kt">UIAttachmentBehavior</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">forEach</span> <span class="p">{</span>
+      <span class="k">guard</span> <span class="k">let</span> <span class="nv">item</span> <span class="o">=</span> <span class="nv">$0</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">first</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="p">}</span>
+
+      <span class="k">let</span> <span class="nv">distanceFromTouchY</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="nf">abs</span><span class="p">(</span><span class="n">touchLocation</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="nv">$0</span><span class="o">.</span><span class="n">anchorPoint</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+      <span class="k">let</span> <span class="nv">distanceFromTouchX</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="nf">abs</span><span class="p">(</span><span class="n">touchLocation</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="nv">$0</span><span class="o">.</span><span class="n">anchorPoint</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+      <span class="k">let</span> <span class="nv">scrollResistance</span> <span class="o">=</span> <span class="p">(</span><span class="n">distanceFromTouchX</span> <span class="o">+</span> <span class="n">distanceFromTouchY</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1500</span>
+      <span class="k">var</span> <span class="nv">center</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">center</span>
+
+      <span class="n">center</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">delta</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">?</span> <span class="nf">min</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">delta</span> <span class="o">*</span> <span class="n">scrollResistance</span><span class="p">)</span> <span class="p">:</span> <span class="nf">max</span><span class="p">(</span><span class="n">delta</span><span class="p">,</span> <span class="n">delta</span> <span class="o">*</span> <span class="n">scrollResistance</span><span class="p">)</span>
+      <span class="n">item</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">center</span>
+
+      <span class="n">dynamicAnimator</span><span class="o">.</span><span class="nf">updateItem</span><span class="p">(</span><span class="nv">usingCurrentState</span><span class="p">:</span> <span class="n">item</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="kc">false</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="finally">Finally</h3>
+
+<p>Set the layout of the <code class="language-plaintext highlighter-rouge">UICollectionView</code> to ours in the Storyboard, then run the app and scroll around! You may notice a weird clipping effect… this is because we are deleting the items deemed as they fall out of the <code class="language-plaintext highlighter-rouge">visibleRect</code>. It’s not pretty, and it’s especially noticeable at the bottom.</p>
+
+<p>To overcome this, add some overflow to the <code class="language-plaintext highlighter-rouge">visibleRect</code>:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">private</span> <span class="k">var</span> <span class="nv">visibleRect</span><span class="p">:</span> <span class="kt">CGRect</span> <span class="p">{</span>
+  <span class="k">guard</span> <span class="k">let</span> <span class="nv">collectionView</span> <span class="o">=</span> <span class="n">collectionView</span> <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="o">.</span><span class="n">zero</span> <span class="p">}</span>
+
+  <span class="k">return</span> <span class="kt">CGRect</span><span class="p">(</span>
+    <span class="nv">x</span><span class="p">:</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="c1">// equivalent to contentOffset.x</span>
+    <span class="nv">y</span><span class="p">:</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">bounds</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="c1">// equivalent to contentOffset.y</span>
+    <span class="nv">width</span><span class="p">:</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">,</span>
+    <span class="nv">height</span><span class="p">:</span> <span class="n">collectionView</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span>
+  <span class="p">)</span><span class="o">.</span><span class="nf">insetBy</span><span class="p">(</span><span class="nv">dx</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">dy</span><span class="p">:</span> <span class="o">-</span><span class="mi">200</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now we have slightly more than a screen’s worth of cells on-screen with attached behaviours at any given time, but since it helps make the effect smoother I think it’s an acceptable trade-off.</p>
+
+<p><img src="/assets/img/smooth.gif" /></p>
+
+<p>The source code is <a href="https://github.com/topLayoutGuide/BounceCollectionViewLayout">AVAILABLE ON GITHUB</a>. All feedback is welcome!</p>
+:ET
