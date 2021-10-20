@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+      <title>toplayoutguide's ios blog - A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.</title>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta http-equiv="content-language" content="en-gb" />
+      <meta name="description" content="A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" type="text/css" href="/css/main.css" />
+      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
+  </head>
+
+  <body>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div class="off-canvas">
+      <figure class="avatar">
+        <img src="/assets/img/avatar.png" alt="Picture" title="That's me, Hi!">
+      </figure>
+      <div class="bio">
+          <h1>G'day, I'm Benjamin.</h1>
+          <p>I'm an iOS Engineer. I play with Xcode and make things.
+
+I love coding, petting Dogs, drinking coffee, cycling, and binge-watching Netflix.
+
+This is my blog so why don't we close this here side panel and enjoy some code?</p>
+      </div>
+      <nav>
+        <h6>Follow me on</h6>
+        <ul>
+          
+          <li><a target="_blank" href="https://twitter.com/viewdidappear">Twitter</a></li>
+          
+          
+          <li><a target="_blank" href="https://github.com/toplayoutguide">Github</a></li>
+          
+          
+          
+          <li><a target="_blank" href="https://instagram.com/okokokjeez">Instagram</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+
+
+    <div class="site-wrapper">
+
+      <header>
+        <div class="h-wrap">
+          <h1 class="title"><a href="/" title="Back to Homepage">toplayoutguide's ios blog</a></h1>
+          <a class="menu-icon" title="Open Bio"><span class="lines"></span></a>
+        </div>
+      </header>
+
+      <main>
+        <section class="single-wrap">
+  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="feat">
+      <h5 class="page-date">
+        <time datetime="2021-10-20T09:00:00+09:00" itemprop="datePublished">
+          20 October 2021
+        </time>
+      </h5>
+    </div>
+    <h1 class="page-title" itemprop="name headline">Swift: camelCase enums in snake_Case</h1>
+    <div itemprop="articleBody">
+      <h4 id="thatonetimeatbandcamp">thatOneTimeAtBandCamp</h4>
+
+<h3 id="intro">Intro</h3>
+
+<p>We’ve all defined enums in our code, where we’ve had to conform it to <code class="language-plaintext highlighter-rouge">String</code> and manually defined the <code class="language-plaintext highlighter-rouge">rawValue</code> to give it a <code class="language-plaintext highlighter-rouge">SNAKE_CASE</code> value. But what if we could rely on protocols to do it for us?</p>
+
+<h3 id="define-the-protocol">Define The Protocol</h3>
+
+<p>Much like <code class="language-plaintext highlighter-rouge">CustomStringConvertible</code>, we will name our protocol <code class="language-plaintext highlighter-rouge">SnakeCaseConvertible</code>. The name, being one of the three hard-to-solve problems in computer science, should hopefully indicate that the cases defined within are… convertible to snake case!</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">protocol</span> <span class="kt">SnakeCaseConvertible</span> <span class="p">{</span>
+    <span class="kd">associatedtype</span> <span class="kt">RawValue</span>
+
+    <span class="k">var</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now this is defined, we’ll extend it with a <em>default</em> implementation. This implementation will always be called unless we override it manually.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">extension</span> <span class="kt">SnakeCaseConvertible</span> <span class="k">where</span> <span class="kt">RawValue</span> <span class="o">==</span> <span class="kt">String</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">converted</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">regex</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">NSRegularExpression</span><span class="p">(</span><span class="nv">pattern</span><span class="p">:</span> <span class="s">"(</span><span class="se">\\</span><span class="s">b[a-z]+|</span><span class="se">\\</span><span class="s">G(?!^))((?:[A-Z]|</span><span class="se">\\</span><span class="s">d+)[a-z]*)"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[])</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nf">assertionFailure</span><span class="p">(</span><span class="s">"Invalid NSRegularExpression pattern."</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kt">String</span><span class="p">(</span><span class="nv">describing</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">let</span> <span class="nv">describingString</span> <span class="o">=</span> <span class="kt">String</span><span class="p">(</span><span class="nv">describing</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+        <span class="k">let</span> <span class="nv">range</span> <span class="o">=</span> <span class="kt">NSRange</span><span class="p">(</span><span class="nv">location</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">length</span><span class="p">:</span> <span class="n">describingString</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">regex</span><span class="o">.</span><span class="nf">stringByReplacingMatches</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">describingString</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">range</span><span class="p">:</span> <span class="n">range</span><span class="p">,</span> <span class="nv">withTemplate</span><span class="p">:</span> <span class="s">"$1_$2"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">var</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">RawValue</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">converted</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="finally">Finally</h3>
+
+<p>Given a bog-standard enum:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">enum</span> <span class="kt">MyEnum</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">SnakeCaseConvertible</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="n">thatOneTimeAtBandcamp</span>
+  <span class="k">case</span> <span class="n">iKnowWhatYouDidLastSummer</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>You can call <code class="language-plaintext highlighter-rouge">.rawValue</code> as normal, but this time the result will be in <code class="language-plaintext highlighter-rouge">snake_case</code>!</p>
+
+    </div>
+    <div class="feat share">
+      <a href="http://twitter.com/share" class="popup">
+        
+        
+        <span class="icon-twitter-sec"></span>
+        
+        
+        
+        
+      </a>
+    </div>
+    
+    
+      <a rel="prev" href="/2021/10/18/dynamic-animator/" id="prev">
+        &larr; <span class="nav-title nav-title-prev">older</span>
+      </a>
+    
+  </article>
+</section>
+
+      </main>
+
+      <footer>
+        <small>Yours truly, &copy; Benjamin Deckys</small>
+      </footer>
+
+    </div>
+    
+
+    <script src="/js/main.js"></script>
+    
+    
+
+  </body>
+</html>
