@@ -29,20 +29,20 @@ $monospaced: Menlo, Monaco, monospace !default;
 
 @font-face {
   font-family: "SegoeBlack";
-  src: url("../assets/fonts/SegoeWP-Black.tff") format('truetype');
+  src: url("/segoewp-black-webfont.woff2") format('woff2');
 }
 
 @font-face {
   font-family: "SegoeBold";
-  src: url("../assets/fonts/SegoeWP-Bold.tff") format('truetype');
+  src: url("/segoewp-bold-webfont.woff2") format('woff2');
 }
 
 @font-face {
   font-family: "SegoeLight";
-  src: url("../assets/fonts/SegoeWP-Light.tff") format('truetype');
+  src: url("/segoewp-light-webfont.woff2") format('woff2');
 }
 
 @font-face {
   font-family: "SegoeSemi";
-  src: url("../assets/fonts/SegoeWP-Semilight.tff") format('truetype');
+  src: url("/segoewp-semilight-webfont.woff2") format('woff2');
 }
