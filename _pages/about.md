@@ -1,0 +1,14 @@
+---
+layout: post
+title: "About This Blog"
+author: "Ben"
+permalink: /about/
+---
+
+I started my first professional iOS Developer position in 2015. Before that, I was entirely self-taught, learning and hacking away in my bedroom after school.
+
+One day, a colleague of mine suggested I write blog posts for the company. It was a nice "break" from programming, and it allowed me to develop my teaching skills. I thought and still do think that these are very valuable skills for a software engineer to have.
+
+At the beginning, everything was hosted on Medium and it served me well for a long time. However, Medium eventually introduced a Paywall, and it affected my content. I wasn't okay with that, so I moved everything here.
+
+Thanks for reading!

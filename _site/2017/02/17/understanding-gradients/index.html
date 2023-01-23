@@ -1,81 +1,83 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en">
+
   <head>
-      <title>viewDidAppear() - A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.</title>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <meta http-equiv="content-language" content="en-gb" />
-      <meta name="description" content="A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-      <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
-      <link rel="stylesheet" type="text/css" href="/css/main.css" />
-      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
-  </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>TIL: Understanding CAGradientLayer | viewDidAppear()</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="TIL: Understanding CAGradientLayer" />
+<meta name="author" content="Ben" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="If there’s one API that irritated me at the beginning of my career as an iOS developer, it was CAGradientLayer. As powerful as it is, it’s very verbose and it can be really confronting for a newbie." />
+<meta property="og:description" content="If there’s one API that irritated me at the beginning of my career as an iOS developer, it was CAGradientLayer. As powerful as it is, it’s very verbose and it can be really confronting for a newbie." />
+<link rel="canonical" href="http://localhost:4000/2017/02/17/understanding-gradients/" />
+<meta property="og:url" content="http://localhost:4000/2017/02/17/understanding-gradients/" />
+<meta property="og:site_name" content="viewDidAppear()" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-02-17T09:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="TIL: Understanding CAGradientLayer" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Ben" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Ben"},"dateModified":"2017-02-17T09:00:00+09:00","datePublished":"2017-02-17T09:00:00+09:00","description":"If there’s one API that irritated me at the beginning of my career as an iOS developer, it was CAGradientLayer. As powerful as it is, it’s very verbose and it can be really confronting for a newbie.","headline":"TIL: Understanding CAGradientLayer","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2017/02/17/understanding-gradients/"},"url":"http://localhost:4000/2017/02/17/understanding-gradients/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="viewDidAppear()" />
+
+  <!-- Google Analytics-->
+  
+</head>
+
 
   <body>
-    <!--[if lt IE 7]>
-        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
 
-    <div class="off-canvas">
-      <figure class="avatar">
-        <img src="/assets/img/avatar.png" alt="Picture" title="That's me, Hi!">
-      </figure>
-      <div class="bio">
-          <h1>G'day, I'm Benjamin.</h1>
-          <p>I'm an iOS Engineer. I play with Xcode and make things.
-
-I love coding, petting Dogs, drinking coffee, cycling, and binge-watching Netflix.
-
-This is my blog so why don't we close this here side panel and enjoy some code?</p>
-      </div>
-      <nav>
-        <h6>Follow me on</h6>
-        <ul>
-          
-          <li><a target="_blank" href="https://twitter.com/viewdidappear">Twitter</a></li>
-          
-          
-          <li><a target="_blank" href="https://github.com/viewdidappear">Github</a></li>
-          
-          
-          
-          <li><a target="_blank" href="https://instagram.com/okokokjeez">Instagram</a></li>
-          
-        </ul>
-      </nav>
-    </div>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <h2 class="nav-title">viewDidAppear()</h2>
+    </a>
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/tags">Tags</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </div>
+</nav>
 
 
-    <div class="site-wrapper">
+    <main>
+      <div class="post">
+  <div class="post-info">
+    <span>Written by</span>
+    
+        Ben
+    
 
-      <header>
-        <div class="h-wrap">
-          <h1 class="title"><a href="/" title="Back to Homepage">viewDidAppear()</a></h1>
-          <a class="menu-icon" title="Open Bio"><span class="lines"></span></a>
-        </div>
-      </header>
+    
+      <br>
+      <span>on&nbsp;</span><time datetime="2017-02-17 09:00:00 +0900">February 17, 2017</time>
+    
+  </div>
 
-      <main>
-        <section class="single-wrap">
-  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
-    <div class="feat">
-      <h5 class="page-date">
-        <time datetime="2017-02-17T09:00:00+09:00" itemprop="datePublished">
-          17 February 2017
-        </time>
-      </h5>
-    </div>
-    <h1 class="page-title" itemprop="name headline">TIL: Understanding CAGradientLayer</h1>
-    <div itemprop="articleBody">
-      <h4 id="gretchen-stop-trying-to-make-gradients-happen">Gretchen, Stop Trying To Make Gradients Happen…</h4>
+  <h1 class="post-title">TIL: Understanding CAGradientLayer</h1>
+  <div class="post-line"></div>
 
-<h3 id="intro">Intro</h3>
-
-<p>If there’s one API that irritated me at the beginning of my career as an iOS developer, it was <code class="language-plaintext highlighter-rouge">CAGradientLayer</code>. As powerful as it is, it’s very verbose and it can be really confronting for a newbie.</p>
+  <p>If there’s one API that irritated me at the beginning of my career as an iOS developer, it was <code class="language-plaintext highlighter-rouge">CAGradientLayer</code>. As powerful as it is, it’s very verbose and it can be really confronting for a newbie.</p>
 
 <p>Nevertheless, the time came where I had to draw a gradient in an app. No images. I turned to <code class="language-plaintext highlighter-rouge">CAGradientLayer</code> because I already understood it. Unfortunately it confused my team at the time, who were less familiar with it.</p>
 
@@ -151,43 +153,27 @@ This is my blog so why don't we close this here side panel and enjoy some code?<
 
 <p>Easy, no?</p>
 
-    </div>
-    <div class="feat share">
-      <a href="http://twitter.com/share" class="popup">
-        
-        
-        
-        
-        
-        <span class="icon-twitter-quin"></span>
-        
-      </a>
-    </div>
-    
-      <a rel="next" href="/2017/06/27/beziers/" id="next">
-        <span class="nav-title nav-title-next">newer</span> &rarr;
-      </a>
-    
-    
-      <a rel="prev" href="/2016/09/07/string-conv/" id="prev">
-        &larr; <span class="nav-title nav-title-prev">older</span>
-      </a>
-    
-  </article>
-</section>
+</div>
 
-      </main>
 
-      <footer>
-        <small>Yours truly, &copy; Benjamin Deckys</small>
-      </footer>
 
-    </div>
-    
+<div class="pagination">
+  
+    <a href="/2017/06/27/beziers/" class="left arrow">&#8592;</a>
+  
+  
+    <a href="/2016/09/07/string-conv/" class="right arrow">&#8594;</a>
+  
 
-    <script src="/js/main.js"></script>
-    
-    
+  <a href="#" class="top">Top</a>
+</div>
+    </main>
+
+    <footer>
+  <span>
+    &copy; 2009 - <time datetime="2023-01-23 15:51:47 +0900">2023</time> . Made with Github and Jekyll, because I'm cheap. You're welcome!
+  </span>
+</footer>
 
   </body>
 </html>

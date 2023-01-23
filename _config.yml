@@ -1,5 +1,9 @@
 # Title of your blog; shows in the header
-name: "viewDidAppear()"
+title: "viewDidAppear()"
+description: "A blog about Swift, and Swift-related happenings in my life."
+email: blog@ggggg.wtf
+theme: tale
+permalink:      /:year-:month-:day/:title
 
 # Description of your content (will only be used on Google Search)
 description: "A fun Swift programming blog. By an Australian iOS Engineer in Tokyo."
@@ -10,9 +14,6 @@ author: "Benjamin Deckys"
 url: "http://viewdidappear.github.io"
 baseurl: ""
 
-# A short presentation of yourself. Will show in the sidebar, under your name. Best usage would be between 30 to 50 words.
-author-bio: "I'm an iOS Engineer. I play with Xcode and make things.\n\nI love coding, petting Dogs, drinking coffee, cycling, and binge-watching Netflix.\n\nThis is my blog so why don't we close this here side panel and enjoy some code?"
-
 # Social Accounts
 
 twitter: viewdidappear
@@ -22,15 +23,30 @@ instagram: okokokjeez
 # Other
 
 markdown: kramdown
+include:
+  - _pages
 permalink: pretty
 plugins:
+  - jekyll-feed
   - jekyll-paginate
+  - jekyll-seo-tag
+  # - jemoji #Uncomment this to allow emoji in your post
 
-paginate: 20
+paginate: 5
 paginate_path: "/page/:num"
 
 # SCSS
 
 sass:
-  sass_dir: _scss
+  sass_dir: _sass
   style: :compressed
+
+# Author settings
+author:
+  - name: "viewDidAppear()"
+    bio: "I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation."
+    url: 
+
+# Build Settings
+
+exclude: [ Gemfile, Gemfile.lock, tale.gemspec ]

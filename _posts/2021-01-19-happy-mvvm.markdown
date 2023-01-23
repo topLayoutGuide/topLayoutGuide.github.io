@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: I'm Only Happy When It's MVVM!"
 date:   2021-01-19 19:53:11
 color:  "SEC"
 ---
-
-#### SwiftUI + MVVM + Combine + ReactiveSwift
-
-### Preface
 
 I think it’s fair to assume that everyone who went through lockdown, ended up rediscovering a passion or two while spending more time at home. I definitely include myself in this, as the monotony of my work-life routine had been turned on its head. I no longer woke up to a barely furnished apartment, dressed for work, and hurried for the train while gulping down my morning coffee. 
 

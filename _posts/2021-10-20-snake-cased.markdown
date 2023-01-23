@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: camelCase enums in snake_Case"
 date:   2021-10-20 00:00:00
 color:  "SEC"
 ---
-
-#### thatOneTimeAtBandCamp
-
-### Intro
 
 We've all defined enums in our code, where we've had to conform it to `String` and manually defined the `rawValue` to give it a `SNAKE_CASE` value. But what if we could rely on protocols to do it for us?
 

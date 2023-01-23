@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>viewDidAppear()</title>
+  <title></title>
   <id>http://localhost:4000</id>
   <link href="http://localhost:4000" />
   <link href="http://localhost:4000/atom.xml" rel="self" />
-  <updated>2021-10-28T22:36:06+09:00</updated>
-  <rights>Copyright 2021, Benjamin Deckys</rights>
+  <updated>2023-01-23T15:51:47+09:00</updated>
+  <rights>Copyright 2021, {"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</rights>
   <author>
-    <name>Benjamin Deckys</name>
+    <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
   </author>
+  
+    <entry>
+      <title>Shift It Back...</title>
+      <link href="http://localhost:4000/2023/01/23/restart/" />
+      <summary type="html">&lt;p&gt;It’s been more than a year since my last post. In all that time, I’ve been focusing on myself, which I realised I wasn’t doing much of before. I was burnt out to a point where I didn’t even know myself. I started eating better, going to the gym, working on my skincare, and putting more of myself into my personal relationships.&lt;/p&gt;
+
+&lt;p&gt;In a pleasant, unexpected turn of events, listening to and taking care of myself led to a restimulation of my creative juices. The blog is starting again, and I’m currently working on my own app for the store, for the first time since 2016.&lt;/p&gt;
+
+&lt;p&gt;That app—which I will be calling “turntable”—will be a total throwback to where I began in 2008. Back then, I had the idea, but lacked the overall skill to truly “do it justice.”&lt;/p&gt;
+
+&lt;p&gt;I can’t wait for all of you to see what I have waiting.&lt;/p&gt;
+</summary>
+      <id>http://localhost:4000/2023/01/23/restart/</id>
+      <updated>2023-01-23T09:01:00+09:00</updated>
+      <author>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
+      </author>
+    </entry>
   
     <entry>
       <title>Swift: Marquee Label</title>
       <link href="http://localhost:4000/2021/10/28/marquee-label/" />
-      <summary type="html">&lt;h4 id=&quot;next-stop-southern-cross-stat&quot;&gt;Next stop: Southern Cross Stat…&lt;/h4&gt;
-
-&lt;h3 id=&quot;intro&quot;&gt;Intro&lt;/h3&gt;
-
-&lt;p&gt;There come times when building our apps, where we need a label to either &lt;em&gt;wrap&lt;/em&gt; its text, or become a marquee in order to stop truncation of text. The latter effect is quite rare, but can be found in apps such as PayPay (Japan) while using their P2P payment system.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;There come times when building our apps, where we need a label to either &lt;em&gt;wrap&lt;/em&gt; its text, or become a marquee in order to stop truncation of text. The latter effect is quite rare, but can be found in apps such as PayPay (Japan) while using their P2P payment system.&lt;/p&gt;
 
 &lt;p&gt;A few years ago, I needed this effect. So I built a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIScrollLabel&lt;/code&gt; - &lt;em&gt;10 points for an inventive title&lt;/em&gt; - and put it on Github. I looked back upon it today, and realised that I thoroughly overcomplicated my solution.&lt;/p&gt;
 
@@ -232,18 +246,14 @@
       <id>http://localhost:4000/2021/10/28/marquee-label/</id>
       <updated>2021-10-28T09:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>Swift: camelCase enums in snake_Case</title>
       <link href="http://localhost:4000/2021/10/20/snake-cased/" />
-      <summary type="html">&lt;h4 id=&quot;thatonetimeatbandcamp&quot;&gt;thatOneTimeAtBandCamp&lt;/h4&gt;
-
-&lt;h3 id=&quot;intro&quot;&gt;Intro&lt;/h3&gt;
-
-&lt;p&gt;We’ve all defined enums in our code, where we’ve had to conform it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;String&lt;/code&gt; and manually defined the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rawValue&lt;/code&gt; to give it a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SNAKE_CASE&lt;/code&gt; value. But what if we could rely on protocols to do it for us?&lt;/p&gt;
+      <summary type="html">&lt;p&gt;We’ve all defined enums in our code, where we’ve had to conform it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;String&lt;/code&gt; and manually defined the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rawValue&lt;/code&gt; to give it a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SNAKE_CASE&lt;/code&gt; value. But what if we could rely on protocols to do it for us?&lt;/p&gt;
 
 &lt;h3 id=&quot;define-the-protocol&quot;&gt;Define The Protocol&lt;/h3&gt;
 
@@ -288,18 +298,14 @@
       <id>http://localhost:4000/2021/10/20/snake-cased/</id>
       <updated>2021-10-20T09:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>Swift: Fun With UIDynamicAnimator</title>
       <link href="http://localhost:4000/2021/10/18/dynamic-animator/" />
-      <summary type="html">&lt;h4 id=&quot;bounce-b-bounce-bounce-bou-bounce&quot;&gt;Bounce, b-bounce, bounce, bou-bounce…&lt;/h4&gt;
-
-&lt;h3 id=&quot;intro&quot;&gt;Intro&lt;/h3&gt;
-
-&lt;p&gt;A few years ago, I wrote my first ever custom &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UICollectionViewFlowLayout&lt;/code&gt;. It made everything bounce like Messages app does with its chat bubbles on iOS.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;A few years ago, I wrote my first ever custom &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UICollectionViewFlowLayout&lt;/code&gt;. It made everything bounce like Messages app does with its chat bubbles on iOS.&lt;/p&gt;
 
 &lt;p&gt;If you’ve never noticed the effect before, open a conversation in Messages on your iPhone or iPad, and scroll around a bit. If you pay attention, you’ll see that the items further away from your finger move slower than the items closer to it. In other words, they have inertia.&lt;/p&gt;
 
@@ -593,18 +599,14 @@
       <id>http://localhost:4000/2021/10/18/dynamic-animator/</id>
       <updated>2021-10-18T09:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>Swift: Animating UILabel Text Change</title>
       <link href="http://localhost:4000/2021/10/15/counting-label/" />
-      <summary type="html">&lt;h4 id=&quot;a-new-unique-record-called-up-and-down&quot;&gt;A new, unique record, called Up… and Down.&lt;/h4&gt;
-
-&lt;h3 id=&quot;intro&quot;&gt;Intro&lt;/h3&gt;
-
-&lt;p&gt;Have you ever needed a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UILabel&lt;/code&gt; to keep track of a numerical value? My best guess is that you have, but if you’ve ever wanted to animate between values, you probably found your choices limited.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;Have you ever needed a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UILabel&lt;/code&gt; to keep track of a numerical value? My best guess is that you have, but if you’ve ever wanted to animate between values, you probably found your choices limited.&lt;/p&gt;
 
 &lt;p&gt;I’ve wanted to animate &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UILabel&lt;/code&gt; content updates many times. Whenever I’m writing an app, I have a tendency to focus on the tiny details. I truly believe that microinteractions make the final product &lt;em&gt;better&lt;/em&gt;, even if the hours I spend curating the perfect animation go unnoticed.&lt;/p&gt;
 
@@ -789,18 +791,14 @@
       <id>http://localhost:4000/2021/10/15/counting-label/</id>
       <updated>2021-10-15T09:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>Swift: So I Wanted To Hide A UIView... Combine-ly</title>
       <link href="http://localhost:4000/2021/10/14/hide-view-3/" />
-      <summary type="html">&lt;h4 id=&quot;a-few-times-i-been-around-that-track&quot;&gt;A Few Times I Been Around That Track!&lt;/h4&gt;
-
-&lt;h3 id=&quot;oooooh&quot;&gt;Oooooh…&lt;/h3&gt;
-
-&lt;p&gt;A while ago in the previous installment, I implemented the following effect, as seen in the AirBNB app, using ReactiveSwift.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;A while ago in the previous installment, I implemented the following effect, as seen in the AirBNB app, using ReactiveSwift.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/img/parallax.gif&quot; /&gt;&lt;/p&gt;
 
@@ -963,22 +961,24 @@
       <id>http://localhost:4000/2021/10/14/hide-view-3/</id>
       <updated>2021-10-14T21:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
-      <title>Announcement: Goodbye, Medium!</title>
+      <title>Goodbye, Medium!</title>
       <link href="http://localhost:4000/2021/10/13/goodbye-medium/" />
       <summary type="html">&lt;p&gt;Welcome to my blog, again! As an iOS engineer keen on experimenting with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Swift&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SwiftUI&lt;/code&gt;, reading developers’ blogs has always been a way to learn from those who trudged through the wilderness before I.&lt;/p&gt;
 
-&lt;p&gt;So I thought it was time to give back, again!&lt;/p&gt;
+&lt;p&gt;So I thought it was time to give back!&lt;/p&gt;
 
-&lt;p&gt;I used to blog exclusively on &lt;em&gt;Medium&lt;/em&gt;, and I have quite a few posts there which many of my fellows found useful. Contributing to open-source software is a passion of mine, however my content on &lt;em&gt;Medium&lt;/em&gt; ceased to be free for all developers to access. Open-source software should not be held ransom behind a paywall. I want my posts to be accessible to all developers, so the platform became a hindrance to sharing my best learnings with the community.&lt;/p&gt;
+&lt;p&gt;I used to blog exclusively on &lt;em&gt;Medium&lt;/em&gt;, and I have quite a few posts there which many of my fellows found useful. Contributing to open-source software is a passion of mine, however my content on &lt;em&gt;Medium&lt;/em&gt; ceased to be free for all to access.&lt;/p&gt;
 
-&lt;p&gt;Going forward, I will be porting all content from Medium over here. Some of my older posts are written in older versions of Swift. The code may not be &lt;em&gt;the Swift-iest&lt;/em&gt; around or the cleanest, but I post it. I welcome all feedback, too! When I get going I can get into a bit of a frenzy…&lt;/p&gt;
+&lt;p&gt;I want my posts to be accessible to all developers, and the platform became a hindrance to sharing my best learnings with the community. &lt;em&gt;Open-source&lt;/em&gt; software should not be held ransom behind a paywall.&lt;/p&gt;
 
-&lt;p&gt;(Though really, when is UIBezierPath or CAAnimation &lt;em&gt;ever&lt;/em&gt; super tidy?)&lt;/p&gt;
+&lt;p&gt;Going forward, I will be porting all my old content over here. Some of my older posts are written in older versions of Swift. The code may not be &lt;em&gt;the Swift-iest&lt;/em&gt; or the cleanest around, but I’ll post it.&lt;/p&gt;
+
+&lt;p&gt;I welcome all feedback, too! (Though really, when is UIBezierPath or CAAnimation &lt;em&gt;ever&lt;/em&gt; super tidy?)&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;kd&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Content&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;isComingSoon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
@@ -990,18 +990,14 @@
       <id>http://localhost:4000/2021/10/13/goodbye-medium/</id>
       <updated>2021-10-13T09:05:11+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>Swift: I&apos;m Only Happy When It&apos;s MVVM!</title>
       <link href="http://localhost:4000/2021/01/20/happy-mvvm/" />
-      <summary type="html">&lt;h4 id=&quot;swiftui--mvvm--combine--reactiveswift&quot;&gt;SwiftUI + MVVM + Combine + ReactiveSwift&lt;/h4&gt;
-
-&lt;h3 id=&quot;preface&quot;&gt;Preface&lt;/h3&gt;
-
-&lt;p&gt;I think it’s fair to assume that everyone who went through lockdown, ended up rediscovering a passion or two while spending more time at home. I definitely include myself in this, as the monotony of my work-life routine had been turned on its head. I no longer woke up to a barely furnished apartment, dressed for work, and hurried for the train while gulping down my morning coffee.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;I think it’s fair to assume that everyone who went through lockdown, ended up rediscovering a passion or two while spending more time at home. I definitely include myself in this, as the monotony of my work-life routine had been turned on its head. I no longer woke up to a barely furnished apartment, dressed for work, and hurried for the train while gulping down my morning coffee.&lt;/p&gt;
 
 &lt;p&gt;My office had moved from a 20 minute train ride, to 20 feet away from my bed.&lt;/p&gt;
 
@@ -1141,18 +1137,14 @@
       <id>http://localhost:4000/2021/01/20/happy-mvvm/</id>
       <updated>2021-01-20T04:53:11+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>TIL: Dictionary Grouping In Swift Is Fast</title>
       <link href="http://localhost:4000/2019/12/23/til-dict-group/" />
-      <summary type="html">&lt;h4 id=&quot;very-very-fast&quot;&gt;Very, very fast.&lt;/h4&gt;
-
-&lt;h3 id=&quot;intro&quot;&gt;Intro&lt;/h3&gt;
-
-&lt;p&gt;Across our programming careers, it may surprise you but there are times where we need to sort and group collections of data. Sorting itself is a simple concept, but it’s the implementation you go with which can make you or break you.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;Across our programming careers, it may surprise you but there are times where we need to sort and group collections of data. Sorting itself is a simple concept, but it’s the implementation you go with which can make you or break you.&lt;/p&gt;
 
 &lt;p&gt;For example, the list of Contacts in your phone. Depending on your circumstances, that list is either small or (sometimes unreasonably) long. This is why there’s almost always a way to quickly navigate the list, removing the need to scroll too much. This is achieved with sorting, and grouping.&lt;/p&gt;
 
@@ -1226,18 +1218,14 @@
       <id>http://localhost:4000/2019/12/23/til-dict-group/</id>
       <updated>2019-12-23T21:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>Swift: Getting The Height Of A UIImage</title>
       <link href="http://localhost:4000/2019/04/21/img-height/" />
-      <summary type="html">&lt;h4 id=&quot;only-a-genius-could-love-a-woman-like-she&quot;&gt;Only A Genius Could Love A Woman Like She&lt;/h4&gt;
-
-&lt;h3 id=&quot;what-what-you-say&quot;&gt;What, What You Say?&lt;/h3&gt;
-
-&lt;p&gt;Have you ever wanted to get the size of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIImage&lt;/code&gt; contained within a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIImageView&lt;/code&gt;? It’s quite easy really, just use the following line of code:&lt;/p&gt;
+      <summary type="html">&lt;p&gt;Have you ever wanted to get the size of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIImage&lt;/code&gt; contained within a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIImageView&lt;/code&gt;? It’s quite easy really, just use the following line of code:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-swift&quot; data-lang=&quot;swift&quot;&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;??&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zero&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// optional for brevity&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -1350,18 +1338,14 @@
       <id>http://localhost:4000/2019/04/21/img-height/</id>
       <updated>2019-04-21T21:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>TIL: CircleCI Workflow Approvals</title>
       <link href="http://localhost:4000/2019/01/19/approvals/" />
-      <summary type="html">&lt;h4 id=&quot;you-shall-not-pass-maybe&quot;&gt;You Shall Not Pass!… Maybe!&lt;/h4&gt;
-
-&lt;h3 id=&quot;intro&quot;&gt;Intro&lt;/h3&gt;
-
-&lt;p&gt;In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move… just kidding!&lt;/p&gt;
+      <summary type="html">&lt;p&gt;In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move… just kidding!&lt;/p&gt;
 
 &lt;p&gt;It all started in 2019. On one Thursday evening at the office, I had some bandwidth available to tackle a long-standing thorn in my team’s side — enabling manual deployment using our CircleCI environment.&lt;/p&gt;
 
@@ -1414,18 +1398,14 @@
       <id>http://localhost:4000/2019/01/19/approvals/</id>
       <updated>2019-01-19T21:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>Swift: So I Wanted To Hide A UIView... ReactiveSwift-ly</title>
       <link href="http://localhost:4000/2018/12/09/hide-view-2/" />
-      <summary type="html">&lt;h4 id=&quot;life-in-plastic-its-fantastic&quot;&gt;Life In Plastic, It’s Fantastic&lt;/h4&gt;
-
-&lt;h3 id=&quot;imagination-life-is-your-creation&quot;&gt;Imagination, Life Is Your Creation&lt;/h3&gt;
-
-&lt;p&gt;In the previous installment, I implemented the following effect, as seen in the AirBNB app, using nothing more than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIKit&lt;/code&gt; and some basic math.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;In the previous installment, I implemented the following effect, as seen in the AirBNB app, using nothing more than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIKit&lt;/code&gt; and some basic math.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/img/parallax.gif&quot; /&gt;&lt;/p&gt;
 
@@ -1433,7 +1413,7 @@
 
 &lt;p&gt;Anyone can “master” the code, but at the end of the day it needs to be visually tested by humans to ensure that it works as expected. Most developers I know, including myself, usually need to tweak the code, run, and test it a few (hundred) times before it’s “perfect.”&lt;/p&gt;
 
-&lt;h3 id=&quot;come-on-barbie-lets-go-party&quot;&gt;Come On Barbie, Let’s Go Party!&lt;/h3&gt;
+&lt;h3 id=&quot;come-on&quot;&gt;Come On!&lt;/h3&gt;
 
 &lt;p&gt;What I didn’t expect while using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ReactiveSwift&lt;/code&gt; to achieve the goal, was that it helped me focus more on the data stream and its manipulation, than I do when using UIKit. I leant heavily on reactive operators, and unit testing.&lt;/p&gt;
 
@@ -1485,7 +1465,7 @@
 
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;oh-im-having-so-much-fun&quot;&gt;Oh, I’m Having So Much Fun!&lt;/h3&gt;
+&lt;h3 id=&quot;next&quot;&gt;Next!&lt;/h3&gt;
 
 &lt;p&gt;Back in my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIViewController&lt;/code&gt;, I pass the data into my Input, using the same &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIScrollViewDelegate&lt;/code&gt; method as last time.&lt;/p&gt;
 
@@ -1529,7 +1509,7 @@
     &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;observeValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;outputIO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h3 id=&quot;well-barbie-were-just-getting-started&quot;&gt;Well Barbie, We’re Just Getting Started&lt;/h3&gt;
+&lt;h3 id=&quot;just-getting-started&quot;&gt;Just Getting Started&lt;/h3&gt;
 
 &lt;p&gt;Back in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIViewController&lt;/code&gt;, I observe the Output, and mutate the constraint. Remember, that this value is now a simple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CGFloat&lt;/code&gt;.&lt;/p&gt;
 
@@ -1568,18 +1548,14 @@
       <id>http://localhost:4000/2018/12/09/hide-view-2/</id>
       <updated>2018-12-09T21:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>Swift: So I Wanted To Hide A UIView</title>
       <link href="http://localhost:4000/2018/12/02/hide-view-1/" />
-      <summary type="html">&lt;h4 id=&quot;impact-i-felt-your-impact&quot;&gt;Impact. I felt your impact.&lt;/h4&gt;
-
-&lt;h3 id=&quot;baby-you-move-my-spirit&quot;&gt;Baby, you move my spirit&lt;/h3&gt;
-
-&lt;p&gt;Some of my favourite coding challenges are of the UI implementation kind. One day at work, the design team demonstrated a mockup to me, and mentioned they’d “love it” if I could hide and show the view as demoed.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;Some of my favourite coding challenges are of the UI implementation kind. One day at work, the design team demonstrated a mockup to me, and mentioned they’d “love it” if I could hide and show the view as demoed.&lt;/p&gt;
 
 &lt;p&gt;Upon asking for a real-world example, I was shown AirBNB’s iOS app:&lt;/p&gt;
 
@@ -1599,7 +1575,7 @@
 
 &lt;p&gt;Right away one thing was clear. I needed to “just get it working.” I would at first, do this with straight up UIKit. Our app’s required ReactiveSwift version, would need to come second.&lt;/p&gt;
 
-&lt;h3 id=&quot;oh-i-want-to-taste-it&quot;&gt;Oh I want to taste it!&lt;/h3&gt;
+&lt;h3 id=&quot;next&quot;&gt;Next!&lt;/h3&gt;
 
 &lt;p&gt;Firstly, I determined the components I needed to use in order to achieve the goal. In my case, it was a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UICollectionView&lt;/code&gt; (aka &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIScrollView&lt;/code&gt;) paired with a bog-standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIView&lt;/code&gt;. So I setup a dummy project to muck about in.&lt;/p&gt;
 
@@ -1692,16 +1668,14 @@
       <id>http://localhost:4000/2018/12/02/hide-view-1/</id>
       <updated>2018-12-02T21:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>Swift: Custom Bézier Curves</title>
       <link href="http://localhost:4000/2017/06/27/beziers/" />
-      <summary type="html">&lt;h4 id=&quot;wax-in-wax-out-wait&quot;&gt;Wax In. Wax Out… Wait.&lt;/h4&gt;
-
-&lt;p&gt;There may come a time when writing an animation on iOS, that the simple, inbuilt animation “curves” no longer suit your requirements. If the previous words sent you for a tailspin, read on.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;There may come a time when writing an animation on iOS, that the simple, inbuilt animation “curves” no longer suit your requirements. If the previous words sent you for a tailspin, read on.&lt;/p&gt;
 
 &lt;p&gt;Let’s start with a quick lesson:&lt;/p&gt;
 
@@ -1800,18 +1774,14 @@
       <id>http://localhost:4000/2017/06/27/beziers/</id>
       <updated>2017-06-27T21:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>TIL: Understanding CAGradientLayer</title>
       <link href="http://localhost:4000/2017/02/17/understanding-gradients/" />
-      <summary type="html">&lt;h4 id=&quot;gretchen-stop-trying-to-make-gradients-happen&quot;&gt;Gretchen, Stop Trying To Make Gradients Happen…&lt;/h4&gt;
-
-&lt;h3 id=&quot;intro&quot;&gt;Intro&lt;/h3&gt;
-
-&lt;p&gt;If there’s one API that irritated me at the beginning of my career as an iOS developer, it was &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CAGradientLayer&lt;/code&gt;. As powerful as it is, it’s very verbose and it can be really confronting for a newbie.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;If there’s one API that irritated me at the beginning of my career as an iOS developer, it was &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CAGradientLayer&lt;/code&gt;. As powerful as it is, it’s very verbose and it can be really confronting for a newbie.&lt;/p&gt;
 
 &lt;p&gt;Nevertheless, the time came where I had to draw a gradient in an app. No images. I turned to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CAGradientLayer&lt;/code&gt; because I already understood it. Unfortunately it confused my team at the time, who were less familiar with it.&lt;/p&gt;
 
@@ -1890,18 +1860,14 @@
       <id>http://localhost:4000/2017/02/17/understanding-gradients/</id>
       <updated>2017-02-17T09:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>TIL: CustomStringConvertible Makes Debugging Better</title>
       <link href="http://localhost:4000/2016/09/07/string-conv/" />
-      <summary type="html">&lt;h4 id=&quot;errors-never-looked-so-good&quot;&gt;Errors never looked so… good!&lt;/h4&gt;
-
-&lt;h3 id=&quot;intro&quot;&gt;Intro&lt;/h3&gt;
-
-&lt;p&gt;I first stumbled across this in 2016 while I was still learning Swift. It’s still relevant today, so I’m reposting it here.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;I first stumbled across this in 2016 while I was still learning Swift. It’s still relevant today, so I’m reposting it here.&lt;/p&gt;
 
 &lt;p&gt;Enjoy!&lt;/p&gt;
 
@@ -2002,18 +1968,14 @@
       <id>http://localhost:4000/2016/09/07/string-conv/</id>
       <updated>2016-09-07T21:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   
     <entry>
       <title>Swift: Custom Fonts. Less Awful.</title>
       <link href="http://localhost:4000/2016/09/04/custom-fonts/" />
-      <summary type="html">&lt;h4 id=&quot;im-holding-out-for-a-uifont-till-the-morning-light&quot;&gt;I’m Holding Out For A UIFont Till The Morning Light&lt;/h4&gt;
-
-&lt;h3 id=&quot;2021-updated-for-swift-5&quot;&gt;2021: Updated for Swift 5!&lt;/h3&gt;
-
-&lt;p&gt;Neatly managing custom fonts on iOS is &lt;em&gt;still a pain&lt;/em&gt;, even in 2021. Furthermore, with WCAG catching up with apps in recent years, you need to make sure that your fonts (and the colours you use with them!) are compliant with accessibility standards. This last bit is especially important if you’re working on a large scale application, with a substantial number of customers. Not everyone is perfectly sighted - myself included.&lt;/p&gt;
+      <summary type="html">&lt;p&gt;Neatly managing custom fonts on iOS is &lt;em&gt;still a pain&lt;/em&gt;, even in 2021. Furthermore, with WCAG catching up with apps in recent years, you need to make sure that your fonts (and the colours you use with them!) are compliant with accessibility standards. This last bit is especially important if you’re working on a large scale application, with a substantial number of customers. Not everyone is perfectly sighted - myself included.&lt;/p&gt;
 
 &lt;p&gt;Even if you only have one font in your design system, having to plop &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIFont(name:)&lt;/code&gt; constructors all over your code is… not scalable. You can also probably clone fifty repos and find fifty different solutions to this problem, which makes it hard to know if yours is “right.”&lt;/p&gt;
 
@@ -2185,7 +2147,7 @@ We &lt;em&gt;could&lt;/em&gt; finish here… or we could push the pedal to the m
       <id>http://localhost:4000/2016/09/04/custom-fonts/</id>
       <updated>2016-09-04T21:00:00+09:00</updated>
       <author>
-        <name>Benjamin Deckys</name>
+        <name>{"name"=>"viewDidAppear()", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
     </entry>
   

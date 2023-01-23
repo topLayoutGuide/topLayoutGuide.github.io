@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: Getting The Height Of A UIImage"
 date:   2019-04-21 12:00:00
 color:  "SEC"
 ---
-
-#### Only A Genius Could Love A Woman Like She
-
-### What, What You Say?
 
 Have you ever wanted to get the size of a `UIImage` contained within a `UIImageView`? It’s quite easy really, just use the following line of code:
 

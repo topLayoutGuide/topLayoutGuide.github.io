@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: So I Wanted To Hide A UIView"
 date:   2018-12-02 12:00:00
 color:  "SEC"
 ---
-
-#### Impact. I felt your impact.
-
-### Baby, you move my spirit
 
 Some of my favourite coding challenges are of the UI implementation kind. One day at work, the design team demonstrated a mockup to me, and mentioned they’d “love it” if I could hide and show the view as demoed. 
 
@@ -27,7 +24,7 @@ After some investigation, I noticed that the effect requested was not unique to 
 
 Right away one thing was clear. I needed to "just get it working." I would at first, do this with straight up UIKit. Our app’s required ReactiveSwift version, would need to come second.
 
-### Oh I want to taste it!
+### Next!
 
 Firstly, I determined the components I needed to use in order to achieve the goal. In my case, it was a `UICollectionView` (aka `UIScrollView`) paired with a bog-standard `UIView`. So I setup a dummy project to muck about in.
 

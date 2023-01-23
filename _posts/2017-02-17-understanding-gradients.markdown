@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "TIL: Understanding CAGradientLayer"
 date:   2017-02-17 00:00:00
 color:  "QUIN"
 ---
-
-#### Gretchen, Stop Trying To Make Gradients Happen...
-
-### Intro
 
 If there’s one API that irritated me at the beginning of my career as an iOS developer, it was `CAGradientLayer`. As powerful as it is, it’s very verbose and it can be really confronting for a newbie.
 

@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: Animating UILabel Text Change"
 date:   2021-10-15 00:00:00
 color:  "SEC"
 ---
-
-#### A new, unique record, called Up… and Down.
-
-### Intro
 
 Have you ever needed a `UILabel` to keep track of a numerical value? My best guess is that you have, but if you’ve ever wanted to animate between values, you probably found your choices limited.
 

@@ -1,81 +1,83 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="en">
+
   <head>
-      <title>viewDidAppear() - A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.</title>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <meta http-equiv="content-language" content="en-gb" />
-      <meta name="description" content="A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.">
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-      <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700|Lora:400,700,400italic" rel="stylesheet" type="text/css">
-      <link rel="stylesheet" type="text/css" href="/css/main.css" />
-      <link href="atom.xml" type="application/atom+xml" rel="alternate" title="Site ATOM Feed">
-  </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Swift: I’m Only Happy When It’s MVVM! | viewDidAppear()</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="Swift: I’m Only Happy When It’s MVVM!" />
+<meta name="author" content="Ben" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I think it’s fair to assume that everyone who went through lockdown, ended up rediscovering a passion or two while spending more time at home. I definitely include myself in this, as the monotony of my work-life routine had been turned on its head. I no longer woke up to a barely furnished apartment, dressed for work, and hurried for the train while gulping down my morning coffee." />
+<meta property="og:description" content="I think it’s fair to assume that everyone who went through lockdown, ended up rediscovering a passion or two while spending more time at home. I definitely include myself in this, as the monotony of my work-life routine had been turned on its head. I no longer woke up to a barely furnished apartment, dressed for work, and hurried for the train while gulping down my morning coffee." />
+<link rel="canonical" href="http://localhost:4000/2021/01/20/happy-mvvm/" />
+<meta property="og:url" content="http://localhost:4000/2021/01/20/happy-mvvm/" />
+<meta property="og:site_name" content="viewDidAppear()" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-20T04:53:11+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Swift: I’m Only Happy When It’s MVVM!" />
+<meta name="twitter:site" content="@" />
+<meta name="twitter:creator" content="@Ben" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Ben"},"dateModified":"2021-01-20T04:53:11+09:00","datePublished":"2021-01-20T04:53:11+09:00","description":"I think it’s fair to assume that everyone who went through lockdown, ended up rediscovering a passion or two while spending more time at home. I definitely include myself in this, as the monotony of my work-life routine had been turned on its head. I no longer woke up to a barely furnished apartment, dressed for work, and hurried for the train while gulping down my morning coffee.","headline":"Swift: I’m Only Happy When It’s MVVM!","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2021/01/20/happy-mvvm/"},"url":"http://localhost:4000/2021/01/20/happy-mvvm/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <!-- RSS -->
+  <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="viewDidAppear()" />
+
+  <!-- Google Analytics-->
+  
+</head>
+
 
   <body>
-    <!--[if lt IE 7]>
-        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
 
-    <div class="off-canvas">
-      <figure class="avatar">
-        <img src="/assets/img/avatar.png" alt="Picture" title="That's me, Hi!">
-      </figure>
-      <div class="bio">
-          <h1>G'day, I'm Benjamin.</h1>
-          <p>I'm an iOS Engineer. I play with Xcode and make things.
-
-I love coding, petting Dogs, drinking coffee, cycling, and binge-watching Netflix.
-
-This is my blog so why don't we close this here side panel and enjoy some code?</p>
-      </div>
-      <nav>
-        <h6>Follow me on</h6>
-        <ul>
-          
-          <li><a target="_blank" href="https://twitter.com/viewdidappear">Twitter</a></li>
-          
-          
-          <li><a target="_blank" href="https://github.com/viewdidappear">Github</a></li>
-          
-          
-          
-          <li><a target="_blank" href="https://instagram.com/okokokjeez">Instagram</a></li>
-          
-        </ul>
-      </nav>
-    </div>
+    <nav class="nav">
+  <div class="nav-container">
+    <a href="/">
+      <h2 class="nav-title">viewDidAppear()</h2>
+    </a>
+    <ul>
+      <li><a href="/">Posts</a></li>
+      <li><a href="/tags">Tags</a></li>
+      <li><a href="/about">About</a></li>
+    </ul>
+  </div>
+</nav>
 
 
-    <div class="site-wrapper">
+    <main>
+      <div class="post">
+  <div class="post-info">
+    <span>Written by</span>
+    
+        Ben
+    
 
-      <header>
-        <div class="h-wrap">
-          <h1 class="title"><a href="/" title="Back to Homepage">viewDidAppear()</a></h1>
-          <a class="menu-icon" title="Open Bio"><span class="lines"></span></a>
-        </div>
-      </header>
+    
+      <br>
+      <span>on&nbsp;</span><time datetime="2021-01-20 04:53:11 +0900">January 20, 2021</time>
+    
+  </div>
 
-      <main>
-        <section class="single-wrap">
-  <article class="single-content" itemscope itemtype="http://schema.org/BlogPosting">
-    <div class="feat">
-      <h5 class="page-date">
-        <time datetime="2021-01-20T04:53:11+09:00" itemprop="datePublished">
-          20 January 2021
-        </time>
-      </h5>
-    </div>
-    <h1 class="page-title" itemprop="name headline">Swift: I'm Only Happy When It's MVVM!</h1>
-    <div itemprop="articleBody">
-      <h4 id="swiftui--mvvm--combine--reactiveswift">SwiftUI + MVVM + Combine + ReactiveSwift</h4>
+  <h1 class="post-title">Swift: I'm Only Happy When It's MVVM!</h1>
+  <div class="post-line"></div>
 
-<h3 id="preface">Preface</h3>
-
-<p>I think it’s fair to assume that everyone who went through lockdown, ended up rediscovering a passion or two while spending more time at home. I definitely include myself in this, as the monotony of my work-life routine had been turned on its head. I no longer woke up to a barely furnished apartment, dressed for work, and hurried for the train while gulping down my morning coffee.</p>
+  <p>I think it’s fair to assume that everyone who went through lockdown, ended up rediscovering a passion or two while spending more time at home. I definitely include myself in this, as the monotony of my work-life routine had been turned on its head. I no longer woke up to a barely furnished apartment, dressed for work, and hurried for the train while gulping down my morning coffee.</p>
 
 <p>My office had moved from a 20 minute train ride, to 20 feet away from my bed.</p>
 
@@ -212,43 +214,27 @@ This is my blog so why don't we close this here side panel and enjoy some code?<
 
 <p><img src="/assets/img/20210119.png" width="320pt" /></p>
 
-    </div>
-    <div class="feat share">
-      <a href="http://twitter.com/share" class="popup">
-        
-        
-        <span class="icon-twitter-sec"></span>
-        
-        
-        
-        
-      </a>
-    </div>
-    
-      <a rel="next" href="/2021/10/13/goodbye-medium/" id="next">
-        <span class="nav-title nav-title-next">newer</span> &rarr;
-      </a>
-    
-    
-      <a rel="prev" href="/2019/12/23/til-dict-group/" id="prev">
-        &larr; <span class="nav-title nav-title-prev">older</span>
-      </a>
-    
-  </article>
-</section>
+</div>
 
-      </main>
 
-      <footer>
-        <small>Yours truly, &copy; Benjamin Deckys</small>
-      </footer>
 
-    </div>
-    
+<div class="pagination">
+  
+    <a href="/2021/10/13/goodbye-medium/" class="left arrow">&#8592;</a>
+  
+  
+    <a href="/2019/12/23/til-dict-group/" class="right arrow">&#8594;</a>
+  
 
-    <script src="/js/main.js"></script>
-    
-    
+  <a href="#" class="top">Top</a>
+</div>
+    </main>
+
+    <footer>
+  <span>
+    &copy; 2009 - <time datetime="2023-01-23 15:51:47 +0900">2023</time> . Made with Github and Jekyll, because I'm cheap. You're welcome!
+  </span>
+</footer>
 
   </body>
 </html>

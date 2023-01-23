@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: Fun With UIDynamicAnimator"
 date:   2021-10-18 00:00:00
 color:  "SEC"
 ---
-
-#### Bounce, b-bounce, bounce, bou-bounce...
-
-### Intro
 
 A few years ago, I wrote my first ever custom `UICollectionViewFlowLayout`. It made everything bounce like Messages app does with its chat bubbles on iOS.
 

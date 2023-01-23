@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "TIL: Dictionary Grouping In Swift Is Fast"
 date:   2019-12-23 12:00:00
 color:  "QUIN"
 ---
-
-#### Very, very fast.
-
-### Intro
 
 Across our programming careers, it may surprise you but there are times where we need to sort and group collections of data. Sorting itself is a simple concept, but it's the implementation you go with which can make you or break you.
 

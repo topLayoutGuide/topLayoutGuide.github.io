@@ -1,0 +1,42 @@
+I"9<p>We’ve all defined enums in our code, where we’ve had to conform it to <code class="language-plaintext highlighter-rouge">String</code> and manually defined the <code class="language-plaintext highlighter-rouge">rawValue</code> to give it a <code class="language-plaintext highlighter-rouge">SNAKE_CASE</code> value. But what if we could rely on protocols to do it for us?</p>
+
+<h3 id="define-the-protocol">Define The Protocol</h3>
+
+<p>Much like <code class="language-plaintext highlighter-rouge">CustomStringConvertible</code>, we will name our protocol <code class="language-plaintext highlighter-rouge">SnakeCaseConvertible</code>. The name, being one of the three hard-to-solve problems in computer science, should hopefully indicate that the cases defined within are… convertible to snake case!</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">protocol</span> <span class="kt">SnakeCaseConvertible</span> <span class="p">{</span>
+    <span class="kd">associatedtype</span> <span class="kt">RawValue</span>
+
+    <span class="k">var</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now this is defined, we’ll extend it with a <em>default</em> implementation. This implementation will always be called unless we override it manually.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">extension</span> <span class="kt">SnakeCaseConvertible</span> <span class="k">where</span> <span class="kt">RawValue</span> <span class="o">==</span> <span class="kt">String</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">func</span> <span class="nf">converted</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">regex</span> <span class="o">=</span> <span class="k">try</span><span class="p">?</span> <span class="kt">NSRegularExpression</span><span class="p">(</span><span class="nv">pattern</span><span class="p">:</span> <span class="s">"(</span><span class="se">\\</span><span class="s">b[a-z]+|</span><span class="se">\\</span><span class="s">G(?!^))((?:[A-Z]|</span><span class="se">\\</span><span class="s">d+)[a-z]*)"</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[])</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nf">assertionFailure</span><span class="p">(</span><span class="s">"Invalid NSRegularExpression pattern."</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kt">String</span><span class="p">(</span><span class="nv">describing</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">let</span> <span class="nv">describingString</span> <span class="o">=</span> <span class="kt">String</span><span class="p">(</span><span class="nv">describing</span><span class="p">:</span> <span class="k">self</span><span class="p">)</span>
+        <span class="k">let</span> <span class="nv">range</span> <span class="o">=</span> <span class="kt">NSRange</span><span class="p">(</span><span class="nv">location</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">length</span><span class="p">:</span> <span class="n">describingString</span><span class="o">.</span><span class="n">count</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">regex</span><span class="o">.</span><span class="nf">stringByReplacingMatches</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="n">describingString</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="p">[],</span> <span class="nv">range</span><span class="p">:</span> <span class="n">range</span><span class="p">,</span> <span class="nv">withTemplate</span><span class="p">:</span> <span class="s">"$1_$2"</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">var</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">RawValue</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nf">converted</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="finally">Finally</h3>
+
+<p>Given a bog-standard enum:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">enum</span> <span class="kt">MyEnum</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kt">SnakeCaseConvertible</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="n">thatOneTimeAtBandcamp</span>
+  <span class="k">case</span> <span class="n">iKnowWhatYouDidLastSummer</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>You can call <code class="language-plaintext highlighter-rouge">.rawValue</code> as normal, but this time the result will be in <code class="language-plaintext highlighter-rouge">snake_case</code>!</p>
+:ET

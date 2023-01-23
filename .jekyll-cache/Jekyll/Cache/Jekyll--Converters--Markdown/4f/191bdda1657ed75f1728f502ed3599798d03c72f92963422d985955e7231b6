@@ -1,0 +1,182 @@
+I"4P<p>Have you ever needed a <code class="language-plaintext highlighter-rouge">UILabel</code> to keep track of a numerical value? My best guess is that you have, but if you’ve ever wanted to animate between values, you probably found your choices limited.</p>
+
+<p>I’ve wanted to animate <code class="language-plaintext highlighter-rouge">UILabel</code> content updates many times. Whenever I’m writing an app, I have a tendency to focus on the tiny details. I truly believe that microinteractions make the final product <em>better</em>, even if the hours I spend curating the perfect animation go unnoticed.</p>
+
+<p>Anyway. Years and years ago, I found a Github repo which did exactly what I wanted. At the time, it was perfect! I just dropped it in and off I went! My score label started at 0 and ticked up or down, until it reached the intended value.</p>
+
+<p>In 2016, I needed the behavior again. I searched Github, however none of the versions I found had been updated for the latest version of Swift at the time. So I rewrote it in Swift 3!</p>
+
+<p>In 2021, I’m rewriting it again using Swift 5.</p>
+
+<h3 id="why-do-i-do-this-to-myself">Why Do I Do This To Myself?</h3>
+
+<p>A fair question. I don’t like porting things from Objective-C to Swift, without harnessing the utilities that Swift provides. In 2016 it was a fun challenge for a coding camp weekend. In 2021, it’s just some fun on a Friday night 🙌</p>
+
+<p>My <code class="language-plaintext highlighter-rouge">UIAnimatedLabel</code> will use a <code class="language-plaintext highlighter-rouge">CADisplayLink</code>, which will refresh the label at the native cadence of the display. In combination with some fancy math, this gives us a nice animation “curve” during the count. The default option here is <code class="language-plaintext highlighter-rouge">.easeInOut</code> which will start off slow, speeds up, then slow down before finishing.</p>
+
+<p>I can’t wait to see how this works on a ProMotion display… 🤩</p>
+
+<h3 id="lets-get-started">Let’s Get Started</h3>
+
+<p>Open a new project in Xcode, and then make a new file called <code class="language-plaintext highlighter-rouge">UIAnimatedLabel</code>. In this new file, create a <code class="language-plaintext highlighter-rouge">class</code> called <code class="language-plaintext highlighter-rouge">UIAnimatedLabel</code> and have it subclass <code class="language-plaintext highlighter-rouge">UILabel</code>.</p>
+
+<p>Inside our <code class="language-plaintext highlighter-rouge">class</code> let’s define two <code class="language-plaintext highlighter-rouge">enum</code>:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">enum</span> <span class="kt">Method</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="n">linear</span>
+<span class="p">}</span>
+
+<span class="kd">enum</span> <span class="kt">Formats</span> <span class="p">{</span>
+  <span class="k">case</span> <span class="n">zeroDecimals</span><span class="p">,</span> <span class="n">oneDecimal</span>
+
+  <span class="k">var</span> <span class="nv">format</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="k">self</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nv">zeroDecimals</span><span class="p">:</span> <span class="k">return</span> <span class="s">"%.0f"</span>
+    <span class="k">case</span> <span class="o">.</span><span class="nv">oneDecimal</span><span class="p">:</span> <span class="k">return</span> <span class="s">"%.1f"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h4 id="breakdown">Breakdown</h4>
+
+<p>These <code class="language-plaintext highlighter-rouge">enum</code> are defining how we want our “count” effect to work, and how many decimal points the values in the label should have. If you’re keeping score (i.e. in a game), then you typically want <code class="language-plaintext highlighter-rouge">.one</code> or <code class="language-plaintext highlighter-rouge">.zero</code>. I’ll leave it to you to add more formats.</p>
+
+<p>Now, let’s define some <code class="language-plaintext highlighter-rouge">private</code> variables. These are ones that only <em>we</em> want to use. We want to control what people can and cannot use in our label subclass.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">private</span> <span class="k">var</span> <span class="nv">currentValue</span><span class="p">:</span> <span class="kt">Float</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="n">progress</span> <span class="o">&gt;=</span> <span class="n">duration</span> <span class="p">{</span> <span class="k">return</span> <span class="n">to</span> <span class="p">}</span>
+  <span class="k">return</span> <span class="n">from</span> <span class="o">+</span> <span class="p">(</span><span class="nf">update</span><span class="p">(</span><span class="nv">t</span><span class="p">:</span> <span class="kt">Float</span><span class="p">(</span><span class="n">progress</span> <span class="o">/</span> <span class="n">duration</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">to</span> <span class="o">-</span> <span class="n">from</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Float</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">to</span><span class="p">:</span> <span class="kt">Float</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">progress</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">lastUpdatedTime</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">duration</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">displayLink</span><span class="p">:</span> <span class="kt">CADisplayLink</span><span class="p">?</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre></figure>
+
+<h4 id="breakdown-1">Breakdown</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">currentValue</code> will be the current value displayed on our label</li>
+  <li><code class="language-plaintext highlighter-rouge">from</code> will be the number it starts from (i.e. 456)</li>
+  <li><code class="language-plaintext highlighter-rouge">to</code> will be the number it will end at (i.e. 0)</li>
+  <li><code class="language-plaintext highlighter-rouge">progress</code> is the current progress of our animation</li>
+  <li><code class="language-plaintext highlighter-rouge">lastUpdatedTime</code> is the time we last updated the label. Useful for finetuning the progress value. The value is a Unix timestamp.</li>
+  <li><code class="language-plaintext highlighter-rouge">duration</code> will hold our animation duration value.</li>
+  <li><code class="language-plaintext highlighter-rouge">displayLink</code> is our <code class="language-plaintext highlighter-rouge">CADisplayLink</code> which will tick (update) at 60Hz (or 120Hz) per second.</li>
+  <li><code class="language-plaintext highlighter-rouge">completion</code> is an optional completion handler we can call upon animation complete.</li>
+</ul>
+
+<p>Now add some ordinary variables, to allow users to set the animation counting method and the format to use for the number displayed:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">format</span> <span class="o">=</span> <span class="kt">Formats</span><span class="o">.</span><span class="n">zeroDecimals</span>
+<span class="k">var</span> <span class="nv">method</span> <span class="o">=</span> <span class="kt">Method</span><span class="o">.</span><span class="n">easeInOut</span></code></pre></figure>
+
+<h3 id="the-functions">The Functions</h3>
+
+<p>Our label will have two main functions. One will take a <code class="language-plaintext highlighter-rouge">from</code> and <code class="language-plaintext highlighter-rouge">to</code> value, then count between them. The other will count <code class="language-plaintext highlighter-rouge">to</code> a value, from whatever the current value of the label happens to be. Both of them will also have a <code class="language-plaintext highlighter-rouge">duration</code> value, which we can supply to control how long the animation runs for.</p>
+
+<p>Let’s go ahead and define those now:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">func</span> <span class="nf">count</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="kt">Float</span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt">Float</span><span class="p">,</span> <span class="nv">duration</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">self</span><span class="o">.</span><span class="n">completion</span> <span class="o">=</span> <span class="n">completion</span>
+  <span class="k">self</span><span class="o">.</span><span class="n">from</span> <span class="o">=</span> <span class="n">from</span>
+  <span class="k">self</span><span class="o">.</span><span class="n">to</span> <span class="o">=</span> <span class="n">to</span>
+  <span class="k">self</span><span class="o">.</span><span class="n">progress</span> <span class="o">=</span> <span class="mf">0.0</span>
+  <span class="k">self</span><span class="o">.</span><span class="n">duration</span> <span class="o">=</span> <span class="n">duration</span>
+  <span class="k">self</span><span class="o">.</span><span class="n">lastUpdatedTime</span> <span class="o">=</span> <span class="kt">Date</span><span class="o">.</span><span class="n">timeIntervalSinceReferenceDate</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">countFromCurrent</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="kt">Float</span><span class="p">,</span> <span class="nv">duration</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">count</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="n">currentValue</span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="n">to</span><span class="p">,</span> <span class="nv">duration</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span> <span class="n">completion</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">stopAnimating</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">progress</span> <span class="o">=</span> <span class="n">duration</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Our functions do nothing at the moment. In fact the app doesn’t even compile! So let’s add more implementation.</p>
+
+<p>Let’s define some more functions:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">private</span> <span class="kd">func</span> <span class="nf">addDisplayLink</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">displayLink</span> <span class="o">=</span> <span class="kt">CADisplayLink</span><span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="k">self</span><span class="p">,</span> <span class="nv">selector</span><span class="p">:</span> <span class="kd">#selector(</span><span class="nf">self.updateValue(timer:)</span><span class="kd">)</span><span class="p">)</span>
+  <span class="n">displayLink</span><span class="p">?</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">forMode</span><span class="p">:</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span>
+  <span class="n">displayLink</span><span class="p">?</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span> <span class="nv">forMode</span><span class="p">:</span> <span class="o">.</span><span class="n">tracking</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="kd">func</span> <span class="nf">resetTimer</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">displayLink</span><span class="p">?</span><span class="o">.</span><span class="nf">invalidate</span><span class="p">()</span>
+  <span class="n">displayLink</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="kd">@objc</span> <span class="kd">private</span> <span class="kd">func</span> <span class="nf">updateValue</span><span class="p">(</span><span class="nv">timer</span><span class="p">:</span> <span class="kt">Timer</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">let</span> <span class="nv">now</span><span class="p">:</span> <span class="kt">TimeInterval</span> <span class="o">=</span> <span class="kt">Date</span><span class="o">.</span><span class="n">timeIntervalSinceReferenceDate</span>
+  <span class="n">progress</span> <span class="o">+=</span> <span class="n">now</span> <span class="o">-</span> <span class="n">lastUpdatedTime</span>
+  <span class="n">lastUpdatedTime</span> <span class="o">=</span> <span class="n">now</span>
+<span class="p">}</span></code></pre></figure>
+
+<h4 id="breakdown-2">Breakdown</h4>
+
+<ul>
+  <li>Our <code class="language-plaintext highlighter-rouge">addDisplayLink</code> function sets up and registers our <code class="language-plaintext highlighter-rouge">CADisplayLink</code></li>
+  <li>We need to add it to the <code class="language-plaintext highlighter-rouge">default</code> run loop, and the <code class="language-plaintext highlighter-rouge">tracking</code> run loop, so that the animation can complete while we’re still interacting with our app.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">resetTimer</code> function invalidates the link (stops it), and removes the instance.</li>
+  <li>Our <code class="language-plaintext highlighter-rouge">updateValue</code> function updates the progress of our animation.</li>
+</ul>
+
+<p>If we ran our app now, still nothing would work visually. But we’re getting closer. Let’s extend our <code class="language-plaintext highlighter-rouge">count</code> func. Add the following after all our <code class="language-plaintext highlighter-rouge">self.</code> statements.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="nf">resetTimer</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">duration</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="p">{</span>
+  <span class="n">text</span> <span class="o">=</span> <span class="kt">String</span><span class="p">(</span><span class="nv">format</span><span class="p">:</span> <span class="n">decimalPoints</span><span class="o">.</span><span class="n">format</span><span class="p">,</span> <span class="n">to</span><span class="p">)</span>
+  <span class="nf">completion</span><span class="p">?()</span>
+  <span class="k">return</span>
+<span class="p">}</span>
+
+<span class="nf">addDisplayLink</span><span class="p">()</span></code></pre></figure>
+
+<p>What does this do? Just in case our function is called more than once during the current animation, we reset the timer. Then we check if the duration is 0 seconds (no animation), set the final value on our label, call the completion handler, and call it a day.</p>
+
+<p>Right at the end, we setup our display link once again to start off our animation.</p>
+
+<hr />
+
+<p>Let’s turn our attention to the <code class="language-plaintext highlighter-rouge">updateValue</code> function. Add this to the end of the function:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">if</span> <span class="n">progress</span> <span class="o">&gt;=</span> <span class="n">duration</span> <span class="p">{</span>
+  <span class="nf">resetTimer</span><span class="p">()</span>
+  <span class="n">progress</span> <span class="o">=</span> <span class="n">duration</span>
+<span class="p">}</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="kt">String</span><span class="p">(</span><span class="nv">format</span><span class="p">:</span> <span class="n">decimalPoints</span><span class="o">.</span><span class="n">format</span><span class="p">,</span> <span class="n">currentValue</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">progress</span> <span class="o">==</span> <span class="n">duration</span> <span class="p">{</span> <span class="nf">completion</span><span class="p">?()</span> <span class="p">}</span></code></pre></figure>
+
+<p>Now that we’ve done this, the last thing left is to define our <code class="language-plaintext highlighter-rouge">update(t:)</code> function, which is missing so far.</p>
+
+<h3 id="update">Update</h3>
+
+<p>Let’s define the following functions in our source file:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">private</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">t</span><span class="p">:</span> <span class="kt">Float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Float</span> <span class="p">{</span>
+  <span class="n">t</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Now that we have everything defined, if we ran the app now and told the label to count from and to a value, it would do so in a linear fashion. For example, counting from 0 to 100 per tick of the display over the duration provided.</p>
+
+<p>We <em>could</em> extend the <code class="language-plaintext highlighter-rouge">Method</code> enum with more animaton curves… such as <code class="language-plaintext highlighter-rouge">easeIn</code>, <code class="language-plaintext highlighter-rouge">easeOut</code>, and <code class="language-plaintext highlighter-rouge">easeInOut</code>. But there’s a lot more math involved!</p>
+
+<h3 id="finally">Finally</h3>
+
+<p><img src="/assets/img/countupdown.gif" /></p>
+
+<p>Doesn’t it look <em>beautiful</em>?</p>
+
+<p>You can view the final (more complete) project on <a href="https://github.com/topLayoutGuide/UIAnimatedLabel">GITHUB</a></p>
+
+<p>Thanks for reading! Let me know if you have any feedback! 🎉</p>
+:ET

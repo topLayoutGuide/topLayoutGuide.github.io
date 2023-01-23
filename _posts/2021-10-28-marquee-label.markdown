@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: Marquee Label"
 date:   2021-10-28 00:00:00
 color:  "SEC"
 ---
-
-#### Next stop: Southern Cross Stat...
-
-### Intro
 
 There come times when building our apps, where we need a label to either _wrap_ its text, or become a marquee in order to stop truncation of text. The latter effect is quite rare, but can be found in apps such as PayPay (Japan) while using their P2P payment system.
 

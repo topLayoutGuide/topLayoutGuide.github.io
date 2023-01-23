@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: Custom Fonts. Less Awful."
 date:   2016-09-04 12:00:00
 color:  "SEC"
 ---
-
-#### I'm Holding Out For A UIFont Till The Morning Light
-
-### 2021: Updated for Swift 5!
 
 Neatly managing custom fonts on iOS is _still a pain_, even in 2021. Furthermore, with WCAG catching up with apps in recent years, you need to make sure that your fonts (and the colours you use with them!) are compliant with accessibility standards. This last bit is especially important if you’re working on a large scale application, with a substantial number of customers. Not everyone is perfectly sighted - myself included.
 

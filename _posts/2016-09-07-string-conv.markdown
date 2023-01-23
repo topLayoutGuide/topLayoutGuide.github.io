@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "TIL: CustomStringConvertible Makes Debugging Better"
 date:   2016-09-07 12:00:00
 color:  "QUIN"
 ---
-
-#### Errors never looked so... good!
-
-### Intro
 
 I first stumbled across this in 2016 while I was still learning Swift. It's still relevant today, so I'm reposting it here. 
 

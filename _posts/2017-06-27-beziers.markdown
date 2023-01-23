@@ -1,11 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: Custom Bézier Curves"
 date:   2017-06-27 12:00:00
 color:  "SEC"
 ---
-
-#### Wax In. Wax Out... Wait.
 
 There may come a time when writing an animation on iOS, that the simple, inbuilt animation "curves" no longer suit your requirements. If the previous words sent you for a tailspin, read on.
 

@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: So I Wanted To Hide A UIView... Combine-ly"
 date:   2021-10-14 12:00:00
 color:  "SEC"
 ---
-
-#### A Few Times I Been Around That Track!
-
-### Oooooh...
 
 A while ago in the previous installment, I implemented the following effect, as seen in the AirBNB app, using ReactiveSwift. 
 

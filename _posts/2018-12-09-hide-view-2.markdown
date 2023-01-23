@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "Swift: So I Wanted To Hide A UIView... ReactiveSwift-ly"
 date:   2018-12-09 12:00:00
 color:  "SEC"
 ---
-
-#### Life In Plastic, It’s Fantastic
-
-### Imagination, Life Is Your Creation
 
 In the previous installment, I implemented the following effect, as seen in the AirBNB app, using nothing more than `UIKit` and some basic math. 
 
@@ -17,7 +14,7 @@ Right at the end, I mentioned that my final step would be to implement it using 
 
 Anyone can “master” the code, but at the end of the day it needs to be visually tested by humans to ensure that it works as expected. Most developers I know, including myself, usually need to tweak the code, run, and test it a few (hundred) times before it’s “perfect.”
 
-### Come On Barbie, Let’s Go Party!
+### Come On!
 
 What I didn’t expect while using `ReactiveSwift` to achieve the goal, was that it helped me focus more on the data stream and its manipulation, than I do when using UIKit. I leant heavily on reactive operators, and unit testing. 
 
@@ -71,7 +68,7 @@ final class MyViewModel: ViewModelType {
 }
 {% endhighlight %}
 
-### Oh, I’m Having So Much Fun!
+### Next!
 
 Back in my `UIViewController`, I pass the data into my Input, using the same `UIScrollViewDelegate` method as last time. 
 
@@ -119,7 +116,7 @@ private func bindIO() {
 }
 {% endhighlight %}
 
-### Well Barbie, We’re Just Getting Started
+### Just Getting Started
 
 Back in the `UIViewController`, I observe the Output, and mutate the constraint. Remember, that this value is now a simple `CGFloat`.
 

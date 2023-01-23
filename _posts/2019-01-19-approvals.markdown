@@ -1,13 +1,10 @@
 ---
 layout: post
+author: Ben
 title:  "TIL: CircleCI Workflow Approvals"
 date:   2019-01-19 12:00:00
 color:  "QUIN"
 ---
-
-#### You Shall Not Pass!... Maybe!
-
-### Intro
 
 In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move… just kidding!
 
