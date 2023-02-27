@@ -2,7 +2,6 @@
 title: "viewDidAppear()"
 description: "A blog about Swift, and Swift-related happenings in my life."
 email: blog@ggggg.wtf
-theme: tale
 permalink:      /:year-:month-:day/:title
 
 # Description of your content (will only be used on Google Search)
