@@ -2,13 +2,15 @@
 title: "viewDidAppear()"
 description: "A blog about Swift, and Swift-related happenings in my life."
 email: blog@ggggg.wtf
+theme: jekyll-swiss
+theme_color: white
 permalink:      /:year-:month-:day/:title
 
 # Description of your content (will only be used on Google Search)
-description: "A fun Swift programming blog. By an Australian iOS Engineer in Tokyo."
+description: "viewDidAppear's Programming Blog & App Portfolio."
 
 # Your name. Will show in your footer + sidebar
-author: "Benjamin Deckys"
+author: "Ben"
 
 url: "http://viewdidappear.github.io"
 baseurl: ""
@@ -29,7 +31,7 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-seo-tag
-  # - jemoji #Uncomment this to allow emoji in your post
+  - jemoji #Uncomment this to allow emoji in your post
 
 paginate: 5
 paginate_path: "/page/:num"
@@ -48,4 +50,4 @@ author:
 
 # Build Settings
 
-exclude: [ Gemfile, Gemfile.lock, tale.gemspec ]
+exclude: [ Gemfile, Gemfile.lock ]

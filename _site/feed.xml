@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>viewDidAppear()</title>
-    <description>A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.</description>
+    <description>viewDidAppear&apos;s Programming Blog &amp; App Portfolio.</description>
     <link>http://viewdidappear.github.io</link>
     <atom:link href="http://viewdidappear.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 27 Feb 2023 22:09:14 +0900</pubDate>
-    <lastBuildDate>Mon, 27 Feb 2023 22:09:14 +0900</lastBuildDate>
+    <pubDate>Mon, 27 Feb 2023 22:44:45 +0900</pubDate>
+    <lastBuildDate>Mon, 27 Feb 2023 22:44:45 +0900</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
     
       <item>

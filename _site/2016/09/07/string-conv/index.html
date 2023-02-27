@@ -1,83 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
   <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>TIL: CustomStringConvertible Makes Debugging Better | viewDidAppear()</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="TIL: CustomStringConvertible Makes Debugging Better" />
-<meta name="author" content="Ben" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="I first stumbled across this in 2016 while I was still learning Swift. It’s still relevant today, so I’m reposting it here." />
-<meta property="og:description" content="I first stumbled across this in 2016 while I was still learning Swift. It’s still relevant today, so I’m reposting it here." />
-<link rel="canonical" href="http://viewdidappear.github.io/2016/09/07/string-conv/" />
-<meta property="og:url" content="http://viewdidappear.github.io/2016/09/07/string-conv/" />
-<meta property="og:site_name" content="viewDidAppear()" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2016-09-07T21:00:00+09:00" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="TIL: CustomStringConvertible Makes Debugging Better" />
-<meta name="twitter:site" content="@" />
-<meta name="twitter:creator" content="@Ben" />
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Ben"},"dateModified":"2016-09-07T21:00:00+09:00","datePublished":"2016-09-07T21:00:00+09:00","description":"I first stumbled across this in 2016 while I was still learning Swift. It’s still relevant today, so I’m reposting it here.","headline":"TIL: CustomStringConvertible Makes Debugging Better","mainEntityOfPage":{"@type":"WebPage","@id":"http://viewdidappear.github.io/2016/09/07/string-conv/"},"url":"http://viewdidappear.github.io/2016/09/07/string-conv/"}</script>
-<!-- End Jekyll SEO tag -->
+  <title>TIL: CustomStringConvertible Makes Debugging Better</title>
+  <meta name="description" content="I first stumbled across this in 2016 while I was still learning Swift. It’s still relevant today, so I’m reposting it here.">
 
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="/assets/main.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-
-  <!-- RSS -->
-  <link type="application/atom+xml" rel="alternate" href="http://viewdidappear.github.io/feed.xml" title="viewDidAppear()" />
-
-  <!-- Google Analytics-->
   
+  
+  <link rel="stylesheet" href="http://viewdidappear.github.io/assets/style.css">
+
+  <link rel="canonical" href="http://viewdidappear.github.io/2016/09/07/string-conv/">
+  <link rel="alternate" type="application/rss+xml" title="viewDidAppear()" href="http://viewdidappear.github.io/feed.xml">
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 
 
   <body>
 
-    <nav class="nav">
-  <div class="nav-container">
-    <a href="/">
-      <h2 class="nav-title">viewDidAppear()</h2>
+    <header class="border-bottom-thick px-2 clearfix">
+  <div class="left sm-width-full py-1 mt-1 mt-lg-0">
+    <a class="align-middle link-primary text-accent" href="/">
+      viewDidAppear()
     </a>
-    <ul>
-      <li><a href="/">Posts</a></li>
-      <li><a href="/tags">Tags</a></li>
-      <li><a href="/about">About</a></li>
+  </div>
+  <div class="right sm-width-full">
+    <ul class="list-reset mt-lg-1 mb-2 mb-lg-1">
+      <li class="inline-block">
+          <a class="align-middle link-primary mr-2 mr-lg-0 ml-lg-2" href="">
+            About
+          </a>
+        </li>
     </ul>
   </div>
-</nav>
+</header>
 
 
-    <main>
-      <div class="post">
-  <div class="post-info">
-    <span>Written by</span>
-    
-        Ben
-    
-
-    
-      <br>
-      <span>on&nbsp;</span><time datetime="2016-09-07 21:00:00 +0900">September 07, 2016</time>
-    
+    <div>
+      <article class="container px-2 mx-auto mb4" itemscope itemtype="http://schema.org/BlogPosting">
+  <h1 class="h0 col-9 sm-width-full py-4 mt-3 inline-block" itemprop="name headline">TIL: CustomStringConvertible Makes Debugging Better</h1>
+  <div class="col-4 sm-width-full mt-1 border-top-thin ">
+    <p class="mb-3 py-2 bold h4"><time datetime="2016-09-07T21:00:00+09:00" itemprop="datePublished">Sep 7, 2016</time></p>
   </div>
 
-  <h1 class="post-title">TIL: CustomStringConvertible Makes Debugging Better</h1>
-  <div class="post-line"></div>
-
-  <p>I first stumbled across this in 2016 while I was still learning Swift. It’s still relevant today, so I’m reposting it here.</p>
+  <div class="prose" itemprop="articleBody">
+      <p>I first stumbled across this in 2016 while I was still learning Swift. It’s still relevant today, so I’m reposting it here.</p>
 
 <p>Enjoy!</p>
 
@@ -175,27 +146,39 @@
 
 <p>Great! What a huge win for a tiny amount of work! Now we are able to debug our objects more effectively when something goes bad during development. It isn’t always smooth sailing!</p>
 
+  </div>
+
+</article>
+
+<div class="container mx-auto px-2 py-2 clearfix">
+  <!-- Use if you want to show previous and next for all posts. -->
+
+
+
+  <div class="col-4 sm-width-full left mr-lg-4 mt-3">
+    <a class="no-underline border-top-thin py-1 block" href="http://viewdidappear.github.io/2016/09/04/custom-fonts/">
+      <span class="h5 bold text-accent">Previous</span>
+      <p class="bold h3 link-primary mb-1">Swift: Custom Fonts. Less Awful.</p>
+      <p>Neatly managing custom fonts on iOS is still a pain, even in 2021. Furthermore, with WCAG catching up with apps...</p>
+    </a>
+  </div>
+  
+  
+  <div class="col-4 sm-width-full left mt-3">
+    <a class="no-underline border-top-thin py-1 block" href="http://viewdidappear.github.io/2017/02/17/understanding-gradients/">
+      <span class="h5 bold text-accent">Next</span>
+      <p class="bold h3 link-primary mb-1">TIL: Understanding CAGradientLayer</p>
+      <p>If there’s one API that irritated me at the beginning of my career as an iOS developer, it was `CAGradientLayer`....</p>
+    </a>
+  </div>
+
+
 </div>
 
+    </div>
 
-
-<div class="pagination">
-  
-    <a href="/2017/02/17/understanding-gradients/" class="left arrow">&#8592;</a>
-  
-  
-    <a href="/2016/09/04/custom-fonts/" class="right arrow">&#8594;</a>
-  
-
-  <a href="#" class="top">Top</a>
-</div>
-    </main>
-
-    <footer>
-  <span>
-    &copy; 2009 - <time datetime="2023-02-27 22:09:14 +0900">2023</time> . Made with Github and Jekyll, because I'm cheap. You're welcome!
-  </span>
-</footer>
+    
 
   </body>
+
 </html>

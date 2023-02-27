@@ -1,205 +1,272 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
   <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Home | viewDidAppear()</title>
-<meta name="generator" content="Jekyll v4.2.1" />
-<meta property="og:title" content="Home" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="A fun Swift programming blog. By an Australian iOS Engineer in Tokyo." />
-<meta property="og:description" content="A fun Swift programming blog. By an Australian iOS Engineer in Tokyo." />
-<link rel="canonical" href="http://viewdidappear.github.io/" />
-<meta property="og:url" content="http://viewdidappear.github.io/" />
-<meta property="og:site_name" content="viewDidAppear()" />
-<meta property="og:type" content="website" />
-<link rel="next" href="http://viewdidappear.github.io/page/2" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Home" />
-<meta name="twitter:site" content="@" />
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","description":"A fun Swift programming blog. By an Australian iOS Engineer in Tokyo.","headline":"Home","name":"viewDidAppear()","url":"http://viewdidappear.github.io/"}</script>
-<!-- End Jekyll SEO tag -->
+  <title>Home</title>
+  <meta name="description" content="viewDidAppear's Programming Blog & App Portfolio.">
 
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="/assets/main.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-
-  <!-- RSS -->
-  <link type="application/atom+xml" rel="alternate" href="http://viewdidappear.github.io/feed.xml" title="viewDidAppear()" />
-
-  <!-- Google Analytics-->
   
+  
+  <link rel="stylesheet" href="http://viewdidappear.github.io/assets/style.css">
+
+  <link rel="canonical" href="http://viewdidappear.github.io/">
+  <link rel="alternate" type="application/rss+xml" title="viewDidAppear()" href="http://viewdidappear.github.io/feed.xml">
+
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 
 
   <body>
 
-    <nav class="nav">
-  <div class="nav-container">
-    <a href="/">
-      <h2 class="nav-title">viewDidAppear()</h2>
-    </a>
-    <ul>
-      <li><a href="/">Posts</a></li>
-      <li><a href="/tags">Tags</a></li>
-      <li><a href="/about">About</a></li>
-    </ul>
-  </div>
-</nav>
+    <div>
 
+      <header class="header-background">
 
-    <main>
-      <div class="catalogue">
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
+        <div class="clearfix border-bottom-thick header-border">
+          <ul class="list-reset right py-1 header-text font-smoothing">
+            <li class="inline-block">
+                <a class="align-middle link-primary header-link mr-2" href="/about/">About</a>
+              </li>
+          </ul>
+        </div>
 
-  
-    <a href="/2023/01/23/restart/" class="catalogue-item">
-  <div>
-    
-    <time datetime="2023-01-23 09:01:00 +0900" class="catalogue-time">January 23, 2023</time>
-    <h1 class="catalogue-title">Shift It Back...</h1>
-    <div class="catalogue-line"></div>
+        <div class="container mx-auto px-2 mb-2 clearfix header-text">
+          <h1 class="h0 inline-block col-9 sm-width-full py-4 mt-3 header-title">viewDidAppear()</h1>
 
-    <p>
-      
-        It’s been more than a year since my last post. In all that time, I’ve been focusing on myself, which I realised I wasn’t doing much of before. I was...
-      
-    </p>
+          <div class="clearfix mb-4 py-1">
+            <div class="col-4 sm-width-full left border-top-thin">
+              <div class="table">
+                <div class="inline-block mt-3 mr-1">
+                  <svg height="32" class="header-social-accent" version="1.1" width="32" viewBox="0 0 16 16" aria-hidden="true">
+ <circle cx="8" cy="8" r="8"/>
+</svg>
 
-  </div>
+                </div>
+                <div class="inline-block mt-3 mr-1">
+                  <svg height="32" class="header-social-accent" version="1.1" width="32" viewBox="0 0 16 16" aria-hidden="true">
+ <circle cx="8" cy="8" r="8"/>
+</svg>
+
+                </div>
+                <div class="inline-block mt-3">
+                  <a href="https://github.com//" title="Fork me on GitHub" class="link-social block">
+<svg height="32" class="octicon octicon-mark-github header-social" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+</svg>
 </a>
 
-  
-    <a href="/2021/10/28/marquee-label/" class="catalogue-item">
-  <div>
-    
-    <time datetime="2021-10-28 09:00:00 +0900" class="catalogue-time">October 28, 2021</time>
-    <h1 class="catalogue-title">Swift: Marquee Label</h1>
-    <div class="catalogue-line"></div>
+                </div>
+              </div>
+              <!-- Set site description in config.yml -->
+              <p class="h4 lh-condensed font-smoothing mt-2 py-1">viewDidAppear's Programming Blog & App Portfolio.</p>
+            </div>
 
-    <p>
-      
-        There come times when building our apps, where we need a label to either wrap its text, or become a marquee in order to stop truncation of text. The latter...
-      
-    </p>
+            <div class="col-4 sm-width-full left border-top-thin mt-3 mt-lg-0 ml-lg-4 table">
+                <div class="inline-block mt-3 mr-1">
+                  <svg height="32" class="header-social" version="1.1" width="32" viewBox="0 0 16 16" aria-hidden="true">
+ <circle cx="8" cy="8" r="8"/>
+</svg>
 
-  </div>
+                </div>
+                <div class="inline-block mt-3">
+                  <a href="https://twitter.com/" title="Follow me on twitter" class="link-social block">
+  <svg height="32" class="header-social" version="1.1" width="32" viewBox="0 0 16 16" aria-hidden="true">
+    <path d="M8,0C3.6,0,0,3.6,0,8s3.6,8,8,8s8-3.6,8-8S12.4,0,8,0z M12,6c0,0.1,0,0.2,0,0.3c0,2.7-2.1,5.8-5.8,5.8
+  	c-1.2,0-2.2-0.3-3.1-0.9c0.2,0,0.3,0,0.5,0c1,0,1.8-0.3,2.5-0.9c-0.9,0-1.7-0.6-1.9-1.4c0.1,0,0.3,0,0.4,0c0.2,0,0.4,0,0.5-0.1
+  	c-0.9-0.2-1.6-1-1.6-2v0C3.7,6.9,4,7,4.3,7.1c-0.5-0.4-0.9-1-0.9-1.7c0-0.4,0.1-0.7,0.3-1c1,1.2,2.5,2.1,4.2,2.1
+  	c0-0.2-0.1-0.3-0.1-0.5c0-1.1,0.9-2,2.1-2c0.6,0,1.1,0.2,1.5,0.6c0.5-0.1,0.9-0.3,1.3-0.5c-0.2,0.5-0.5,0.9-0.9,1.1
+  	c0.4,0,0.8-0.2,1.2-0.3h0C12.7,5.3,12.4,5.7,12,6z"/>
+  </svg>
 </a>
 
-  
-    <a href="/2021/10/20/snake-cased/" class="catalogue-item">
-  <div>
-    
-    <time datetime="2021-10-20 09:00:00 +0900" class="catalogue-time">October 20, 2021</time>
-    <h1 class="catalogue-title">Swift: camelCase enums in snake_Case</h1>
-    <div class="catalogue-line"></div>
+                </div>
+            </div>
+          </div>
 
-    <p>
-      
-        We’ve all defined enums in our code, where we’ve had to conform it to String and manually defined the rawValue to give it a SNAKE_CASE value. But what if we...
-      
-    </p>
+        </div>
+      </header>
 
-  </div>
-</a>
-
-  
-    <a href="/2021/10/18/dynamic-animator/" class="catalogue-item">
-  <div>
-    
-    <time datetime="2021-10-18 09:00:00 +0900" class="catalogue-time">October 18, 2021</time>
-    <h1 class="catalogue-title">Swift: Fun With UIDynamicAnimator</h1>
-    <div class="catalogue-line"></div>
-
-    <p>
-      
-        A few years ago, I wrote my first ever custom UICollectionViewFlowLayout. It made everything bounce like Messages app does with its chat bubbles on iOS. If you’ve never noticed the...
-      
-    </p>
-
-  </div>
-</a>
-
-  
-    <a href="/2021/10/15/counting-label/" class="catalogue-item">
-  <div>
-    
-    <time datetime="2021-10-15 09:00:00 +0900" class="catalogue-time">October 15, 2021</time>
-    <h1 class="catalogue-title">Swift: Animating UILabel Text Change</h1>
-    <div class="catalogue-line"></div>
-
-    <p>
-      
-        Have you ever needed a UILabel to keep track of a numerical value? My best guess is that you have, but if you’ve ever wanted to animate between values, you...
-      
-    </p>
-
-  </div>
-</a>
-
-  
+      <div class="container mx-auto px-2 py-4">
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2023/01/23/restart/" href="/2023/01/23/restart/">Jan 23, 2023</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2023/01/23/restart/" href="/2023/01/23/restart/">Shift It Back...</a>
+  </h2>
+  <p>It’s been more than a year since my last post. In all that time, I’ve been focusing on myself, which I realised I wasn’t doing much of before. I was...</p>
 </div>
 
-<div class="pagination">
-  
-  
-    <a href="/page/2" class="right arrow">&#8594;</a>
-  
-
-  <span>1</span>
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2021/10/28/marquee-label/" href="/2021/10/28/marquee-label/">Oct 28, 2021</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2021/10/28/marquee-label/" href="/2021/10/28/marquee-label/">Swift: Marquee Label</a>
+  </h2>
+  <p>There come times when building our apps, where we need a label to either wrap its text, or become a marquee in order to stop truncation of text. The latter...</p>
 </div>
 
-    </main>
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2021/10/20/snake-cased/" href="/2021/10/20/snake-cased/">Oct 20, 2021</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2021/10/20/snake-cased/" href="/2021/10/20/snake-cased/">Swift: camelCase enums in snake_Case</a>
+  </h2>
+  <p>We’ve all defined enums in our code, where we’ve had to conform it to String and manually defined the rawValue to give it a SNAKE_CASE value. But what if we...</p>
+</div>
 
-    <footer>
-  <span>
-    &copy; 2009 - <time datetime="2023-02-27 22:09:14 +0900">2023</time> . Made with Github and Jekyll, because I'm cheap. You're welcome!
-  </span>
-</footer>
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2021/10/18/dynamic-animator/" href="/2021/10/18/dynamic-animator/">Oct 18, 2021</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2021/10/18/dynamic-animator/" href="/2021/10/18/dynamic-animator/">Swift: Fun With UIDynamicAnimator</a>
+  </h2>
+  <p>A few years ago, I wrote my first ever custom UICollectionViewFlowLayout. It made everything bounce like Messages app does with its chat bubbles on iOS. If you’ve never noticed the...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2021/10/15/counting-label/" href="/2021/10/15/counting-label/">Oct 15, 2021</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2021/10/15/counting-label/" href="/2021/10/15/counting-label/">Swift: Animating UILabel Text Change</a>
+  </h2>
+  <p>Have you ever needed a UILabel to keep track of a numerical value? My best guess is that you have, but if you’ve ever wanted to animate between values, you...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2021/10/14/hide-view-3/" href="/2021/10/14/hide-view-3/">Oct 14, 2021</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2021/10/14/hide-view-3/" href="/2021/10/14/hide-view-3/">Swift: So I Wanted To Hide A UIView... Combine-ly</a>
+  </h2>
+  <p>A while ago in the previous installment, I implemented the following effect, as seen in the AirBNB app, using ReactiveSwift. In my never-ceasing desire to avoid as many third-party dependencies...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2021/10/13/goodbye-medium/" href="/2021/10/13/goodbye-medium/">Oct 13, 2021</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2021/10/13/goodbye-medium/" href="/2021/10/13/goodbye-medium/">Goodbye, Medium!</a>
+  </h2>
+  <p>Welcome to my blog, again! As an iOS engineer keen on experimenting with Swift and SwiftUI, reading developers’ blogs has always been a way to learn from those who trudged...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2021/01/20/happy-mvvm/" href="/2021/01/20/happy-mvvm/">Jan 20, 2021</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2021/01/20/happy-mvvm/" href="/2021/01/20/happy-mvvm/">Swift: I'm Only Happy When It's MVVM!</a>
+  </h2>
+  <p>I think it’s fair to assume that everyone who went through lockdown, ended up rediscovering a passion or two while spending more time at home. I definitely include myself in...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2019/12/23/til-dict-group/" href="/2019/12/23/til-dict-group/">Dec 23, 2019</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2019/12/23/til-dict-group/" href="/2019/12/23/til-dict-group/">TIL: Dictionary Grouping In Swift Is Fast</a>
+  </h2>
+  <p>Across our programming careers, it may surprise you but there are times where we need to sort and group collections of data. Sorting itself is a simple concept, but it’s...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2019/04/21/img-height/" href="/2019/04/21/img-height/">Apr 21, 2019</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2019/04/21/img-height/" href="/2019/04/21/img-height/">Swift: Getting The Height Of A UIImage</a>
+  </h2>
+  <p>Have you ever wanted to get the size of a UIImage contained within a UIImageView? It’s quite easy really, just use the following line of code: let size = imageView.image?.size...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2019/01/19/approvals/" href="/2019/01/19/approvals/">Jan 19, 2019</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2019/01/19/approvals/" href="/2019/01/19/approvals/">TIL: CircleCI Workflow Approvals</a>
+  </h2>
+  <p>In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move… just kidding! It all started in...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2018/12/09/hide-view-2/" href="/2018/12/09/hide-view-2/">Dec 9, 2018</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2018/12/09/hide-view-2/" href="/2018/12/09/hide-view-2/">Swift: So I Wanted To Hide A UIView... ReactiveSwift-ly</a>
+  </h2>
+  <p>In the previous installment, I implemented the following effect, as seen in the AirBNB app, using nothing more than UIKit and some basic math. Right at the end, I mentioned...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2018/12/02/hide-view-1/" href="/2018/12/02/hide-view-1/">Dec 2, 2018</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2018/12/02/hide-view-1/" href="/2018/12/02/hide-view-1/">Swift: So I Wanted To Hide A UIView</a>
+  </h2>
+  <p>Some of my favourite coding challenges are of the UI implementation kind. One day at work, the design team demonstrated a mockup to me, and mentioned they’d “love it” if...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2017/06/27/beziers/" href="/2017/06/27/beziers/">Jun 27, 2017</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2017/06/27/beziers/" href="/2017/06/27/beziers/">Swift: Custom Bézier Curves</a>
+  </h2>
+  <p>There may come a time when writing an animation on iOS, that the simple, inbuilt animation “curves” no longer suit your requirements. If the previous words sent you for a...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2017/02/17/understanding-gradients/" href="/2017/02/17/understanding-gradients/">Feb 17, 2017</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2017/02/17/understanding-gradients/" href="/2017/02/17/understanding-gradients/">TIL: Understanding CAGradientLayer</a>
+  </h2>
+  <p>If there’s one API that irritated me at the beginning of my career as an iOS developer, it was CAGradientLayer. As powerful as it is, it’s very verbose and it...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2016/09/07/string-conv/" href="/2016/09/07/string-conv/">Sep 7, 2016</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2016/09/07/string-conv/" href="/2016/09/07/string-conv/">TIL: CustomStringConvertible Makes Debugging Better</a>
+  </h2>
+  <p>I first stumbled across this in 2016 while I was still learning Swift. It’s still relevant today, so I’m reposting it here. Enjoy! Unhelpful Debugger Suppose we’re developing a directory...</p>
+</div>
+
+        
+          <!-- Renders post date, title, and snippet of text. -->
+<div class="py-2 mb-2 prose">
+  <a class="no-underline h5 bold text-accent" title="/2016/09/04/custom-fonts/" href="/2016/09/04/custom-fonts/">Sep 4, 2016</a>
+  <h2 class="h1 lh-condensed col-9 mt-0">
+    <a class="link-primary" title="/2016/09/04/custom-fonts/" href="/2016/09/04/custom-fonts/">Swift: Custom Fonts. Less Awful.</a>
+  </h2>
+  <p>Neatly managing custom fonts on iOS is still a pain, even in 2021. Furthermore, with WCAG catching up with apps in recent years, you need to make sure that your...</p>
+</div>
+
+        
+      </div>
+
+    </div>
+
+    
 
   </body>
+
 </html>
