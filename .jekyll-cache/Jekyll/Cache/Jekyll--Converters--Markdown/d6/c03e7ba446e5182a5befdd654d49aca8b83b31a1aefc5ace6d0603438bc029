@@ -1,2 +1,0 @@
-I"<p>We’ve all defined enums in our code, where we’ve had to conform it to <code class="language-plaintext highlighter-rouge">String</code> and manually defined the <code class="language-plaintext highlighter-rouge">rawValue</code> to give it a <code class="language-plaintext highlighter-rouge">SNAKE_CASE</code> value. But what if we could rely on protocols to do it for us?</p>
-:ET

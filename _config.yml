@@ -1,16 +1,13 @@
 # Title of your blog; shows in the header
-title: "viewDidAppear()"
-description: "A blog about Swift, and Swift-related happenings in my life."
+title: "turntable"
+baseurl: "" # the subpath of your site, e.g. /blog
 email: blog@ggggg.wtf
-theme: jekyll-swiss
-theme_color: white
 permalink:      /:year-:month-:day/:title
-
-# Description of your content (will only be used on Google Search)
-description: "viewDidAppear's Programming Blog & App Portfolio."
+description: "The sleek, modern way to listen to your favorite tunes.
+Inspired by the Metro design language."
 
 # Your name. Will show in your footer + sidebar
-author: "Ben"
+author: "Benjamin Johnson"
 
 url: "http://viewdidappear.github.io"
 baseurl: ""
@@ -18,7 +15,8 @@ baseurl: ""
 # Social Accounts
 
 twitter: viewdidappear
-github: viewdidappear
+github_url: https://github.com/viewDidAppear
+mastodon_url: https://famichiki.jp/@viewDidLoad
 instagram: okokokjeez
 
 # Other
@@ -44,7 +42,7 @@ sass:
 
 # Author settings
 author:
-  - name: "viewDidAppear()"
+  - name: "Benjamin Johnson"
     bio: "I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation."
     url: 
 

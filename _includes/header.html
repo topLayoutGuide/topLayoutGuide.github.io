@@ -1,16 +1,18 @@
-<header class="border-bottom-thick px-2 clearfix">
-  <div class="left sm-width-full py-1 mt-1 mt-lg-0">
-    <a class="align-middle link-primary text-accent" href="{{ site.baseurl }}/">
-      {{ site.title }}
-    </a>
-  </div>
-  <div class="right sm-width-full">
-    <ul class="list-reset mt-lg-1 mb-2 mb-lg-1">
-      <li class="inline-block">
-          <a class="align-middle link-primary mr-2 mr-lg-0 ml-lg-2" href="{{ about | prepend: site.baseurl }}">
-            About
-          </a>
-        </li>
-    </ul>
-  </div>
-</header>
+<!-- Header -->
+  <header id="header">
+    <div class="content">
+      <div style="z-index: -1000; display: flex; align-items: center; justify-content: center;">
+        <img src="assets/images/promo.png" width="40%"/>
+        <div style="display: flex; justify-content: center; flex-direction: column;">
+          <h1 class="gradient-text"><a href="#">{{ site.title }}</a></h1>
+          <p>The sleek, modern way to listen to your favorite tunes.<br/>Inspired by the Metro design language.</p>
+          <div style="display: flex; align-items: left;">
+          <ul class="actions">
+            <li><a href="{{ site.download_button_url }}" class="button special">Download</a></li>
+            <li><a href="#one" class="button scrolly">Learn More</a></li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
