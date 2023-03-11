@@ -2754,22 +2754,6 @@ p span {
 		display: inline-block;
 	}
 
-	@media screen and (max-width: 736px) {
-
-			header h2 + p {
-				font-size: 0.8em;
-			}
-
-		}
-
-		@media screen and (max-width: 414px) {
-
-			header h2 + p {
-				font-size: 0.8em;
-			}
-
-		}
-
 	header h3 + p {
 		font-size: 1.1em;
 		margin-top: -0.25em;
