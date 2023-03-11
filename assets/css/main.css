@@ -1788,11 +1788,11 @@ p span {
 	@media screen and (max-width: 736px) {
 
 		h2 {
-			font-size: 1.25em;
+			font-size: 2.5em;
 		}
 
 		h3 {
-			font-size: 1.2em;
+			font-size: 2.5em;
 		}
 
 		h4 {
@@ -1854,7 +1854,6 @@ p span {
 
 		hr.major {
 			margin: 3em 0;
-			font-family: "Segoe" !important;
 		}
 
 	.align-left {
@@ -2755,6 +2754,22 @@ p span {
 		display: inline-block;
 	}
 
+	@media screen and (max-width: 736px) {
+
+			header h2 + p {
+				font-size: 0.8em;
+			}
+
+		}
+
+		@media screen and (max-width: 414px) {
+
+			header h2 + p {
+				font-size: 0.8em;
+			}
+
+		}
+
 	header h3 + p {
 		font-size: 1.1em;
 		margin-top: -0.25em;
@@ -2772,6 +2787,7 @@ p span {
 	header.major {
 		margin: 0 0 2.5em 0;
 		align-content: center;
+		justify-content: center;
 		font-family: "Segoe";
 	}
 
@@ -2787,11 +2803,10 @@ p span {
 
 			header.major {
 				margin: 0 0 2em 0;
-				max-width: 70% !important;
 			}
 
 				header.major p {
-					font-size: 2em;
+					font-size: 1em;
 					text-align: center !important;
 				}
 
@@ -3702,6 +3717,8 @@ p span {
 			border-color: #fff !important;
 			color: #ffffff !important;
 			font-family: "Segoe" !important;
+			padding-left: 1em;
+			padding-right: 1em;
 		}
 
 			#header input[type="submit"]:hover,
@@ -4010,7 +4027,7 @@ p span {
 			}
 
 				#header h1 {
-					font-size: 2em;
+					font-size: 3em;
 				}
 
 				#header p {
