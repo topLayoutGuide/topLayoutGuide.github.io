@@ -1,9 +1,4 @@
----
-layout: default
-title: Home
----
-
-<!-- One -->
+I"Z	<!-- One -->
 <section id="one" class="wrapper style2 special">
 	<header class="major">
 		<div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
@@ -46,3 +41,4 @@ title: Home
 		</section>
 	</div>
 </section>
+:ET
