@@ -29,7 +29,7 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-seo-tag
-  - jemoji #Uncomment this to allow emoji in your post
+  # - jemoji #Uncomment this to allow emoji in your post
 
 paginate: 5
 paginate_path: "/page/:num"

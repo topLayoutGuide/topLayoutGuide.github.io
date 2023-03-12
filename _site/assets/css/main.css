@@ -20,6 +20,45 @@
     font-display: swap;
 }
 
+.center-flex-div-column {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.center-flex-div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.flex-left {
+	display: flex;
+	align-items: left;
+}
+
+.social-icon {
+	width: 38pt;
+	height: 38pt;
+	display: inline-block;
+	fill: #c6c6c6;
+	-moz-transition: fill 0.2s ease;
+	-webkit-transition: fill 0.2s ease;
+	-ms-transition: fill 0.2s ease;
+	transition: fill 0.2s ease;
+}
+
+.social-icon:hover {
+	width: 38pt;
+	height: 38pt;
+	fill: #4696e5;
+	-moz-transition: fill 0.2s ease;
+	-webkit-transition: fill 0.2s ease;
+	-ms-transition: fill 0.2s ease;
+	transition: fill 0.2s ease;
+}
+
 .gradient-text {
 	background-image: linear-gradient(90deg, #FA6800, #6A00FF);
 	background-size: 100%;
@@ -2812,14 +2851,14 @@ p span {
 
 		.spotlight .image {
 			width: 30%;
-			border-radius: 100%;
+			border-radius: 0%;
 			margin: 0 3em 0 0;
 			display: block;
 		}
 
 			.spotlight .image img {
 				display: block;
-				border-radius: 100%;
+				border-radius: 0%;
 				width: 100%;
 			}
 
