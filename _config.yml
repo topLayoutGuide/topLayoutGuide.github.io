@@ -7,7 +7,7 @@ description: "The sleek, modern way to listen to your favorite tunes.
 Inspired by the Metro design language."
 
 # Your name. Will show in your footer + sidebar
-author: "Benjamin Johnson"
+author: "Ben Johnson"
 
 url: "http://viewdidappear.github.io"
 baseurl: ""
@@ -17,7 +17,7 @@ baseurl: ""
 twitter: viewdidappear
 github_url: https://github.com/viewDidAppear
 mastodon_url: https://famichiki.jp/@viewDidLoad
-instagram: okokokjeez
+instagram_url: okokokjeez
 
 # Other
 
@@ -42,7 +42,7 @@ sass:
 
 # Author settings
 author:
-  - name: "Benjamin Johnson"
+  - name: "Ben Johnson"
     bio: "I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation."
     url: 
 
