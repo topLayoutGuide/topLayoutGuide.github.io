@@ -66,6 +66,55 @@
 	background-clip: text;
 }
 
+.formparent {
+   margin        : 0;
+   padding       : 0;
+   display       : grid;
+   place-content : center;
+}
+
+.formbox {
+	width: 400pt;
+}
+
+.formbox-long {
+	width: 400pt;
+	height: 400pt;
+}
+
+.navbar {
+	padding-top: 12pt;
+	padding-left: 20pt;
+	align-items: left;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 60pt;
+	background-color: white;
+	grid-gap: 20pt;
+	flex-direction: row;
+}
+
+.navbar-back-icon {
+	width: 44px;
+	height: 44px;
+	color: black;
+	font-size: 20pt;
+	align-items: left;
+	padding-top: 2pt;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+	-moz-transform: rotateY(180deg);
+	-webkit-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+	border-radius: 22px;
+	border-style: solid;
+	border-width: 3px;
+	border-color: black;
+}
+
 p span {
 	background-image: linear-gradient(90deg, #FA6800, #6A00FF);
 			-webkit-background-clip: text;
@@ -73,6 +122,24 @@ p span {
     		-webkit-text-fill-color: transparent; 
     		-moz-text-fill-color: transparent;
 }
+
+.pagetitle {
+	color: black;
+}
+
+.back-icon {
+	display: flex;
+	text-align: center;
+	color: white;
+	width: 41pt;
+	height: 100%;
+	/*-moz-transform: rotateZ(180deg);
+	-webkit-transform: rotateZ(180deg);
+	-ms-transform: rotateZ(180deg);
+	transform: rotateZ(180deg);*/
+}
+
+
 
 /*
 	Fractal by HTML5 UP
