@@ -4,7 +4,7 @@
   <id>http://localhost:4000</id>
   <link href="http://localhost:4000" />
   <link href="http://localhost:4000/atom.xml" rel="self" />
-  <updated>2023-06-20T22:17:05+09:00</updated>
+  <updated>2023-06-20T22:37:40-07:00</updated>
   <rights>Copyright 2021, {"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</rights>
   <author>
     <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
@@ -12,7 +12,7 @@
   
     <entry>
       <title>Shift It Back...</title>
-      <link href="http://localhost:4000/2023/01/23/restart/" />
+      <link href="http://localhost:4000/2023/01/22/restart/" />
       <summary type="html">&lt;p&gt;It’s been more than a year since my last post. In all that time, I’ve been focusing on myself, which I realised I wasn’t doing much of before. I was burnt out to a point where I didn’t even know myself. I started eating better, going to the gym, working on my skincare, and putting more of myself into my personal relationships.&lt;/p&gt;
 
 &lt;p&gt;In a pleasant, unexpected turn of events, listening to and taking care of myself led to a restimulation of my creative juices. The blog is starting again, and I’m currently working on my own app for the store, for the first time since 2016.&lt;/p&gt;
@@ -21,8 +21,8 @@
 
 &lt;p&gt;I can’t wait for all of you to see what I have waiting.&lt;/p&gt;
 </summary>
-      <id>http://localhost:4000/2023/01/23/restart/</id>
-      <updated>2023-01-23T09:01:00+09:00</updated>
+      <id>http://localhost:4000/2023/01/22/restart/</id>
+      <updated>2023-01-22T16:01:00-08:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -30,7 +30,7 @@
   
     <entry>
       <title>Swift: Marquee Label</title>
-      <link href="http://localhost:4000/2021/10/28/marquee-label/" />
+      <link href="http://localhost:4000/2021/10/27/marquee-label/" />
       <summary type="html">&lt;p&gt;There come times when building our apps, where we need a label to either &lt;em&gt;wrap&lt;/em&gt; its text, or become a marquee in order to stop truncation of text. The latter effect is quite rare, but can be found in apps such as PayPay (Japan) while using their P2P payment system.&lt;/p&gt;
 
 &lt;p&gt;A few years ago, I needed this effect. So I built a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UIScrollLabel&lt;/code&gt; - &lt;em&gt;10 points for an inventive title&lt;/em&gt; - and put it on Github. I looked back upon it today, and realised that I thoroughly overcomplicated my solution.&lt;/p&gt;
@@ -243,8 +243,8 @@
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/topLayoutGuide/UIScrollLabel&quot;&gt;GITHUB&lt;/a&gt;&lt;/p&gt;
 </summary>
-      <id>http://localhost:4000/2021/10/28/marquee-label/</id>
-      <updated>2021-10-28T09:00:00+09:00</updated>
+      <id>http://localhost:4000/2021/10/27/marquee-label/</id>
+      <updated>2021-10-27T17:00:00-07:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -252,7 +252,7 @@
   
     <entry>
       <title>Swift: camelCase enums in snake_Case</title>
-      <link href="http://localhost:4000/2021/10/20/snake-cased/" />
+      <link href="http://localhost:4000/2021/10/19/snake-cased/" />
       <summary type="html">&lt;p&gt;We’ve all defined enums in our code, where we’ve had to conform it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;String&lt;/code&gt; and manually defined the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rawValue&lt;/code&gt; to give it a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SNAKE_CASE&lt;/code&gt; value. But what if we could rely on protocols to do it for us?&lt;/p&gt;
 
 &lt;h3 id=&quot;define-the-protocol&quot;&gt;Define The Protocol&lt;/h3&gt;
@@ -295,8 +295,8 @@
 
 &lt;p&gt;You can call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.rawValue&lt;/code&gt; as normal, but this time the result will be in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;snake_case&lt;/code&gt;!&lt;/p&gt;
 </summary>
-      <id>http://localhost:4000/2021/10/20/snake-cased/</id>
-      <updated>2021-10-20T09:00:00+09:00</updated>
+      <id>http://localhost:4000/2021/10/19/snake-cased/</id>
+      <updated>2021-10-19T17:00:00-07:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -304,7 +304,7 @@
   
     <entry>
       <title>Swift: Fun With UIDynamicAnimator</title>
-      <link href="http://localhost:4000/2021/10/18/dynamic-animator/" />
+      <link href="http://localhost:4000/2021/10/17/dynamic-animator/" />
       <summary type="html">&lt;p&gt;A few years ago, I wrote my first ever custom &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UICollectionViewFlowLayout&lt;/code&gt;. It made everything bounce like Messages app does with its chat bubbles on iOS.&lt;/p&gt;
 
 &lt;p&gt;If you’ve never noticed the effect before, open a conversation in Messages on your iPhone or iPad, and scroll around a bit. If you pay attention, you’ll see that the items further away from your finger move slower than the items closer to it. In other words, they have inertia.&lt;/p&gt;
@@ -596,8 +596,8 @@
 
 &lt;p&gt;The source code is &lt;a href=&quot;https://github.com/topLayoutGuide/BounceCollectionViewLayout&quot;&gt;AVAILABLE ON GITHUB&lt;/a&gt;. All feedback is welcome!&lt;/p&gt;
 </summary>
-      <id>http://localhost:4000/2021/10/18/dynamic-animator/</id>
-      <updated>2021-10-18T09:00:00+09:00</updated>
+      <id>http://localhost:4000/2021/10/17/dynamic-animator/</id>
+      <updated>2021-10-17T17:00:00-07:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -605,7 +605,7 @@
   
     <entry>
       <title>Swift: Animating UILabel Text Change</title>
-      <link href="http://localhost:4000/2021/10/15/counting-label/" />
+      <link href="http://localhost:4000/2021/10/14/counting-label/" />
       <summary type="html">&lt;p&gt;Have you ever needed a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UILabel&lt;/code&gt; to keep track of a numerical value? My best guess is that you have, but if you’ve ever wanted to animate between values, you probably found your choices limited.&lt;/p&gt;
 
 &lt;p&gt;I’ve wanted to animate &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;UILabel&lt;/code&gt; content updates many times. Whenever I’m writing an app, I have a tendency to focus on the tiny details. I truly believe that microinteractions make the final product &lt;em&gt;better&lt;/em&gt;, even if the hours I spend curating the perfect animation go unnoticed.&lt;/p&gt;
@@ -788,8 +788,8 @@
 
 &lt;p&gt;Thanks for reading! Let me know if you have any feedback! 🎉&lt;/p&gt;
 </summary>
-      <id>http://localhost:4000/2021/10/15/counting-label/</id>
-      <updated>2021-10-15T09:00:00+09:00</updated>
+      <id>http://localhost:4000/2021/10/14/counting-label/</id>
+      <updated>2021-10-14T17:00:00-07:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -959,7 +959,7 @@
 &lt;p&gt;Thanks for reading! The source code is available on &lt;a href=&quot;https://github.com/topLayoutGuide/ios-parallax-view&quot;&gt;GITHUB&lt;/a&gt; on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;combine-ver&lt;/code&gt; branch.&lt;/p&gt;
 </summary>
       <id>http://localhost:4000/2021/10/14/hide-view-3/</id>
-      <updated>2021-10-14T21:00:00+09:00</updated>
+      <updated>2021-10-14T05:00:00-07:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -967,7 +967,7 @@
   
     <entry>
       <title>Goodbye, Medium!</title>
-      <link href="http://localhost:4000/2021/10/13/goodbye-medium/" />
+      <link href="http://localhost:4000/2021/10/12/goodbye-medium/" />
       <summary type="html">&lt;p&gt;Welcome to my blog, again! As an iOS engineer keen on experimenting with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Swift&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;SwiftUI&lt;/code&gt;, reading developers’ blogs has always been a way to learn from those who trudged through the wilderness before I.&lt;/p&gt;
 
 &lt;p&gt;So I thought it was time to give back!&lt;/p&gt;
@@ -987,8 +987,8 @@
 &lt;p&gt;Stay tuned!&lt;/p&gt;
 
 </summary>
-      <id>http://localhost:4000/2021/10/13/goodbye-medium/</id>
-      <updated>2021-10-13T09:05:11+09:00</updated>
+      <id>http://localhost:4000/2021/10/12/goodbye-medium/</id>
+      <updated>2021-10-12T17:05:11-07:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -996,7 +996,7 @@
   
     <entry>
       <title>Swift: I&apos;m Only Happy When It&apos;s MVVM!</title>
-      <link href="http://localhost:4000/2021/01/20/happy-mvvm/" />
+      <link href="http://localhost:4000/2021/01/19/happy-mvvm/" />
       <summary type="html">&lt;p&gt;I think it’s fair to assume that everyone who went through lockdown, ended up rediscovering a passion or two while spending more time at home. I definitely include myself in this, as the monotony of my work-life routine had been turned on its head. I no longer woke up to a barely furnished apartment, dressed for work, and hurried for the train while gulping down my morning coffee.&lt;/p&gt;
 
 &lt;p&gt;My office had moved from a 20 minute train ride, to 20 feet away from my bed.&lt;/p&gt;
@@ -1134,8 +1134,8 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/img/20210119.png&quot; width=&quot;320pt&quot; /&gt;&lt;/p&gt;
 </summary>
-      <id>http://localhost:4000/2021/01/20/happy-mvvm/</id>
-      <updated>2021-01-20T04:53:11+09:00</updated>
+      <id>http://localhost:4000/2021/01/19/happy-mvvm/</id>
+      <updated>2021-01-19T11:53:11-08:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -1216,7 +1216,7 @@
 &lt;p&gt;In a future iteration of this, I turned it into a service object which I can then Mock for unit testing. I’ll post this later.&lt;/p&gt;
 </summary>
       <id>http://localhost:4000/2019/12/23/til-dict-group/</id>
-      <updated>2019-12-23T21:00:00+09:00</updated>
+      <updated>2019-12-23T04:00:00-08:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -1336,7 +1336,7 @@
 &lt;p&gt;You may wonder why I used an extension as opposed to a separate utility class. Everything is relative! You can use whichever approach you choose, as long as it works. Feel free to switch it up!&lt;/p&gt;
 </summary>
       <id>http://localhost:4000/2019/04/21/img-height/</id>
-      <updated>2019-04-21T21:00:00+09:00</updated>
+      <updated>2019-04-21T05:00:00-07:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -1396,7 +1396,7 @@
 &lt;p&gt;Thanks for reading!&lt;/p&gt;
 </summary>
       <id>http://localhost:4000/2019/01/19/approvals/</id>
-      <updated>2019-01-19T21:00:00+09:00</updated>
+      <updated>2019-01-19T04:00:00-08:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -1546,7 +1546,7 @@
 &lt;p&gt;Thanks for reading!&lt;/p&gt;
 </summary>
       <id>http://localhost:4000/2018/12/09/hide-view-2/</id>
-      <updated>2018-12-09T21:00:00+09:00</updated>
+      <updated>2018-12-09T04:00:00-08:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -1666,7 +1666,7 @@
 &lt;p&gt;&lt;a href=&quot;https://github.com/topLayoutGuide/ios-parallax-view&quot;&gt;GITHUB&lt;/a&gt;&lt;/p&gt;
 </summary>
       <id>http://localhost:4000/2018/12/02/hide-view-1/</id>
-      <updated>2018-12-02T21:00:00+09:00</updated>
+      <updated>2018-12-02T04:00:00-08:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -1772,7 +1772,7 @@
 &lt;p&gt;And you know I could attach a gif with a demonstration of the above code here. But I won’t. Because you should give it a shot 😄&lt;/p&gt;
 </summary>
       <id>http://localhost:4000/2017/06/27/beziers/</id>
-      <updated>2017-06-27T21:00:00+09:00</updated>
+      <updated>2017-06-27T05:00:00-07:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -1780,7 +1780,7 @@
   
     <entry>
       <title>TIL: Understanding CAGradientLayer</title>
-      <link href="http://localhost:4000/2017/02/17/understanding-gradients/" />
+      <link href="http://localhost:4000/2017/02/16/understanding-gradients/" />
       <summary type="html">&lt;p&gt;If there’s one API that irritated me at the beginning of my career as an iOS developer, it was &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CAGradientLayer&lt;/code&gt;. As powerful as it is, it’s very verbose and it can be really confronting for a newbie.&lt;/p&gt;
 
 &lt;p&gt;Nevertheless, the time came where I had to draw a gradient in an app. No images. I turned to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CAGradientLayer&lt;/code&gt; because I already understood it. Unfortunately it confused my team at the time, who were less familiar with it.&lt;/p&gt;
@@ -1857,8 +1857,8 @@
 
 &lt;p&gt;Easy, no?&lt;/p&gt;
 </summary>
-      <id>http://localhost:4000/2017/02/17/understanding-gradients/</id>
-      <updated>2017-02-17T09:00:00+09:00</updated>
+      <id>http://localhost:4000/2017/02/16/understanding-gradients/</id>
+      <updated>2017-02-16T16:00:00-08:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -1966,7 +1966,7 @@
 &lt;p&gt;Great! What a huge win for a tiny amount of work! Now we are able to debug our objects more effectively when something goes bad during development. It isn’t always smooth sailing!&lt;/p&gt;
 </summary>
       <id>http://localhost:4000/2016/09/07/string-conv/</id>
-      <updated>2016-09-07T21:00:00+09:00</updated>
+      <updated>2016-09-07T05:00:00-07:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>
@@ -2145,7 +2145,7 @@ We &lt;em&gt;could&lt;/em&gt; finish here… or we could push the pedal to the m
 &lt;p&gt;Cool, right?&lt;/p&gt;
 </summary>
       <id>http://localhost:4000/2016/09/04/custom-fonts/</id>
-      <updated>2016-09-04T21:00:00+09:00</updated>
+      <updated>2016-09-04T05:00:00-07:00</updated>
       <author>
         <name>{"name"=>"Ben Johnson", "bio"=>"I play with Xcode and make things, and I relocated from Melbourne, Australia to Tokyo, Japan in 2018. Past workplaces include jtribe apps, WeTV iflix and Mercari Inc, but now I'm a Senior iOS Software Engineer at PayPay Corporation.", "url"=>nil}</name>
       </author>

@@ -66,20 +66,13 @@
 	background-clip: text;
 }
 
-.formparent {
-   margin        : 0;
-   padding       : 0;
-   display       : grid;
-   place-content : center;
-}
-
 .formbox {
+	margin        : auto;
+	padding       : auto;
 	width: 400pt;
-}
-
-.formbox-long {
-	width: 400pt;
-	height: 400pt;
+	text-align: left;
+	display       : grid;
+	place-content : center;
 }
 
 .navbar {

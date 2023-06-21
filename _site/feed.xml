@@ -5,8 +5,8 @@
     <description>The sleek, modern way to listen to your favorite tunes. Inspired by the Metro design language.</description>
     <link>http://localhost:4000</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 20 Jun 2023 22:17:05 +0900</pubDate>
-    <lastBuildDate>Tue, 20 Jun 2023 22:17:05 +0900</lastBuildDate>
+    <pubDate>Tue, 20 Jun 2023 22:37:40 -0700</pubDate>
+    <lastBuildDate>Tue, 20 Jun 2023 22:37:40 -0700</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
     
       <item>
@@ -19,9 +19,9 @@
 
 &lt;p&gt;I can’t wait for all of you to see what I have waiting.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 23 Jan 2023 09:01:00 +0900</pubDate>
-        <link>http://localhost:4000/2023/01/23/restart/</link>
-        <guid isPermaLink="true">http://localhost:4000/2023/01/23/restart/</guid>
+        <pubDate>Sun, 22 Jan 2023 16:01:00 -0800</pubDate>
+        <link>http://localhost:4000/2023/01/22/restart/</link>
+        <guid isPermaLink="true">http://localhost:4000/2023/01/22/restart/</guid>
         
         
       </item>
@@ -240,9 +240,9 @@
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/topLayoutGuide/UIScrollLabel&quot;&gt;GITHUB&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Thu, 28 Oct 2021 09:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021/10/28/marquee-label/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/28/marquee-label/</guid>
+        <pubDate>Wed, 27 Oct 2021 17:00:00 -0700</pubDate>
+        <link>http://localhost:4000/2021/10/27/marquee-label/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/27/marquee-label/</guid>
         
         
       </item>
@@ -291,9 +291,9 @@
 
 &lt;p&gt;You can call &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.rawValue&lt;/code&gt; as normal, but this time the result will be in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;snake_case&lt;/code&gt;!&lt;/p&gt;
 </description>
-        <pubDate>Wed, 20 Oct 2021 09:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021/10/20/snake-cased/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/20/snake-cased/</guid>
+        <pubDate>Tue, 19 Oct 2021 17:00:00 -0700</pubDate>
+        <link>http://localhost:4000/2021/10/19/snake-cased/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/19/snake-cased/</guid>
         
         
       </item>
@@ -591,9 +591,9 @@
 
 &lt;p&gt;The source code is &lt;a href=&quot;https://github.com/topLayoutGuide/BounceCollectionViewLayout&quot;&gt;AVAILABLE ON GITHUB&lt;/a&gt;. All feedback is welcome!&lt;/p&gt;
 </description>
-        <pubDate>Mon, 18 Oct 2021 09:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021/10/18/dynamic-animator/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/18/dynamic-animator/</guid>
+        <pubDate>Sun, 17 Oct 2021 17:00:00 -0700</pubDate>
+        <link>http://localhost:4000/2021/10/17/dynamic-animator/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/17/dynamic-animator/</guid>
         
         
       </item>
@@ -782,9 +782,9 @@
 
 &lt;p&gt;Thanks for reading! Let me know if you have any feedback! 🎉&lt;/p&gt;
 </description>
-        <pubDate>Fri, 15 Oct 2021 09:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2021/10/15/counting-label/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/15/counting-label/</guid>
+        <pubDate>Thu, 14 Oct 2021 17:00:00 -0700</pubDate>
+        <link>http://localhost:4000/2021/10/14/counting-label/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/14/counting-label/</guid>
         
         
       </item>
@@ -951,7 +951,7 @@
 
 &lt;p&gt;Thanks for reading! The source code is available on &lt;a href=&quot;https://github.com/topLayoutGuide/ios-parallax-view&quot;&gt;GITHUB&lt;/a&gt; on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;combine-ver&lt;/code&gt; branch.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 14 Oct 2021 21:00:00 +0900</pubDate>
+        <pubDate>Thu, 14 Oct 2021 05:00:00 -0700</pubDate>
         <link>http://localhost:4000/2021/10/14/hide-view-3/</link>
         <guid isPermaLink="true">http://localhost:4000/2021/10/14/hide-view-3/</guid>
         
@@ -979,9 +979,9 @@
 &lt;p&gt;Stay tuned!&lt;/p&gt;
 
 </description>
-        <pubDate>Wed, 13 Oct 2021 09:05:11 +0900</pubDate>
-        <link>http://localhost:4000/2021/10/13/goodbye-medium/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/10/13/goodbye-medium/</guid>
+        <pubDate>Tue, 12 Oct 2021 17:05:11 -0700</pubDate>
+        <link>http://localhost:4000/2021/10/12/goodbye-medium/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/10/12/goodbye-medium/</guid>
         
         
       </item>
@@ -1125,9 +1125,9 @@
 
 &lt;p&gt;&lt;img src=&quot;/assets/img/20210119.png&quot; width=&quot;320pt&quot; /&gt;&lt;/p&gt;
 </description>
-        <pubDate>Wed, 20 Jan 2021 04:53:11 +0900</pubDate>
-        <link>http://localhost:4000/2021/01/20/happy-mvvm/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/01/20/happy-mvvm/</guid>
+        <pubDate>Tue, 19 Jan 2021 11:53:11 -0800</pubDate>
+        <link>http://localhost:4000/2021/01/19/happy-mvvm/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/01/19/happy-mvvm/</guid>
         
         
       </item>
@@ -1205,7 +1205,7 @@
 
 &lt;p&gt;In a future iteration of this, I turned it into a service object which I can then Mock for unit testing. I’ll post this later.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 23 Dec 2019 21:00:00 +0900</pubDate>
+        <pubDate>Mon, 23 Dec 2019 04:00:00 -0800</pubDate>
         <link>http://localhost:4000/2019/12/23/til-dict-group/</link>
         <guid isPermaLink="true">http://localhost:4000/2019/12/23/til-dict-group/</guid>
         
@@ -1324,7 +1324,7 @@
 
 &lt;p&gt;You may wonder why I used an extension as opposed to a separate utility class. Everything is relative! You can use whichever approach you choose, as long as it works. Feel free to switch it up!&lt;/p&gt;
 </description>
-        <pubDate>Sun, 21 Apr 2019 21:00:00 +0900</pubDate>
+        <pubDate>Sun, 21 Apr 2019 05:00:00 -0700</pubDate>
         <link>http://localhost:4000/2019/04/21/img-height/</link>
         <guid isPermaLink="true">http://localhost:4000/2019/04/21/img-height/</guid>
         
@@ -1383,7 +1383,7 @@
 
 &lt;p&gt;Thanks for reading!&lt;/p&gt;
 </description>
-        <pubDate>Sat, 19 Jan 2019 21:00:00 +0900</pubDate>
+        <pubDate>Sat, 19 Jan 2019 04:00:00 -0800</pubDate>
         <link>http://localhost:4000/2019/01/19/approvals/</link>
         <guid isPermaLink="true">http://localhost:4000/2019/01/19/approvals/</guid>
         
@@ -1532,7 +1532,7 @@
 
 &lt;p&gt;Thanks for reading!&lt;/p&gt;
 </description>
-        <pubDate>Sun, 09 Dec 2018 21:00:00 +0900</pubDate>
+        <pubDate>Sun, 09 Dec 2018 04:00:00 -0800</pubDate>
         <link>http://localhost:4000/2018/12/09/hide-view-2/</link>
         <guid isPermaLink="true">http://localhost:4000/2018/12/09/hide-view-2/</guid>
         
@@ -1651,7 +1651,7 @@
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/topLayoutGuide/ios-parallax-view&quot;&gt;GITHUB&lt;/a&gt;&lt;/p&gt;
 </description>
-        <pubDate>Sun, 02 Dec 2018 21:00:00 +0900</pubDate>
+        <pubDate>Sun, 02 Dec 2018 04:00:00 -0800</pubDate>
         <link>http://localhost:4000/2018/12/02/hide-view-1/</link>
         <guid isPermaLink="true">http://localhost:4000/2018/12/02/hide-view-1/</guid>
         
@@ -1756,7 +1756,7 @@
 
 &lt;p&gt;And you know I could attach a gif with a demonstration of the above code here. But I won’t. Because you should give it a shot 😄&lt;/p&gt;
 </description>
-        <pubDate>Tue, 27 Jun 2017 21:00:00 +0900</pubDate>
+        <pubDate>Tue, 27 Jun 2017 05:00:00 -0700</pubDate>
         <link>http://localhost:4000/2017/06/27/beziers/</link>
         <guid isPermaLink="true">http://localhost:4000/2017/06/27/beziers/</guid>
         
@@ -1841,9 +1841,9 @@
 
 &lt;p&gt;Easy, no?&lt;/p&gt;
 </description>
-        <pubDate>Fri, 17 Feb 2017 09:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2017/02/17/understanding-gradients/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017/02/17/understanding-gradients/</guid>
+        <pubDate>Thu, 16 Feb 2017 16:00:00 -0800</pubDate>
+        <link>http://localhost:4000/2017/02/16/understanding-gradients/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/02/16/understanding-gradients/</guid>
         
         
       </item>
@@ -1948,7 +1948,7 @@
 
 &lt;p&gt;Great! What a huge win for a tiny amount of work! Now we are able to debug our objects more effectively when something goes bad during development. It isn’t always smooth sailing!&lt;/p&gt;
 </description>
-        <pubDate>Wed, 07 Sep 2016 21:00:00 +0900</pubDate>
+        <pubDate>Wed, 07 Sep 2016 05:00:00 -0700</pubDate>
         <link>http://localhost:4000/2016/09/07/string-conv/</link>
         <guid isPermaLink="true">http://localhost:4000/2016/09/07/string-conv/</guid>
         
@@ -2126,7 +2126,7 @@ We &lt;em&gt;could&lt;/em&gt; finish here… or we could push the pedal to the m
 
 &lt;p&gt;Cool, right?&lt;/p&gt;
 </description>
-        <pubDate>Sun, 04 Sep 2016 21:00:00 +0900</pubDate>
+        <pubDate>Sun, 04 Sep 2016 05:00:00 -0700</pubDate>
         <link>http://localhost:4000/2016/09/04/custom-fonts/</link>
         <guid isPermaLink="true">http://localhost:4000/2016/09/04/custom-fonts/</guid>
         
