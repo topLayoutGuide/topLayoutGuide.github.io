@@ -5,8 +5,8 @@
     <description>The sleek, modern way to listen to your favorite tunes. Inspired by the Metro design language.</description>
     <link>http://localhost:4000</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 21 Jun 2023 09:12:45 -0700</pubDate>
-    <lastBuildDate>Wed, 21 Jun 2023 09:12:45 -0700</lastBuildDate>
+    <pubDate>Wed, 21 Jun 2023 09:17:47 -0700</pubDate>
+    <lastBuildDate>Wed, 21 Jun 2023 09:17:47 -0700</lastBuildDate>
     <generator>Jekyll v4.2.1</generator>
     
       <item>
